@@ -22,8 +22,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="img/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/Gbustarr/ProyectoProgramacion2022">
+    <img src="img/Logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Graficador interactivo de expresiones mátematicas</h3>
@@ -32,7 +32,7 @@
     Repositorio del proyecto del graficador interactivo del grupo "Los Sopaipletos".
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo (Proximamente)</a>
+    <a href="https://github.com/Gbustarr/ProyectoProgramacion2022">Ver Demo (Proximamente)</a>
     ·
   </p>
 </div>
@@ -64,7 +64,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## Sobre el proyecto {#about-the-project}
+## Sobre el proyecto
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
@@ -84,13 +84,13 @@ Para la Unidad 1, se debe:
 
 
 
-### Tecnologias utilizadas {#built-with}
+### Tecnologias utilizadas
 
 _Proximamante_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Integrantes {#participants}
+### Integrantes
 
 - Guillermo Bustamante
 - Robinson Galvez
@@ -98,15 +98,15 @@ _Proximamante_
 
 
 <!-- GETTING STARTED -->
-## Preparación {getting-started}
+## Preparación
 
 _En construcción_
 
-### Prerequisitos {#prerequisites}
+### Prerequisitos 
 
 _En construcción_
 
-### Instalación {#installation}
+### Instalación 
 
 _En construcción_
 
@@ -114,7 +114,7 @@ _En construcción_
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-## Uso {#usage}
+## Uso
 
 _En construcción_
 
@@ -125,9 +125,9 @@ _En construcción_
 <!-- CONTACT -->
 ## Contacto
 
-Guillermo Bustamante - [Gbustarr](https://github.com/Gbustarr)
-Robinson Galvez - [Neuromender](https://github.com/Neuromender)
-Juan Machuca - [Juan Machuca]()
+- Guillermo Bustamante - [Gbustarr](https://github.com/Gbustarr)
+- Robinson Galvez - [Neuromender](https://github.com/Neuromender)
+- Juan Machuca - [Juan Machuca]()
 
 Enlace del Proyecto: [https://github.com/Gbustarr/ProyectoProgramacion2022](https://github.com/Gbustarr/ProyectoProgramacion2022)
 
@@ -153,4 +153,4 @@ Enlace del Proyecto: [https://github.com/Gbustarr/ProyectoProgramacion2022](http
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: img/banner.png
+[product-screenshot]: img/Banner.png
