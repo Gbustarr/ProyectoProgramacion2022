@@ -86,7 +86,7 @@ Para la Unidad 1, se debe:
 
 ### Tecnologias utilizadas
 
-_Proximamante_
+_Proximamente_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
