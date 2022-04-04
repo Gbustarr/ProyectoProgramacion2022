@@ -14,20 +14,18 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class FuncionesGraficadoras {
     
+    int espacio = 15;
+    
     public void dibujar_todos_los_simbolos(double pivot,GraphicsContext gc,ArrayList<Simbolo> lista_simbolos){
-        double espacio_total = 10*lista_simbolos.size();
+        double espacio_total = espacio*lista_simbolos.size();
         
         for(int i = 0; i< lista_simbolos.size();i++){
                 Simbolo s = lista_simbolos.get(i);
                 s.dibujar_Simbolo(gc,espacio_total);
-                espacio_total = espacio_total - 10;
+                espacio_total = espacio_total - espacio;
             }
     
     }
     
-    public void borrar_todos_los_simbolos(GraphicsContext gc,ArrayList<Simbolo> lista_simbolos){
-        
-    
-    }
     
 }
