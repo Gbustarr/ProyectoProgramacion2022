@@ -26,11 +26,14 @@ public class Simbolo {
         this.forma = forma;
     }
     
-    protected void dibujar_Simbolo(GraphicsContext gc){
+    public Simbolo(){
+    }
+    
+    protected void dibujar_Simbolo(GraphicsContext gc,double desplazarXpos){
         for(int i = 0;i<this.forma.length;i=i+4){
             
-            gc.strokeLine(this.forma[i]*factor, this.forma[i+1]*factor, 
-                this.forma[i+2]*factor, this.forma[i+3]*factor);
+            gc.strokeLine((this.forma[i]-desplazarXpos)*factor, this.forma[i+1]*factor, 
+                (this.forma[i+2]-desplazarXpos)*factor, this.forma[i+3]*factor);
             System.out.println("Simbolo Dibujado en ("+this.Xpos+","+this.Ypos+")");
         }
     }
@@ -48,7 +51,7 @@ public class Simbolo {
     }
 
     public void setXpos(double Xpos) {
-        this.Xpos = Xpos;
+        this.Xpos = this.Xpos - Xpos;
     }
 
     public double getYpos() {
@@ -57,6 +60,10 @@ public class Simbolo {
 
     public void setYpos(double Ypos) {
         this.Ypos = Ypos;
+    }
+    
+    public void setForma(double[] forma){
+        this.forma = forma;
     }
 
     
