@@ -17,7 +17,9 @@ public class CoordenadasSimbolos {
     }
     
     double[] uno(double pivot_x,double pivot_y){
-        double[] uno = {pivot_x-5,pivot_y-40,pivot_x-5,pivot_y-10};
+        double[] uno = {pivot_x-10,pivot_y-35,pivot_x-5,pivot_y-40,
+                        pivot_x-5,pivot_y-40,pivot_x-5,pivot_y-10,
+                        pivot_x-10,pivot_y-10,pivot_x,pivot_y-10};
         return uno;
     }
     double[] dos(double pivot_x,double pivot_y){
