@@ -86,7 +86,10 @@ Para la Unidad 1, se debe:
 
 ### Tecnologias utilizadas
 
-_Proximamente_
+- JDK 8u111 (Herramienta de desarrollo)
+- NetBeans 8.2 (IDE)
+- SceneBuilder (Interfaz)
+- JavaFx (Interfaz)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -127,9 +130,9 @@ _En construcción_
 
 - Guillermo Bustamante - [Gbustarr](https://github.com/Gbustarr)
 - Robinson Galvez - [Neuromender](https://github.com/Neuromender)
-- Juan Machuca - [Juan Machuca]()
+- Juan Machuca - [Juan Machuca](https://github.com/JCCH1)
 
-Enlace del Proyecto: [https://github.com/Gbustarr/ProyectoProgramacion2022](https://github.com/Gbustarr/ProyectoProgramacion2022)
+Enlace del Proyecto: [Enlace](https://github.com/Gbustarr/ProyectoProgramacion2022)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
