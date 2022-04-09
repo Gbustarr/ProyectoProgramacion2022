@@ -26,46 +26,46 @@ import javafx.scene.paint.Color;
 public class InterfazController implements Initializable{
     
     @FXML
-    private Button Btn_1;
+    protected Button Btn_1;
 
     @FXML
-    private Button Btn_2;
+    protected Button Btn_2;
 
     @FXML
-    private Button Btn_3;
+    protected Button Btn_3;
 
     @FXML
-    private Button Btn_4;
+    protected Button Btn_4;
 
     @FXML
-    private Button Btn_5;
+    protected Button Btn_5;
 
     @FXML
-    private Button Btn_6;
+    protected Button Btn_6;
 
     @FXML
-    private Button Btn_7;
+    protected Button Btn_7;
 
     @FXML
-    private Button Btn_8;
+    protected Button Btn_8;
 
     @FXML
-    private Button Btn_resta;
+    protected Button Btn_resta;
 
     @FXML
-    private Button Btn_suma;
+    protected Button Btn_suma;
 
     @FXML
-    private Button Btn_0;
+    protected Button Btn_0;
 
     @FXML
-    private Button Btn_multiplicar;
+    protected Button Btn_multiplicar;
 
     @FXML
-    private Button Btn_dividir;
+    protected Button Btn_dividir;
 
     @FXML
-    private Canvas Display;
+    protected Canvas Display;
     
     double pivot_x = 340;
     double pivot_y = 161;
@@ -73,10 +73,14 @@ public class InterfazController implements Initializable{
     double ancho_de_caracteres = 20;
     double bloque = espacio_entre_simbolos + ancho_de_caracteres;
     float factor = 1;
+    
+    double espacio_acumulado = 0;
     ArrayList<Simbolo> lista_simbolos = new ArrayList();
     
     GraphicsContext gc;
     
+    FuncionesGraficadoras fg = new FuncionesGraficadoras();
+    CoordenadasSimbolos cs = new CoordenadasSimbolos();
 
 
     
@@ -92,44 +96,34 @@ public class InterfazController implements Initializable{
         int n = lista_simbolos.size();
         System.out.println("Simbolos pre almacenados: "+n);
         
-        double[] uno = {pivot_x-10,pivot_y-20,pivot_x-5,pivot_y-30,
-            pivot_x-5,pivot_y-30,pivot_x-5,pivot_y-10};
+        //Iniciación y declaración de un simbolo general
+        Simbolo s = new Simbolo();
+        s.setFactor(factor);
+        s.setXpos(pivot_x);
+        s.setYpos(pivot_y);
+        
+        
+        //Iniciación de una forma general
+        double[] forma;
         
         
         switch(nSimbolo){
+            case 0:
+                forma = cs.cero(pivot_x, pivot_y);
+                s.setForma(forma);
+                lista_simbolos.add(s);
+                break;
             case 1:
-                Simbolo s = new Simbolo(factor,pivot_x,pivot_y,uno);
+                forma = cs.uno(pivot_x, pivot_y);
+                s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
         }
+        // Funciones graficadoras
+        //  Se borra el contenido del canvas para redibujar sobre ella.
+        gc.clearRect(0, 0, Display.getWidth(), Display.getHeight());
+        fg.dibujar_todos_los_simbolos(pivot_x, gc, lista_simbolos);
        
-        
-        if (n>0){
-            double espacio_acumulado = bloque * -n;
-            for(int i = 0; i< lista_simbolos.size();i++){
-
-                Simbolo s = lista_simbolos.get(i);
-
-                s.setXpos(espacio_acumulado);
-                s.dibujar_Simbolo(gc);
-                
-                espacio_acumulado = espacio_acumulado + bloque;
-            }
-
-            n = lista_simbolos.size();
-            System.out.println("Simbolos post almacenados: "+n);
-
-            if (n>4){
-                for(int i = 0; i< lista_simbolos.size();i++){
-                lista_simbolos.get(i).setFactor(0.5);
-                }
-            }
-            
-        }else{
-            Simbolo s = lista_simbolos.get(0);
-            s.dibujar_Simbolo(gc);
-        }
-        
     }
     
 
