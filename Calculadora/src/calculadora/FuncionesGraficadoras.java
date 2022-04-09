@@ -23,6 +23,7 @@ public class FuncionesGraficadoras {
                 Simbolo s = lista_simbolos.get(i);
                 s.dibujar_Simbolo(gc,espacio_total);
                 espacio_total = espacio_total - espacio;
+                System.out.println(s.getXpos());
             }
     
     }
