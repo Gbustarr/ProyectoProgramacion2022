@@ -6,6 +6,7 @@
 package calculadora;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 
 /**
@@ -14,33 +15,45 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Simbolo {
     
-    double factor; //Tamaño
+    double Xfactor = 1; //Tamaño
+    double Yfactor = 1;
     double Xpos;
     double Ypos;
     double[] forma;
+    int id;
+    Color color = Color.GREEN;
+    // Agregar Color
 
-    public Simbolo(float factor, double Xpos, double Ypos, double[] forma) {
-        this.factor = factor;
+    public Simbolo(double Xpos, double Ypos, double[] forma) {
         this.Xpos = Xpos;
         this.Ypos = Ypos;
         this.forma = forma;
     }
     
-    protected void dibujar_Simbolo(GraphicsContext gc){
+    public Simbolo(){
+    }
+   //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html
+    protected void dibujar_Simbolo(GraphicsContext gc,double desplazarXpos){
         for(int i = 0;i<this.forma.length;i=i+4){
-            
-            gc.strokeLine(this.forma[i]*factor, this.forma[i+1]*factor, 
-                this.forma[i+2]*factor, this.forma[i+3]*factor);
-            System.out.println("Simbolo Dibujado en ("+this.Xpos+","+this.Ypos+")");
+            gc.setStroke(this.color);
+            gc.strokeLine((this.forma[i]-desplazarXpos)*Xfactor, this.forma[i+1]*Yfactor, 
+                (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
         }
     }
 
-    public double getFactor() {
-        return factor;
+    public double getXFactor() {
+        return Xfactor;
+    }
+    
+    public double getYFactor() {
+        return Yfactor;
     }
 
-    public void setFactor(double factor) {
-        this.factor = factor;
+    public void setXFactor(double factor) {
+        this.Xfactor = factor;
+    }
+    public void setYFactor(double factor) {
+        this.Yfactor = factor;
     }
 
     public double getXpos() {
@@ -48,7 +61,7 @@ public class Simbolo {
     }
 
     public void setXpos(double Xpos) {
-        this.Xpos = Xpos;
+        this.Xpos = this.Xpos - Xpos;
     }
 
     public double getYpos() {
@@ -58,22 +71,17 @@ public class Simbolo {
     public void setYpos(double Ypos) {
         this.Ypos = Ypos;
     }
+    
+    public void setForma(double[] forma){
+        this.forma = forma;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
 
-    
-    
-    
-    protected void Simbolo_uno(){
-        System.out.println("1 presionado");
-    };
-    
-    protected void Simbolo_dos(){
-    
-    };
-    protected void Simbolo_tres(){
-    
-    };
-    protected void Simbolo_cuatro(){
-    
-    };
+    public void setColor(Color color){
+        this.color = color;
+    }
     
 }

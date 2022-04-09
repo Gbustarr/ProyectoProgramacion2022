@@ -5,11 +5,14 @@
  */
 package calculadora;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -19,13 +22,27 @@ import javafx.stage.StageStyle;
  */
 public class Calculadora extends Application {
 
+    private double x,y = 0;
     
     @Override
     public void start(Stage stage) throws IOException {
         AnchorPane root = FXMLLoader.load(getClass().getResource("Interfaz.fxml"));
-        
+
         Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        
+        root.setOnMousePressed(mouseEvent ->{
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+        
+        root.setOnMouseDragged(mouseEvent -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+        
+        
         stage.setScene(scene);
         stage.show();
     }
