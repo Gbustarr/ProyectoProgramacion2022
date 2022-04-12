@@ -20,9 +20,10 @@ public class Simbolo {
     double Xpos;
     double Ypos;
     double[] forma;
-    int id;
     Color color = Color.GREEN;
-    // Agregar Color
+    int tipo; //0 = numero, 1= operador
+    int valor;
+
 
     public Simbolo(double Xpos, double Ypos, double[] forma) {
         this.Xpos = Xpos;
@@ -34,11 +35,35 @@ public class Simbolo {
     }
    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html
     protected void dibujar_Simbolo(GraphicsContext gc,double desplazarXpos){
+        
+        System.out.println("Simbolo: " +this.valor);
         for(int i = 0;i<this.forma.length;i=i+4){
             gc.setStroke(this.color);
             gc.strokeLine((this.forma[i]-desplazarXpos)*Xfactor, this.forma[i+1]*Yfactor, 
                 (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
+            
+            //Puntos de control
+            gc.fillOval(((this.forma[i]-desplazarXpos)*Xfactor), (this.forma[i+1]*Yfactor), 1, 1);
+            gc.fillOval(((this.forma[i+2]-desplazarXpos)*Xfactor), (this.forma[i+3]*Yfactor), 1, 1);
+            
+            
+            System.out.print("(X1= "+(this.forma[i]-desplazarXpos)*Xfactor);
+            System.out.print(" Y1= "+(this.forma[i+1]*Yfactor)+") ");
+            System.out.print("(X2= "+(this.forma[i+2]-desplazarXpos)*Xfactor);
+            System.out.print(" Y2= "+(this.forma[i+3]*Yfactor)+") ");
+            
         }
+        System.out.println();
+    }
+    
+    protected void dibujar_division(GraphicsContext gc,double desplazarXpos,double desplazarXinterno){
+        for(int i = 0;i<this.forma.length;i=i+4){
+            gc.setStroke(this.color);
+            gc.strokeLine((this.forma[i]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+1]*Yfactor, 
+                (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
+        }
+        
+    
     }
 
     public double getXFactor() {
@@ -76,12 +101,33 @@ public class Simbolo {
         this.forma = forma;
     }
     
-    public void setId(int id){
-        this.id = id;
-    }
 
     public void setColor(Color color){
         this.color = color;
     }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
     
+    public void moverArriba(){
+        for(int i = 0;i<this.forma.length;i = i+2){
+            this.forma[i] = this.forma[i]+5;  // Coordenada X
+            this.forma[i+1] = this.forma[i+1]-22; // Coordenada Y
+        }
+    }
 }
+    
+
