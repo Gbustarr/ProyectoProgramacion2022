@@ -23,6 +23,9 @@ public class Simbolo {
     Color color = Color.GREEN;
     int tipo; //0 = numero, 1= operador
     int valor;
+    int enDivision = 0;
+    
+    private static double espacio = 15;
 
 
     public Simbolo(double Xpos, double Ypos, double[] forma) {
@@ -62,8 +65,17 @@ public class Simbolo {
             gc.strokeLine((this.forma[i]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+1]*Yfactor, 
                 (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
         }
-        
     
+
+    
+    }
+    
+    protected void dibujar_denominador(GraphicsContext gc,double desplazarXpos,double desplazarXinterno){
+        for(int i = 0;i<this.forma.length;i=i+4){
+            gc.setStroke(this.color);
+            gc.strokeLine((this.forma[i]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+1]*Yfactor+22, 
+                (this.forma[i+2]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+3]*Yfactor+22);
+        }
     }
 
     public double getXFactor() {
@@ -126,6 +138,12 @@ public class Simbolo {
         for(int i = 0;i<this.forma.length;i = i+2){
             this.forma[i] = this.forma[i]+5;  // Coordenada X
             this.forma[i+1] = this.forma[i+1]-22; // Coordenada Y
+        }
+    }
+    
+    protected void moverIzquierda(){
+        for(int i = 0;i<this.forma.length;i = i+2){
+            this.forma[i] = this.forma[i]-espacio;  // Coordenada X
         }
     }
 }

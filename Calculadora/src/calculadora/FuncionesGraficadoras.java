@@ -21,30 +21,58 @@ public class FuncionesGraficadoras {
     
     public void dibujar_todos_los_simbolos(double pivot,GraphicsContext gc,ArrayList<Simbolo> lista_simbolos){
         double espacio_total = espacio*lista_simbolos.size();
+        int division = 0;
+        double espacio_superior = 0;
         
         for(int i = 0; i< lista_simbolos.size();i++){
                 System.out.println("----------------");
                 Simbolo s = lista_simbolos.get(i);
                 
+                
+                //Dibuja la linea de la division y los numeros del numerador suben
                 if(s.valor == 13){
-                    
-                    double espacio_interno = 0;
+                    division = 1;
+                    espacio_superior = 0;
                     for(int j = i-1; j>=0;j--){
                         if(lista_simbolos.get(j).tipo == 1){
                             break;
                         }else{
-                            espacio_interno = espacio_interno + espacio; 
+                            espacio_superior = espacio_superior + espacio; 
                         }
                     }
-                    s.dibujar_division(gc, espacio_total, espacio_interno);
+                    s.dibujar_division(gc, espacio_total, espacio_superior);
                 }else{
-                    s.dibujar_Simbolo(gc,espacio_total);
+                    if(s.tipo == 1 && s.valor != 13 ){ 
+                        division = 0;
+                        espacio_total = espacio_total - espacio;
+                    }
+                    //hacer que los numeros del denominador bajen
+                    if(division == 1){
+                        double espacio_interno = 0;
+                    for(int j = i; j>=0;j--){ 
+                        if(lista_simbolos.get(j).tipo == 1){
+                            break;
+                        }else{
+                            espacio_interno = espacio_interno - espacio; 
+                        }
+                    }
+                    //Modificar el espacio total dependiendo del espacio de la division(Denominador o numerador)
+                    espacio_total = espacio_total - espacio;
+                    
+                    s.dibujar_denominador(gc,espacio_total, espacio_superior);
+                    }else{
+                       s.dibujar_Simbolo(gc,espacio_total);
+                       espacio_total = espacio_total - espacio;
+                    }
+                    
                 }
                 
-                espacio_total = espacio_total - espacio;
+                
 
                 
             }
+        //Grafica los simbolos en consola
+        text_debugger(lista_simbolos);
     
     }
     
@@ -199,7 +227,42 @@ public class FuncionesGraficadoras {
     }
     
 
+    protected int bloqueador_operador_multiple(ArrayList<Simbolo> lista_simbolos){
+        int index = lista_simbolos.size() - 1 ;
+        if(index != -1){
+            if(lista_simbolos.get(index).tipo == 0){
+            return 0;
+            }
+            else{
+            return 1;
+            }
+        }else{
+            return 0;
+        }
         
-    
+    }
+        
+    protected void text_debugger(ArrayList<Simbolo> lista_simbolos){
+        for(int i = 0;i<lista_simbolos.size();i++){
+            Simbolo s = lista_simbolos.get(i);
+            if(s.valor >9){
+                if(s.valor == 10){
+                    System.out.print(" + ");
+                }
+                if(s.valor == 11){
+                    System.out.print(" - ");
+                }
+                if(s.valor == 12){
+                    System.out.print(" * ");
+                }
+                if(s.valor == 13){
+                    System.out.print(" / ");
+                }
+            }else{
+                System.out.print(s.valor);
+            }
+            
+        }
+    }
     
 }

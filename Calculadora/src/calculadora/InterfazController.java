@@ -145,29 +145,34 @@ public class InterfazController implements Initializable{
     }
     @FXML
     protected void BotonMas_presionado(){
-        
+        if(fg.bloqueador_operador_multiple(lista_simbolos) == 0){
         fg.Dibujar_simbolos(gc,10,lista_simbolos,pivot_x,pivot_y,Display);
-
+        }
     }
 
     @FXML
     protected void BotonMenos_presionado(){
-        
+        if(fg.bloqueador_operador_multiple(lista_simbolos) == 0){
         fg.Dibujar_simbolos(gc,11,lista_simbolos,pivot_x,pivot_y,Display);
-
+        }
     }
     @FXML
     protected void BotonMultiplicar_presionado(){
+        if(fg.bloqueador_operador_multiple(lista_simbolos) == 0){
+            fg.Dibujar_simbolos(gc,12,lista_simbolos,pivot_x,pivot_y,Display);
+        }
         
-        fg.Dibujar_simbolos(gc,12,lista_simbolos,pivot_x,pivot_y,Display);
 
     }
     
     @FXML
     protected void BotonDividir_presionado(){
-        System.out.println("N° Simbolos: "+lista_simbolos.size());
-        fg.numerador(lista_simbolos, lista_simbolos.size());
-        fg.Dibujar_simbolos(gc,13,lista_simbolos,pivot_x,pivot_y,Display);
+        if (fg.bloqueador_operador_multiple(lista_simbolos) == 0){
+            System.out.println("N° Simbolos: "+lista_simbolos.size());
+            fg.numerador(lista_simbolos, lista_simbolos.size());
+            fg.Dibujar_simbolos(gc,13,lista_simbolos,pivot_x,pivot_y,Display);
+        }
+        
         
 
     }
