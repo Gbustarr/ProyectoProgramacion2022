@@ -6,6 +6,7 @@
 package calculadora;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 
 /**
@@ -14,33 +15,82 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Simbolo {
     
-    double factor; //Tamaño
+    double Xfactor = 1; //Tamaño
+    double Yfactor = 1;
     double Xpos;
     double Ypos;
     double[] forma;
+    Color color = Color.GREEN;
+    int tipo; //0 = numero, 1= operador
+    int valor;
+    int enDivision = 0;
+    
+    private static double espacio = 15;
 
-    public Simbolo(float factor, double Xpos, double Ypos, double[] forma) {
-        this.factor = factor;
+
+    public Simbolo(double Xpos, double Ypos, double[] forma) {
         this.Xpos = Xpos;
         this.Ypos = Ypos;
         this.forma = forma;
     }
     
-    protected void dibujar_Simbolo(GraphicsContext gc){
+    public Simbolo(){
+    }
+   //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html
+    protected void dibujar_Simbolo(GraphicsContext gc,double desplazarXpos){
+        
+        System.out.println("Simbolo: " +this.valor);
         for(int i = 0;i<this.forma.length;i=i+4){
+            gc.setStroke(this.color);
+            gc.strokeLine((this.forma[i]-desplazarXpos)*Xfactor, this.forma[i+1]*Yfactor, 
+                (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
             
-            gc.strokeLine(this.forma[i]*factor, this.forma[i+1]*factor, 
-                this.forma[i+2]*factor, this.forma[i+3]*factor);
-            System.out.println("Simbolo Dibujado en ("+this.Xpos+","+this.Ypos+")");
+            //Puntos de control
+            gc.fillOval(((this.forma[i]-desplazarXpos)*Xfactor), (this.forma[i+1]*Yfactor), 1, 1);
+            gc.fillOval(((this.forma[i+2]-desplazarXpos)*Xfactor), (this.forma[i+3]*Yfactor), 1, 1);
+            
+            
+            System.out.print("(X1= "+(this.forma[i]-desplazarXpos)*Xfactor);
+            System.out.print(" Y1= "+(this.forma[i+1]*Yfactor)+") ");
+            System.out.print("(X2= "+(this.forma[i+2]-desplazarXpos)*Xfactor);
+            System.out.print(" Y2= "+(this.forma[i+3]*Yfactor)+") ");
+            
+        }
+        System.out.println();
+    }
+    
+    protected void dibujar_division(GraphicsContext gc,double desplazarXpos,double desplazarXinterno){
+        for(int i = 0;i<this.forma.length;i=i+4){
+            gc.setStroke(this.color);
+            gc.strokeLine((this.forma[i]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+1]*Yfactor, 
+                (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
+        }
+    
+
+    
+    }
+    
+    protected void dibujar_denominador(GraphicsContext gc,double desplazarXpos,double desplazarXinterno){
+        for(int i = 0;i<this.forma.length;i=i+4){
+            gc.setStroke(this.color);
+            gc.strokeLine((this.forma[i]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+1]*Yfactor+22, 
+                (this.forma[i+2]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+3]*Yfactor+22);
         }
     }
 
-    public double getFactor() {
-        return factor;
+    public double getXFactor() {
+        return Xfactor;
+    }
+    
+    public double getYFactor() {
+        return Yfactor;
     }
 
-    public void setFactor(double factor) {
-        this.factor = factor;
+    public void setXFactor(double factor) {
+        this.Xfactor = factor;
+    }
+    public void setYFactor(double factor) {
+        this.Yfactor = factor;
     }
 
     public double getXpos() {
@@ -48,7 +98,7 @@ public class Simbolo {
     }
 
     public void setXpos(double Xpos) {
-        this.Xpos = Xpos;
+        this.Xpos = this.Xpos - Xpos;
     }
 
     public double getYpos() {
@@ -58,22 +108,44 @@ public class Simbolo {
     public void setYpos(double Ypos) {
         this.Ypos = Ypos;
     }
+    
+    public void setForma(double[] forma){
+        this.forma = forma;
+    }
+    
 
+    public void setColor(Color color){
+        this.color = color;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
     
+    public void moverArriba(){
+        for(int i = 0;i<this.forma.length;i = i+2){
+            this.forma[i] = this.forma[i]+5;  // Coordenada X
+            this.forma[i+1] = this.forma[i+1]-22; // Coordenada Y
+        }
+    }
     
-    
-    protected void Simbolo_uno(){
-        System.out.println("1 presionado");
-    };
-    
-    protected void Simbolo_dos(){
-    
-    };
-    protected void Simbolo_tres(){
-    
-    };
-    protected void Simbolo_cuatro(){
-    
-    };
-    
+    protected void moverIzquierda(){
+        for(int i = 0;i<this.forma.length;i = i+2){
+            this.forma[i] = this.forma[i]-espacio;  // Coordenada X
+        }
+    }
 }
+    
+
