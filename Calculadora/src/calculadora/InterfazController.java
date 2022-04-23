@@ -64,6 +64,11 @@ public class InterfazController implements Initializable{
 
     @FXML
     protected Canvas Display;
+    @FXML
+    protected Button Btn_AC;
+
+    @FXML
+    protected Button Btn_DEL;
     
     double pivot_x = 340;
     double pivot_y = 200;
@@ -176,6 +181,26 @@ public class InterfazController implements Initializable{
         
 
     }
+    
+    @FXML
+    protected void BotonDEL_presionado(){
+    
+        if(lista_simbolos.size() > 0){
+            fg.borrarUltimo(gc,lista_simbolos,pivot_x,Display);
+        }
+
+    }
+    
+    @FXML
+    protected void BotonAC_presionado(){
+    
+        if(lista_simbolos.size() > 0){
+            fg.borrarTodo(gc,Display,lista_simbolos,pivot_x);
+        }
+
+    }
+    
+    
     
     @FXML
     protected void Cerrar(){

@@ -201,8 +201,30 @@ public class FuncionesGraficadoras {
         
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
-        gc.clearRect(0, 0, Display.getWidth(), Display.getHeight());
+        limpiarCanvas(gc,Display);
         dibujar_todos_los_simbolos(pivot_x, gc, lista_simbolos);
+    }
+    
+    protected void borrarTodo(GraphicsContext gc,Canvas Display,ArrayList<Simbolo> lista_simbolos,double pivot_x){
+        limpiarCanvas(gc,Display);
+        
+        lista_simbolos.clear();
+        
+        dibujar_todos_los_simbolos(pivot_x, gc, lista_simbolos);
+    }
+    
+    protected void borrarUltimo(GraphicsContext gc,ArrayList<Simbolo> lista_simbolos,double pivot_x,Canvas Display){
+        
+        limpiarCanvas(gc,Display);
+        
+        lista_simbolos.remove(lista_simbolos.size()-1);
+        
+        dibujar_todos_los_simbolos(pivot_x, gc, lista_simbolos);
+    }
+    
+    protected void limpiarCanvas(GraphicsContext gc,Canvas Display){
+        
+        gc.clearRect(0, 0, Display.getWidth(), Display.getHeight());
     }
     
     protected void numerador(ArrayList<Simbolo> lista_simbolos,int posicion){

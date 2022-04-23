@@ -73,19 +73,19 @@
             <Font name="Consolas" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="Btn_Der" blendMode="MULTIPLY" layoutX="220.0" layoutY="326.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="65.0" text="&gt;">
-         <font>
-            <Font name="Consolas" size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="Btn_Izq" blendMode="MULTIPLY" layoutX="155.0" layoutY="326.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="65.0" text="&lt;">
-         <font>
-            <Font name="Consolas" size="16.0" />
-         </font>
-      </Button>
       <Button fx:id="Btn_igual" blendMode="MULTIPLY" layoutX="296.0" layoutY="578.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="65.0" text="=">
          <font>
             <Font name="Consolas" size="29.0" />
+         </font>
+      </Button>
+      <Button fx:id="Btn_AC" blendMode="HARD_LIGHT" layoutX="230.0" layoutY="342.0" mnemonicParsing="false" onAction="#BotonAC_presionado" prefHeight="59.0" prefWidth="65.0" text="AC">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="Btn_DEL" blendMode="HARD_LIGHT" layoutX="165.0" layoutY="342.0" mnemonicParsing="false" onAction="#BotonDEL_presionado" prefHeight="59.0" prefWidth="65.0" text="DEL">
+         <font>
+            <Font name="Consolas" size="16.0" />
          </font>
       </Button>
    </children>
