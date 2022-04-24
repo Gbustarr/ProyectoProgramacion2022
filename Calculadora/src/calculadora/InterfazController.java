@@ -70,6 +70,15 @@ public class InterfazController implements Initializable{
     @FXML
     protected Button Btn_DEL;
     
+    /*
+    @FXML
+    protected Button Btn_moverDer;
+    
+    @FXML
+    protected Button Btn_moverIzq;
+    
+    */
+    
     double pivot_x = 330;
     double pivot_y = 200;
     
@@ -197,7 +206,30 @@ public class InterfazController implements Initializable{
 
     }
     
+    /*
+    @FXML
+    protected void BotonMovDer_presionado(){
+      
+            fg.moverListaHaciaDerecha(lista_simbolos, 1);
+            fg.movimientosDeLista = fg.movimientosDeLista -1;
+            fg.limpiarCanvas(gc, Display);
+            fg.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+
     
+    }
+    
+    @FXML
+    protected void BotonMovIzq_presionado(){
+        if(fg.movimientosDeLista != 0){
+            fg.moverListaHaciaIzquierda(lista_simbolos, 1);
+            fg.movimientosDeLista = fg.movimientosDeLista +1;
+            fg.limpiarCanvas(gc, Display);
+            fg.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+        }
+    
+    }
+    
+    */
     
     @FXML
     protected void Cerrar(){

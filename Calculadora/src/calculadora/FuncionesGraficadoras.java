@@ -23,6 +23,7 @@ public class FuncionesGraficadoras {
     double xInicioDivision;
     double xFinalDivision;
     int diferenciaNumeradorDenominador;
+    int movimientosDeLista= 0;
 
     public void dibujarTodosLosSimbolos(double pivot, GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < lista_simbolos.size(); i++) {
@@ -187,14 +188,14 @@ public class FuncionesGraficadoras {
                 //System.out.println("Posicion: " + posicionEnDenominador(lista_simbolos));
             } else {
                 s.moverAbajo(1);
-                moverListaHaciaIzquierda(lista_simbolos);
+                moverListaHaciaIzquierda(lista_simbolos,1);
             }
         }
 
         //Verifica si el simbolo agregado no es una division
         //En caso de serlo, los demas numeros no se mueven hacia la izquierda
         if (s.getValor() != 13 && divisionActiva == 0) {
-            moverListaHaciaIzquierda(lista_simbolos);
+            moverListaHaciaIzquierda(lista_simbolos,1);
 
         } else {
             divisionActiva = 1;
@@ -277,9 +278,9 @@ public class FuncionesGraficadoras {
         s.division(s.forma[0], pivot_x);
     }
 
-    protected void moverListaHaciaIzquierda(ArrayList<Simbolo> lista_simbolos) {
+    protected void moverListaHaciaIzquierda(ArrayList<Simbolo> lista_simbolos, int espacios) {
         for (int i = 0; i < lista_simbolos.size() - 1; i++) {
-            lista_simbolos.get(i).moverIzquierda(1);
+            lista_simbolos.get(i).moverIzquierda(espacios);
         }
 
     }
