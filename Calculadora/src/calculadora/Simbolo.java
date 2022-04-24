@@ -61,20 +61,19 @@ public class Simbolo {
     }
 
     protected void graficarPuntosControl(GraphicsContext gc, int i) {
-        
-        int tamano = 4;
-        
 
-        gc.fillOval(((this.forma[i]) * Xfactor)-(tamano/2), (this.forma[i + 1] * Yfactor)-(tamano/2), tamano, tamano);
-        gc.fillOval(((this.forma[i + 2]) * Xfactor)-(tamano/2), (this.forma[i + 3] * Yfactor)-(tamano/2), tamano, tamano);
+        int tamano = 4;
+
+        gc.fillOval(((this.forma[i]) * Xfactor) - (tamano / 2), (this.forma[i + 1] * Yfactor) - (tamano / 2), tamano, tamano);
+        gc.fillOval(((this.forma[i + 2]) * Xfactor) - (tamano / 2), (this.forma[i + 3] * Yfactor) - (tamano / 2), tamano, tamano);
 
     }
-    
-    protected void switchPuntosControl(){
-        
-        if(puntosControl == 0){
+
+    protected void switchPuntosControl() {
+
+        if (puntosControl == 0) {
             puntosControl = 1;
-        }else{
+        } else {
             puntosControl = 0;
         }
     }

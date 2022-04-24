@@ -25,6 +25,7 @@ public class FuncionesGraficadoras {
     int diferenciaNumeradorDenominador;
     int movimientosDeLista= 0;
     int puntosControlActivo = 0;
+    int divisionEliminada = 0;
 
     public void dibujarTodosLosSimbolos(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < lista_simbolos.size(); i++) {
@@ -273,12 +274,19 @@ public class FuncionesGraficadoras {
                 index = i;
                 break;
                 //System.out.print(lista_simbolos.get(i));
+            }else if(lista_simbolos.get(i).getValor() > 9 && lista_simbolos.get(i).getValor() < 13){ //Si encuentra un operador
+                
+                index = -1;
+                break;
             }
         }
+        
+        if(index != -1){
+            Simbolo s = lista_simbolos.get(index);
 
-        Simbolo s = lista_simbolos.get(index);
-
-        s.division(s.forma[0], pivot_x);
+            s.division(s.forma[0], pivot_x);
+        }
+        
     }
 
     protected void moverListaHaciaIzquierda(ArrayList<Simbolo> lista_simbolos, int espacios) {
@@ -329,7 +337,7 @@ public class FuncionesGraficadoras {
     }
 
     protected void borrarUltimo(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos, double pivot_x, Canvas Display) {
-        int divisionEliminada = 0;
+        
         limpiarCanvas(gc, Display);
         //Actualiza la variable divisionActiva si el numero a borrar pertenece a una division
         //if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 0) {
@@ -337,18 +345,29 @@ public class FuncionesGraficadoras {
 
                 if (lista_simbolos.get(i).getValor() == 13) { //13 es el valor de la division
                     divisionActiva = 1;
+                    divisionEliminada = 0;
                     break;
                 } else if (lista_simbolos.get(i).getValor()>9 && lista_simbolos.get(i).getValor() <13){
                     divisionActiva = 0;
+                    //diferenciaNumeradorDenominador = 0;
                     break;
                 }else {
                     divisionActiva = 0;
                 }
 
             }
-        //}
         
-        System.out.println("Denominador menor: "+denominadorMenor);
+            //System.out.println("Pos: "+posicionEnDenominador(lista_simbolos));
+            if(divisionEliminada == 0){
+                if(posicionEnDenominador(lista_simbolos) <= -1){
+                moverListaHaciaDerecha(lista_simbolos,1);
+                modificarLineaDivision(lista_simbolos, pivot_x);
+            }
+            }
+            
+        
+        //System.out.println("Denominador menor: "+denominadorMenor);
+        //System.out.println("DivisionActiva : "+divisionActiva);
         
 
         //Si no hay division, la lista se mueve hacia la derecha
@@ -356,6 +375,8 @@ public class FuncionesGraficadoras {
             moverListaHaciaDerecha(lista_simbolos,1);
           
         }
+        System.out.println("DivisionEliminada pre deteccion de simbolo /:"+divisionEliminada);
+        System.out.println("DivisionActiva pre deteccion de simbolo /:"+divisionActiva);
         
         //Si el simbolo eliminado es una division, los numeradores se mueven un 
         //espacio hacia abajo y a la derecha tantos espacios sea la diferencia de 
@@ -363,10 +384,14 @@ public class FuncionesGraficadoras {
         if(lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 13){
             moverNumeradoresHaciaAbajo(lista_simbolos);
             divisionActiva = 0;
-            moverListaHaciaDerecha(lista_simbolos,diferenciaNumeradorDenominador);
-            diferenciaNumeradorDenominador = 0;
+            divisionEliminada = 1;
+            //System.out.println("Diferencia numerador/denominador: "+diferenciaNumeradorDenominador);
+            //moverListaHaciaDerecha(lista_simbolos,diferenciaNumeradorDenominador);
+            //diferenciaNumeradorDenominador = 0;
             System.out.println("Division Eliminada");
         }
+        System.out.println("DivisionEliminada post deteccion de simbolo /:"+divisionEliminada);
+        System.out.println("DivisionActiva post deteccion de simbolo /:"+divisionActiva);
         
         
         //Borrado del simbolo

@@ -98,7 +98,7 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="Btn_PuntosControl" blendMode="MULTIPLY" layoutX="78.0" layoutY="338.0" mnemonicParsing="false" onAction="#BotonPuntosControl_presionado" prefHeight="22.0" prefWidth="31.0" text="P">
+      <Button fx:id="Btn_puntosControl" blendMode="MULTIPLY" layoutX="78.0" layoutY="338.0" mnemonicParsing="false" onAction="#BotonPuntosControl_presionado" prefHeight="22.0" prefWidth="31.0" text="P">
          <font>
             <Font name="Consolas" size="15.0" />
          </font>

@@ -15,14 +15,13 @@ import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
-
 /**
  * FXML Controller class
  *
  * @author Guillermo
  */
-public class InterfazController implements Initializable{
-    
+public class InterfazController implements Initializable {
+
     @FXML
     protected Button Btn_1;
 
@@ -69,7 +68,7 @@ public class InterfazController implements Initializable{
 
     @FXML
     protected Button Btn_DEL;
-    
+
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -77,141 +76,147 @@ public class InterfazController implements Initializable{
     @FXML
     protected Button Btn_moverIzq;
     
-    */
-    
+     */
     @FXML
     protected Button Btn_puntosControl;
-    
-    
+
     double pivot_x = 330;
     double pivot_y = 200;
-    
+
     double espacio_acumulado = 0;
     ArrayList<Simbolo> lista_simbolos = new ArrayList();
-    
+
     GraphicsContext gc;
-    
+
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
-    
 
     @FXML
-    protected void Boton0_presionado(){
-        
-        fg.agregarSimbolo(gc,0,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton0_presionado() {
 
-    }
-    
-    @FXML
-    protected void Boton1_presionado(){
-        
-        fg.agregarSimbolo(gc,1,lista_simbolos,pivot_x,pivot_y,Display);
-
-    }
-    
-    @FXML
-    protected void Boton2_presionado(){
-        
-        fg.agregarSimbolo(gc,2,lista_simbolos,pivot_x,pivot_y,Display);
-
-    }
-    
-    @FXML
-    protected void Boton3_presionado(){
-        
-        fg.agregarSimbolo(gc,3,lista_simbolos,pivot_x,pivot_y,Display);
+        fg.agregarSimbolo(gc, 0, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
-    protected void Boton4_presionado(){
-        
-        fg.agregarSimbolo(gc,4,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton1_presionado() {
+
+        fg.agregarSimbolo(gc, 1, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
+
     @FXML
-    protected void Boton5_presionado(){
-        
-        fg.agregarSimbolo(gc,5,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton2_presionado() {
+
+        fg.agregarSimbolo(gc, 2, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
+
     @FXML
-    protected void Boton6_presionado(){
-        
-        fg.agregarSimbolo(gc,6,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton3_presionado() {
+
+        fg.agregarSimbolo(gc, 3, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
+
     @FXML
-    protected void Boton7_presionado(){
-        
-        fg.agregarSimbolo(gc,7,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton4_presionado() {
+
+        fg.agregarSimbolo(gc, 4, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
+
     @FXML
-    protected void Boton8_presionado(){
-        
-        fg.agregarSimbolo(gc,8,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton5_presionado() {
+
+        fg.agregarSimbolo(gc, 5, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
+
     @FXML
-    protected void Boton9_presionado(){
-        
-        fg.agregarSimbolo(gc,9,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton6_presionado() {
+
+        fg.agregarSimbolo(gc, 6, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
+
     @FXML
-    protected void BotonMas_presionado(){
-        if(fg.bloqueador_operador_multiple(lista_simbolos) == 0){
-        fg.agregarSimbolo(gc,10,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void Boton7_presionado() {
+
+        fg.agregarSimbolo(gc, 7, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton8_presionado() {
+
+        fg.agregarSimbolo(gc, 8, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton9_presionado() {
+
+        fg.agregarSimbolo(gc, 9, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void BotonMas_presionado() {
+        if (fg.bloqueador_operador_multiple(lista_simbolos) == 0) {
+            fg.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
 
     @FXML
-    protected void BotonMenos_presionado(){
-        if(fg.bloqueador_operador_multiple(lista_simbolos) == 0){
-        fg.agregarSimbolo(gc,11,lista_simbolos,pivot_x,pivot_y,Display);
+    protected void BotonMenos_presionado() {
+        if (fg.bloqueador_operador_multiple(lista_simbolos) == 0) {
+            fg.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
+
     @FXML
-    protected void BotonMultiplicar_presionado(){
-        if(fg.bloqueador_operador_multiple(lista_simbolos) == 0){
-            fg.agregarSimbolo(gc,12,lista_simbolos,pivot_x,pivot_y,Display);
-        }
-        
-    }
-    
-    @FXML
-    protected void BotonDivision_presionado(){
-        if(fg.divisionActiva != 1 && lista_simbolos.size() >0){
-            fg.moverNumeradoresHaciaArriba(lista_simbolos);
-            fg.agregarSimbolo(gc,13,lista_simbolos,pivot_x,pivot_y,Display);
-        }
-        
-    }
-    
-   
-    @FXML
-    protected void BotonDEL_presionado(){
-    
-        if(lista_simbolos.size() > 0){
-            fg.borrarUltimo(gc,lista_simbolos,pivot_x,Display);
+    protected void BotonMultiplicar_presionado() {
+        if (fg.bloqueador_operador_multiple(lista_simbolos) == 0) {
+            fg.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
         }
 
     }
-    
+
     @FXML
-    protected void BotonAC_presionado(){
-    
-        if(lista_simbolos.size() > 0){
-            fg.borrarTodo(gc,Display,lista_simbolos,pivot_x);
+    protected void BotonDivision_presionado() {
+        if (fg.divisionActiva != 1 && lista_simbolos.size() > 0) {
+            if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
+                fg.moverNumeradoresHaciaArriba(lista_simbolos);
+                fg.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
+
+            }
         }
 
     }
-    
+
     @FXML
-    protected void BotonPuntosControl_presionado(){
-        fg.switchPuntosControl(lista_simbolos,gc,Display);
+    protected void BotonDEL_presionado() {
+
+        if (lista_simbolos.size() > 0) {
+            fg.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
+        }
+
     }
-    
+
+    @FXML
+    protected void BotonAC_presionado() {
+
+        if (lista_simbolos.size() > 0) {
+            fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
+        }
+
+    }
+
+    @FXML
+    protected void BotonPuntosControl_presionado() {
+        fg.switchPuntosControl(lista_simbolos, gc, Display);
+    }
+
     /*
     @FXML
     protected void BotonMovDer_presionado(){
@@ -235,17 +240,11 @@ public class InterfazController implements Initializable{
     
     }
     
-    */
-    
+     */
     @FXML
-    protected void Cerrar(){
+    protected void Cerrar() {
         Platform.exit();
     }
-
-    
-
-       
-    
 
     /**
      * Initializes the controller class.
@@ -253,6 +252,6 @@ public class InterfazController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
-    }    
-    
+    }
+
 }
