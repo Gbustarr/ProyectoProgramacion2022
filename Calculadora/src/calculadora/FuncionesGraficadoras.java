@@ -155,11 +155,7 @@ public class FuncionesGraficadoras {
                 s.setValor(13);
                 s.setTipo(1);
                 s.setForma(forma);
-                //System.out.println("Posicion: "+-posicionEnDenominador(lista_simbolos));
-                //xInicioDivision = (pivot_x - 10) - 15 * (-posicionEnDenominador(lista_simbolos) - 1);
-                //System.out.println(xInicioDivision);
                 xInicioDivision = coordenadaXDivision(lista_simbolos,pivot_x);
-                
                 s.division(xInicioDivision, pivot_x);
                 s.setColor(Color.RED);
                 lista_simbolos.add(s);
@@ -345,13 +341,18 @@ public class FuncionesGraficadoras {
             }
         }
         
+        System.out.println("Denominador menor: "+denominadorMenor);
+        
 
-               
+        //Si no hay division, la lista se mueve hacia la derecha
         if (divisionActiva == 0) {
             moverListaHaciaDerecha(lista_simbolos,1);
           
         }
         
+        //Si el simbolo eliminado es una division, los numeradores se mueven un 
+        //espacio hacia abajo y a la derecha tantos espacios sea la diferencia de 
+        //digitos entre el numerador y denominador
         if(lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 13){
             moverNumeradoresHaciaAbajo(lista_simbolos);
             divisionActiva = 0;
@@ -360,8 +361,11 @@ public class FuncionesGraficadoras {
             System.out.println("Division Eliminada");
         }
         
+        
+        //Borrado del simbolo
         lista_simbolos.remove(lista_simbolos.size() - 1);
 
+        //Se vuelve a dibujar todos los simbolos en el canvas
         dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
     }
 

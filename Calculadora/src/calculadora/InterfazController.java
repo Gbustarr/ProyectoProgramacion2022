@@ -182,8 +182,6 @@ public class InterfazController implements Initializable{
             fg.agregarSimbolo(gc,13,lista_simbolos,pivot_x,pivot_y,Display);
         }
         
-        
-
     }
     
     
