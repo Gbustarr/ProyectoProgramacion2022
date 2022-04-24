@@ -32,6 +32,7 @@ public class Calculadora extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
         scene.setFill(Color.TRANSPARENT);
         
+        //Para el movimiento de el programa mediante el mouse
         root.setOnMousePressed(mouseEvent ->{
             x = mouseEvent.getSceneX();
             y = mouseEvent.getSceneY();

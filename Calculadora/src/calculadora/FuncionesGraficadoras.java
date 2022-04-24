@@ -24,8 +24,9 @@ public class FuncionesGraficadoras {
     double xFinalDivision;
     int diferenciaNumeradorDenominador;
     int movimientosDeLista= 0;
+    int puntosControlActivo = 0;
 
-    public void dibujarTodosLosSimbolos(double pivot, GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
+    public void dibujarTodosLosSimbolos(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < lista_simbolos.size(); i++) {
             //System.out.println("----------------");
 
@@ -161,6 +162,12 @@ public class FuncionesGraficadoras {
                 lista_simbolos.add(s);
                 break;
         }
+        
+        if(puntosControlActivo == 1){
+            s.switchPuntosControl();
+        }
+        
+        
         //Si es un operador *,+ o -, los valores se reestablecen
         if (s.getValor() > 9 && s.getValor() < 13) {
             divisionActiva = 0;
@@ -207,7 +214,7 @@ public class FuncionesGraficadoras {
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
         limpiarCanvas(gc, Display);
-        dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+        dibujarTodosLosSimbolos(gc, lista_simbolos);
 
         //text_debugger(lista_simbolos);
     }
@@ -317,7 +324,7 @@ public class FuncionesGraficadoras {
     protected void borrarTodo(GraphicsContext gc, Canvas Display, ArrayList<Simbolo> lista_simbolos, double pivot_x) {
         limpiarCanvas(gc, Display);
         lista_simbolos.clear();
-        dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+        dibujarTodosLosSimbolos(gc, lista_simbolos);
         divisionActiva = 0;
     }
 
@@ -325,7 +332,7 @@ public class FuncionesGraficadoras {
         int divisionEliminada = 0;
         limpiarCanvas(gc, Display);
         //Actualiza la variable divisionActiva si el numero a borrar pertenece a una division
-        if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 0) {
+        //if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 0) {
             for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
 
                 if (lista_simbolos.get(i).getValor() == 13) { //13 es el valor de la division
@@ -339,7 +346,7 @@ public class FuncionesGraficadoras {
                 }
 
             }
-        }
+        //}
         
         System.out.println("Denominador menor: "+denominadorMenor);
         
@@ -366,7 +373,7 @@ public class FuncionesGraficadoras {
         lista_simbolos.remove(lista_simbolos.size() - 1);
 
         //Se vuelve a dibujar todos los simbolos en el canvas
-        dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+        dibujarTodosLosSimbolos(gc, lista_simbolos);
     }
 
     protected void limpiarCanvas(GraphicsContext gc, Canvas Display) {
@@ -391,6 +398,24 @@ public class FuncionesGraficadoras {
             return 1;
         }
 
+    }
+    
+    protected void switchPuntosControl(ArrayList<Simbolo> lista_simbolos,GraphicsContext gc, Canvas Display){
+        
+        for(int i = 0; i< lista_simbolos.size();i++){
+            lista_simbolos.get(i).switchPuntosControl();
+        }
+        limpiarCanvas(gc,Display);
+        dibujarTodosLosSimbolos(gc,lista_simbolos);
+        
+        if(puntosControlActivo == 0){
+            puntosControlActivo = 1;
+        }else{
+            puntosControlActivo = 0;
+        }
+        
+        
+        
     }
 
     protected void text_debugger(ArrayList<Simbolo> lista_simbolos) {

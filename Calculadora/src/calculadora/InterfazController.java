@@ -79,6 +79,10 @@ public class InterfazController implements Initializable{
     
     */
     
+    @FXML
+    protected Button Btn_puntosControl;
+    
+    
     double pivot_x = 330;
     double pivot_y = 200;
     
@@ -177,15 +181,14 @@ public class InterfazController implements Initializable{
     
     @FXML
     protected void BotonDivision_presionado(){
-        if(fg.divisionActiva != 1){
+        if(fg.divisionActiva != 1 && lista_simbolos.size() >0){
             fg.moverNumeradoresHaciaArriba(lista_simbolos);
             fg.agregarSimbolo(gc,13,lista_simbolos,pivot_x,pivot_y,Display);
         }
         
     }
     
-    
-    
+   
     @FXML
     protected void BotonDEL_presionado(){
     
@@ -202,6 +205,11 @@ public class InterfazController implements Initializable{
             fg.borrarTodo(gc,Display,lista_simbolos,pivot_x);
         }
 
+    }
+    
+    @FXML
+    protected void BotonPuntosControl_presionado(){
+        fg.switchPuntosControl(lista_simbolos,gc,Display);
     }
     
     /*
