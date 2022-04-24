@@ -70,7 +70,7 @@ public class InterfazController implements Initializable{
     @FXML
     protected Button Btn_DEL;
     
-    double pivot_x = 340;
+    double pivot_x = 330;
     double pivot_y = 200;
     
     double espacio_acumulado = 0;
@@ -168,8 +168,11 @@ public class InterfazController implements Initializable{
     
     @FXML
     protected void BotonDivision_presionado(){
-        fg.moverNumeradoresHaciaArriba(lista_simbolos);
-        fg.agregarSimbolo(gc,13,lista_simbolos,pivot_x,pivot_y,Display);
+        if(fg.divisionActiva != 1){
+            fg.moverNumeradoresHaciaArriba(lista_simbolos);
+            fg.agregarSimbolo(gc,13,lista_simbolos,pivot_x,pivot_y,Display);
+        }
+        
         
 
     }
