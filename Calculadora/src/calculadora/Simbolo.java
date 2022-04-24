@@ -37,46 +37,33 @@ public class Simbolo {
     public Simbolo(){
     }
    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html
-    protected void dibujar_Simbolo(GraphicsContext gc,double desplazarXpos){
+    protected void dibujar_Simbolo(GraphicsContext gc){
         
-        System.out.println("Simbolo: " +this.valor);
+        //System.out.println("Simbolo: " +this.valor);
         for(int i = 0;i<this.forma.length;i=i+4){
             gc.setStroke(this.color);
-            gc.strokeLine((this.forma[i]-desplazarXpos)*Xfactor, this.forma[i+1]*Yfactor, 
-                (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
+            gc.strokeLine((this.forma[i])*Xfactor, this.forma[i+1]*Yfactor, 
+                (this.forma[i+2])*Xfactor, this.forma[i+3]*Yfactor);
             
             //Puntos de control
-            gc.fillOval(((this.forma[i]-desplazarXpos)*Xfactor), (this.forma[i+1]*Yfactor), 1, 1);
-            gc.fillOval(((this.forma[i+2]-desplazarXpos)*Xfactor), (this.forma[i+3]*Yfactor), 1, 1);
+            gc.fillOval(((this.forma[i])*Xfactor), (this.forma[i+1]*Yfactor), 1, 1);
+            gc.fillOval(((this.forma[i+2])*Xfactor), (this.forma[i+3]*Yfactor), 1, 1);
             
-            
-            System.out.print("(X1= "+(this.forma[i]-desplazarXpos)*Xfactor);
-            System.out.print(" Y1= "+(this.forma[i+1]*Yfactor)+") ");
-            System.out.print("(X2= "+(this.forma[i+2]-desplazarXpos)*Xfactor);
-            System.out.print(" Y2= "+(this.forma[i+3]*Yfactor)+") ");
-            
+            /*
+            System.out.print("Linea(("+(this.forma[i])*Xfactor);
+            System.out.print(","+(this.forma[i+1]*Yfactor));
+            System.out.print("),("+(this.forma[i+2])*Xfactor);
+            System.out.print(","+(this.forma[i+3]*Yfactor)+")) ");
+            */
         }
-        System.out.println();
+        //System.out.println();
     }
     
-    protected void dibujar_division(GraphicsContext gc,double desplazarXpos,double desplazarXinterno){
-        for(int i = 0;i<this.forma.length;i=i+4){
-            gc.setStroke(this.color);
-            gc.strokeLine((this.forma[i]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+1]*Yfactor, 
-                (this.forma[i+2]-desplazarXpos)*Xfactor, this.forma[i+3]*Yfactor);
-        }
-    
-
-    
+    protected void division(double xInicio,double xFinal){
+        this.forma[0] = xInicio;
+        this.forma[2] = xFinal;
     }
     
-    protected void dibujar_denominador(GraphicsContext gc,double desplazarXpos,double desplazarXinterno){
-        for(int i = 0;i<this.forma.length;i=i+4){
-            gc.setStroke(this.color);
-            gc.strokeLine((this.forma[i]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+1]*Yfactor+22, 
-                (this.forma[i+2]-desplazarXpos-desplazarXinterno)*Xfactor, this.forma[i+3]*Yfactor+22);
-        }
-    }
 
     public double getXFactor() {
         return Xfactor;
@@ -119,7 +106,7 @@ public class Simbolo {
     }
 
     public int getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     public void setTipo(int tipo) {
@@ -134,16 +121,27 @@ public class Simbolo {
         this.valor = valor;
     }
     
-    public void moverArriba(){
+    protected void moverArriba(double factor){
         for(int i = 0;i<this.forma.length;i = i+2){
-            this.forma[i] = this.forma[i]+5;  // Coordenada X
-            this.forma[i+1] = this.forma[i+1]-22; // Coordenada Y
+            this.forma[i+1] = this.forma[i+1]-(22*factor); // Coordenada Y
         }
     }
     
-    protected void moverIzquierda(){
+    protected void moverAbajo(int factor){
         for(int i = 0;i<this.forma.length;i = i+2){
-            this.forma[i] = this.forma[i]-espacio;  // Coordenada X
+            this.forma[i+1] = this.forma[i+1]+(22*factor); // Coordenada Y
+        }
+    }
+    
+    protected void moverIzquierda(int factor){
+        for(int i = 0;i<this.forma.length;i = i+2){
+            this.forma[i] = this.forma[i]-(espacio*factor);  // Coordenada X
+        }
+    }
+    
+    protected void moverDerecha(int factor){
+        for(int i = 0;i<this.forma.length;i = i+2){
+            this.forma[i] = this.forma[i]+(espacio*factor);  // Coordenada X
         }
     }
 }

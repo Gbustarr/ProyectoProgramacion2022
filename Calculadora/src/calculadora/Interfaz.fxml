@@ -62,7 +62,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="Btn_dividir" blendMode="OVERLAY" layoutX="295.0" layoutY="342.0" mnemonicParsing="false" onAction="#BotonDividir_presionado" prefHeight="59.0" prefWidth="65.0" text="/">
+      <Button fx:id="Btn_dividir" blendMode="OVERLAY" layoutX="295.0" layoutY="342.0" mnemonicParsing="false" onAction="#BotonDivision_presionado" prefHeight="59.0" prefWidth="65.0" text="/">
          <font>
             <Font size="24.0" />
          </font>

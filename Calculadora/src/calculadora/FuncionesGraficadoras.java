@@ -15,85 +15,44 @@ import javafx.scene.paint.Color;
  * @author oknmi
  */
 public class FuncionesGraficadoras {
-    
+
     int espacio = 15;
     CoordenadasSimbolos cs = new CoordenadasSimbolos();
-    
-    public void dibujar_todos_los_simbolos(double pivot,GraphicsContext gc,ArrayList<Simbolo> lista_simbolos){
-        double espacio_total = espacio*lista_simbolos.size();
-        int division = 0;
-        double espacio_superior = 0;
-        
-        for(int i = 0; i< lista_simbolos.size();i++){
-                System.out.println("----------------");
-                Simbolo s = lista_simbolos.get(i);
-                
-                
-                //Dibuja la linea de la division y los numeros del numerador suben
-                if(s.valor == 13){
-                    division = 1;
-                    espacio_superior = 0;
-                    for(int j = i-1; j>=0;j--){
-                        if(lista_simbolos.get(j).tipo == 1){
-                            break;
-                        }else{
-                            espacio_superior = espacio_superior + espacio; 
-                        }
-                    }
-                    s.dibujar_division(gc, espacio_total, espacio_superior);
-                }else{
-                    if(s.tipo == 1 && s.valor != 13 ){ 
-                        division = 0;
-                        espacio_total = espacio_total - espacio;
-                    }
-                    //hacer que los numeros del denominador bajen
-                    if(division == 1){
-                        double espacio_interno = 0;
-                    for(int j = i; j>=0;j--){ 
-                        if(lista_simbolos.get(j).tipo == 1){
-                            break;
-                        }else{
-                            espacio_interno = espacio_interno - espacio; 
-                        }
-                    }
-                    //Modificar el espacio total dependiendo del espacio de la division(Denominador o numerador)
-                    espacio_total = espacio_total - espacio;
-                    
-                    s.dibujar_denominador(gc,espacio_total, espacio_superior);
-                    }else{
-                       s.dibujar_Simbolo(gc,espacio_total);
-                       espacio_total = espacio_total - espacio;
-                    }
-                    
-                }
-                
-                
+    int divisionActiva = 0;
+    int denominadorMenor = 1; // 0 falso, 1 verdadero;
+    double xInicioDivision;
+    double xFinalDivision;
 
-                
-            }
-        //Grafica los simbolos en consola
-        text_debugger(lista_simbolos);
-    
+    public void dibujarTodosLosSimbolos(double pivot, GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
+        for (int i = 0; i < lista_simbolos.size(); i++) {
+            //System.out.println("----------------");
+
+            Simbolo s = lista_simbolos.get(i);
+            s.dibujar_Simbolo(gc);
+
+        }
+        
+        System.out.println("Division activa: "+divisionActiva);
+        //text_debugger(lista_simbolos);
+
     }
-    
-    protected void Dibujar_simbolos(GraphicsContext gc,int nSimbolo,
-        ArrayList<Simbolo> lista_simbolos, double pivot_x,double pivot_y,
-        Canvas Display){
-        
+
+    protected void agregarSimbolo(GraphicsContext gc, int nSimbolo,
+        ArrayList<Simbolo> lista_simbolos, double pivot_x, double pivot_y,
+        Canvas Display) {
+
         int n = lista_simbolos.size();
-        System.out.println("Simbolos pre almacenados: "+n);
-        
+        //System.out.println("Simbolos pre almacenados: " + n);
+
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
         s.setXpos(pivot_x);
         s.setYpos(pivot_y);
-        
-        
+
         //Iniciación de una forma general
         double[] forma;
-        
-        
-        switch(nSimbolo){
+
+        switch (nSimbolo) {
             case 0:
                 forma = cs.cero(pivot_x, pivot_y);
                 s.setForma(forma);
@@ -143,7 +102,7 @@ public class FuncionesGraficadoras {
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
-                
+
             case 7:
                 forma = cs.siete(pivot_x, pivot_y);
                 s.setValor(7);
@@ -194,97 +153,240 @@ public class FuncionesGraficadoras {
                 s.setValor(13);
                 s.setTipo(1);
                 s.setForma(forma);
+                xInicioDivision = (pivot_x - 10) - 15 * (-posicionEnDenominador(lista_simbolos) - 1);
+                System.out.println(xInicioDivision);
+                s.division(xInicioDivision, pivot_x);
                 s.setColor(Color.RED);
                 lista_simbolos.add(s);
                 break;
         }
-        
+        if (s.getValor() > 9 && s.getValor() < 13) {
+            divisionActiva = 0;
+            denominadorMenor = 1;
+        }
+
+        //Verificando que el denominador sea menor que el numerador
+        if (posicionEnDenominador(lista_simbolos) < 0) {
+            denominadorMenor = 0;
+        } else {
+            denominadorMenor = 1;
+        }
+
+        //Dependiendo si el denominador es menor que el numerador, el numero a agregar
+        // y dibujar baja y se mueve hacia la izquierda
+        if (divisionActiva == 1) {
+            if (denominadorMenor == 1) {
+                s.moverAbajo(1);
+                s.moverIzquierda(posicionEnDenominador(lista_simbolos));
+                //System.out.println("Posicion: " + posicionEnDenominador(lista_simbolos));
+            } else {
+                s.moverAbajo(1);
+                moverListaHaciaIzquierda(lista_simbolos);
+            }
+        }
+
+        //Verifica si el simbolo agregado no es una division
+        //En caso de serlo, los demas numeros no se mueven hacia la izquierda
+        if (s.getValor() != 13 && divisionActiva == 0) {
+            moverListaHaciaIzquierda(lista_simbolos);
+
+        } else {
+            divisionActiva = 1;
+        }
+
+        //Modifica la linea de la division si hay una division activa.
+        if (divisionActiva == 1 && denominadorMenor == 0) {
+            modificarLineaDivision(lista_simbolos, pivot_x);
+        }
+
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
-        limpiarCanvas(gc,Display);
-        dibujar_todos_los_simbolos(pivot_x, gc, lista_simbolos);
+        limpiarCanvas(gc, Display);
+        dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+
+        //text_debugger(lista_simbolos);
+    }
+
+    protected int posicionEnDenominador(ArrayList<Simbolo> lista_simbolos) {
+        int nNumeradores = 0;
+        int nDenominadores = 0;
+        int pos;
+
+        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
+            if (lista_simbolos.get(i).getTipo() == 0) {
+                nDenominadores++;
+                //System.out.print(lista_simbolos.get(i));
+            } else {
+                //System.out.println();
+                for (int j = i - 1; j >= 0; j--) {
+                    if (lista_simbolos.get(j).getTipo() == 0) {
+                        //System.out.print(lista_simbolos.get(j));
+                        nNumeradores++;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        pos = nNumeradores - nDenominadores;
+        //System.out.println(pos);
+        return pos;
+    }
+
+    protected void modificarLineaDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x) {
+        int index = -1;
+
+        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
+            if (lista_simbolos.get(i).getValor() == 13) {
+                index = i;
+                break;
+                //System.out.print(lista_simbolos.get(i));
+            }
+        }
+
+        Simbolo s = lista_simbolos.get(index);
+
+        s.division(s.forma[0], pivot_x);
+    }
+
+    protected void moverListaHaciaIzquierda(ArrayList<Simbolo> lista_simbolos) {
+        for (int i = 0; i < lista_simbolos.size() - 1; i++) {
+            lista_simbolos.get(i).moverIzquierda(1);
+        }
+
+    }
+
+    protected void moverListaHaciaDerecha(ArrayList<Simbolo> lista_simbolos) {
+        for (int i = 0; i < lista_simbolos.size(); i++) {
+            lista_simbolos.get(i).moverDerecha(1);
+        }
+
+    }
+
+    protected void moverNumeradoresHaciaArriba(ArrayList<Simbolo> lista_simbolos) {
+
+        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
+            if (lista_simbolos.get(i).getTipo() == 0) {
+                lista_simbolos.get(i).moverArriba(1);
+            } else {
+                break;
+            }
+
+        }
+
     }
     
-    protected void borrarTodo(GraphicsContext gc,Canvas Display,ArrayList<Simbolo> lista_simbolos,double pivot_x){
-        limpiarCanvas(gc,Display);
-        
+    protected void moverNumeradoresHaciaAbajo(ArrayList<Simbolo> lista_simbolos) {
+
+        for (int i = lista_simbolos.size() - 2; i >= 0; i--) {
+            if (lista_simbolos.get(i).getTipo() == 0) {
+                lista_simbolos.get(i).moverArriba(-0.5);
+            } else {
+                break;
+            }
+
+        }
+
+    }
+
+    protected void borrarTodo(GraphicsContext gc, Canvas Display, ArrayList<Simbolo> lista_simbolos, double pivot_x) {
+        limpiarCanvas(gc, Display);
         lista_simbolos.clear();
-        
-        dibujar_todos_los_simbolos(pivot_x, gc, lista_simbolos);
+        dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+        divisionActiva = 0;
     }
-    
-    protected void borrarUltimo(GraphicsContext gc,ArrayList<Simbolo> lista_simbolos,double pivot_x,Canvas Display){
+
+    protected void borrarUltimo(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos, double pivot_x, Canvas Display) {
+        int divisionEliminada = 0;
+        limpiarCanvas(gc, Display);
+        //Actualiza la variable divisionActiva si el numero a borrar pertenece a una division
+        if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 0) {
+            for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
+
+                if (lista_simbolos.get(i).getValor() == 13) { //13 es el valor de la division
+                    divisionActiva = 1;
+                    break;
+                } else if (lista_simbolos.get(i).getValor()>9 && lista_simbolos.get(i).getValor() <13){
+                    divisionActiva = 0;
+                    break;
+                }else {
+                    divisionActiva = 0;
+                }
+
+            }
+        }
+        if(lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 13){
+            moverNumeradoresHaciaAbajo(lista_simbolos);
+            divisionEliminada = 1;
+            System.out.println("Division Eliminada");
+        }
         
-        limpiarCanvas(gc,Display);
         
-        lista_simbolos.remove(lista_simbolos.size()-1);
+        if (divisionActiva == 0) {
+            moverListaHaciaDerecha(lista_simbolos);
+          
+        }
         
-        dibujar_todos_los_simbolos(pivot_x, gc, lista_simbolos);
+        if(lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 13){
+            moverNumeradoresHaciaAbajo(lista_simbolos);
+            divisionActiva = 0;
+            System.out.println("Division Eliminada");
+        }
+        
+        lista_simbolos.remove(lista_simbolos.size() - 1);
+
+        dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
     }
-    
-    protected void limpiarCanvas(GraphicsContext gc,Canvas Display){
-        
+
+    protected void limpiarCanvas(GraphicsContext gc, Canvas Display) {
+
         gc.clearRect(0, 0, Display.getWidth(), Display.getHeight());
     }
-    
-    protected void numerador(ArrayList<Simbolo> lista_simbolos,int posicion){
-        int index = posicion-1;
-        
-        for(int i= index;i>=0;i--){
-            if(lista_simbolos.get(i).tipo != 0){
-                System.out.println("Se ha encontrado un operador");
-                index = i;
-                i = -1; //Para romper el bucle
-            }else{
-                System.out.println("Se ha encontrado un numero");
-                System.out.println("Redimensionando.");
-                lista_simbolos.get(i).moverArriba();
-                System.out.println("Redimensionado.");
-            
-            }
-            
-        }
-        
-        //return lista_simbolos.get(index).forma[0];
-    }
-    
 
-    protected int bloqueador_operador_multiple(ArrayList<Simbolo> lista_simbolos){
-        int index = lista_simbolos.size() - 1 ;
-        if(index != -1){
-            if(lista_simbolos.get(index).tipo == 0){
-            return 0;
+    protected int bloqueador_operador_multiple(ArrayList<Simbolo> lista_simbolos) {
+        int index = lista_simbolos.size() - 1;
+        if (!lista_simbolos.isEmpty()) {
+            if (index != -1) {
+                if (lista_simbolos.get(index).tipo == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            } else {
+                return 0;
             }
-            else{
+
+        } else {
             return 1;
-            }
-        }else{
-            return 0;
         }
-        
+
     }
-        
-    protected void text_debugger(ArrayList<Simbolo> lista_simbolos){
-        for(int i = 0;i<lista_simbolos.size();i++){
+
+    protected void text_debugger(ArrayList<Simbolo> lista_simbolos) {
+        for (int i = 0; i < lista_simbolos.size(); i++) {
             Simbolo s = lista_simbolos.get(i);
-            if(s.valor >9){
-                if(s.valor == 10){
+            if (s.valor > 9) {
+                if (s.valor == 10) {
                     System.out.print(" + ");
                 }
-                if(s.valor == 11){
+                if (s.valor == 11) {
                     System.out.print(" - ");
                 }
-                if(s.valor == 12){
+                if (s.valor == 12) {
                     System.out.print(" * ");
                 }
-                if(s.valor == 13){
+                if (s.valor == 13) {
                     System.out.print(" / ");
                 }
-            }else{
+            } else {
                 System.out.print(s.valor);
             }
-            
+
         }
+        System.out.println();
+        System.out.println(divisionActiva);
     }
-    
+
 }
