@@ -80,7 +80,7 @@ public class InterfazController implements Initializable {
     @FXML
     protected Button Btn_puntosControl;
 
-    double pivot_x = 330;
+    double pivot_x = 300;
     double pivot_y = 200;
 
     double espacio_acumulado = 0;
@@ -162,21 +162,21 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected void BotonMas_presionado() {
-        if (fg.bloqueador_operador_multiple(lista_simbolos) == 0) {
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
             fg.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
 
     @FXML
     protected void BotonMenos_presionado() {
-        if (fg.bloqueador_operador_multiple(lista_simbolos) == 0) {
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
             fg.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
 
     @FXML
     protected void BotonMultiplicar_presionado() {
-        if (fg.bloqueador_operador_multiple(lista_simbolos) == 0) {
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
             fg.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
         }
 

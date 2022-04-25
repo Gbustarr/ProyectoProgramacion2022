@@ -22,12 +22,11 @@ public class FuncionesGraficadoras {
     int denominadorMenor = 1; // 0 falso, 1 verdadero;
     double xInicioDivision;
     double xFinalDivision;
-    int diferenciaNumeradorDenominador;
     int movimientosDeLista= 0;
     int puntosControlActivo = 0;
     int divisionEliminada = 0;
 
-    public void dibujarTodosLosSimbolos(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
+    protected void dibujarTodosLosSimbolos(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < lista_simbolos.size(); i++) {
             //System.out.println("----------------");
 
@@ -173,7 +172,7 @@ public class FuncionesGraficadoras {
         if (s.getValor() > 9 && s.getValor() < 13) {
             divisionActiva = 0;
             denominadorMenor = 1;
-            diferenciaNumeradorDenominador = 0;
+            //diferenciaNumeradorDenominador = 0;
         }
 
         //Verificando que el denominador sea menor que el numerador
@@ -209,7 +208,7 @@ public class FuncionesGraficadoras {
         //numerador es menor que el denominador
         if (divisionActiva == 1 && denominadorMenor == 0) {
             modificarLineaDivision(lista_simbolos, pivot_x);
-            diferenciaNumeradorDenominador++;
+            //diferenciaNumeradorDenominador++;
         }
 
         // Funciones graficadoras
@@ -406,7 +405,7 @@ public class FuncionesGraficadoras {
         gc.clearRect(0, 0, Display.getWidth(), Display.getHeight());
     }
 
-    protected int bloqueador_operador_multiple(ArrayList<Simbolo> lista_simbolos) {
+    protected int bloqueadorOperadorMultiple(ArrayList<Simbolo> lista_simbolos) {
         int index = lista_simbolos.size() - 1;
         if (!lista_simbolos.isEmpty()) {
             if (index != -1) {
@@ -465,7 +464,6 @@ public class FuncionesGraficadoras {
 
         }
         System.out.println();
-        System.out.println(divisionActiva);
     }
 
 
