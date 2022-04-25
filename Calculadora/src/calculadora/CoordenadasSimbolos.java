@@ -5,7 +5,6 @@
  */
 package calculadora;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -115,8 +114,7 @@ public class CoordenadasSimbolos {
     
     
     double[] dividir(double x, double y){
-       
-        
+     
         double[] dividir =      {x-10,y-25,x,y-25};
         return dividir;
     }
