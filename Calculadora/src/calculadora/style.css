@@ -11,5 +11,12 @@ and open the template in the editor.
 .bodybg{
     -fx-background-image: url("./img/Background_image_sopaipletos.png");
     -fx-background-color: rgba(0,0,0,0);
-    -fx-background-size: 100% 100%;
+    -fx-background-size: 527 693;
+    -fx-background-repeat: no-repeat;
+}
+.bodybgC{
+    -fx-background-image: url("./img/Background_image_sopaipletos_scientific.png");
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-size: 527 693;
+    -fx-background-repeat: no-repeat;
 }

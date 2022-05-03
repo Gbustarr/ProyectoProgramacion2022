@@ -5,6 +5,7 @@
  */
 package calculadora;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -12,8 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -68,6 +73,9 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected Button Btn_DEL;
+    
+    @FXML
+    protected Button Btn_Cientifico;
 
     /*
     @FXML
@@ -79,6 +87,7 @@ public class InterfazController implements Initializable {
      */
     @FXML
     protected Button Btn_puntosControl;
+    protected InterfazController controller;
 
     double pivot_x = 300;
     double pivot_y = 200;
@@ -241,6 +250,21 @@ public class InterfazController implements Initializable {
     }
     
      */
+    
+    @FXML
+    protected void BotonCientifico_presionado() throws IOException{
+    /*
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_cientifica.fxml"));
+        Parent root = loader.load();
+        InterfazControllerCientifica AC = loader.getController();
+        AC.setController(this);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        */
+    }
+    
+    
     @FXML
     protected void Cerrar() {
         Platform.exit();
