@@ -77,7 +77,7 @@ Para la Unidad 1, se debe:
 - [x] Crear Repositorio Github, con al menos un branch por cada integrante del grupo
 - [x] Crear y mantener un Tablero Kanban
 - [x] Definir un diseño que guie el desarrollo del proyecto
-- [ ] La aplicacion debe permitir ingresar interactivamente una expresion matematica
+- [x] La aplicacion debe permitir ingresar interactivamente una expresion matematica
 - [x] La aplicación debe permitir dibujar los números del 0 al 9.
 - [x] La aplicación de debe permitir dibujar los operadores de suma (+), resta(-), multiplicación(*) y división(/). 
 
