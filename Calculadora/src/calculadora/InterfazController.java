@@ -10,128 +10,241 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
-import java.awt.Point;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-
 
 /**
  * FXML Controller class
  *
  * @author Guillermo
  */
-public class InterfazController implements Initializable{
+public class InterfazController implements Initializable {
+
+    @FXML
+    protected Button Btn_1;
+
+    @FXML
+    protected Button Btn_2;
+
+    @FXML
+    protected Button Btn_3;
+
+    @FXML
+    protected Button Btn_4;
+
+    @FXML
+    protected Button Btn_5;
+
+    @FXML
+    protected Button Btn_6;
+
+    @FXML
+    protected Button Btn_7;
+
+    @FXML
+    protected Button Btn_8;
+
+    @FXML
+    protected Button Btn_resta;
+
+    @FXML
+    protected Button Btn_suma;
+
+    @FXML
+    protected Button Btn_0;
+
+    @FXML
+    protected Button Btn_multiplicar;
+
+    @FXML
+    protected Button Btn_dividir;
+
+    @FXML
+    protected Canvas Display;
+    @FXML
+    protected Button Btn_AC;
+
+    @FXML
+    protected Button Btn_DEL;
+
+    /*
+    @FXML
+    protected Button Btn_moverDer;
     
     @FXML
-    private Button Btn_1;
-
-    @FXML
-    private Button Btn_2;
-
-    @FXML
-    private Button Btn_3;
-
-    @FXML
-    private Button Btn_4;
-
-    @FXML
-    private Button Btn_5;
-
-    @FXML
-    private Button Btn_6;
-
-    @FXML
-    private Button Btn_7;
-
-    @FXML
-    private Button Btn_8;
-
-    @FXML
-    private Button Btn_resta;
-
-    @FXML
-    private Button Btn_suma;
-
-    @FXML
-    private Button Btn_0;
-
-    @FXML
-    private Button Btn_multiplicar;
-
-    @FXML
-    private Button Btn_dividir;
-
-    @FXML
-    private Canvas Display;
+    protected Button Btn_moverIzq;
     
-    double pivot_x = 340;
-    double pivot_y = 161;
-    float espacio_entre_simbolos = 10;
-    double ancho_de_caracteres = 20;
-    double bloque = espacio_entre_simbolos + ancho_de_caracteres;
-    float factor = 1;
+     */
+    @FXML
+    protected Button Btn_puntosControl;
+
+    double pivot_x = 300;
+    double pivot_y = 200;
+
+    double espacio_acumulado = 0;
     ArrayList<Simbolo> lista_simbolos = new ArrayList();
-    
+
     GraphicsContext gc;
+
+    FuncionesGraficadoras fg = new FuncionesGraficadoras();
+
+    @FXML
+    protected void Boton0_presionado() {
+
+        fg.agregarSimbolo(gc, 0, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton1_presionado() {
+
+        fg.agregarSimbolo(gc, 1, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton2_presionado() {
+
+        fg.agregarSimbolo(gc, 2, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton3_presionado() {
+
+        fg.agregarSimbolo(gc, 3, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton4_presionado() {
+
+        fg.agregarSimbolo(gc, 4, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton5_presionado() {
+
+        fg.agregarSimbolo(gc, 5, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton6_presionado() {
+
+        fg.agregarSimbolo(gc, 6, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton7_presionado() {
+
+        fg.agregarSimbolo(gc, 7, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton8_presionado() {
+
+        fg.agregarSimbolo(gc, 8, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void Boton9_presionado() {
+
+        fg.agregarSimbolo(gc, 9, lista_simbolos, pivot_x, pivot_y, Display);
+
+    }
+
+    @FXML
+    protected void BotonMas_presionado() {
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            fg.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
+        }
+    }
+
+    @FXML
+    protected void BotonMenos_presionado() {
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            fg.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
+        }
+    }
+
+    @FXML
+    protected void BotonMultiplicar_presionado() {
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            fg.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
+        }
+
+    }
+
+    @FXML
+    protected void BotonDivision_presionado() {
+        if (fg.divisionActiva != 1 && lista_simbolos.size() > 0) {
+            if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
+                fg.moverNumeradoresHaciaArriba(lista_simbolos);
+                fg.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
+
+            }
+        }
+
+    }
+
+    @FXML
+    protected void BotonDEL_presionado() {
+
+        if (lista_simbolos.size() > 0) {
+            fg.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
+        }
+
+    }
+
+    @FXML
+    protected void BotonAC_presionado() {
+
+        if (lista_simbolos.size() > 0) {
+            fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
+        }
+
+    }
+
+    @FXML
+    protected void BotonPuntosControl_presionado() {
+        fg.switchPuntosControl(lista_simbolos, gc, Display);
+    }
+
+    /*
+    @FXML
+    protected void BotonMovDer_presionado(){
+      
+            fg.moverListaHaciaDerecha(lista_simbolos, 1);
+            fg.movimientosDeLista = fg.movimientosDeLista -1;
+            fg.limpiarCanvas(gc, Display);
+            fg.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+
     
-
-
+    }
     
     @FXML
-    protected void Boton1_presionado(){
-        
-        Dibujar_simbolos(gc,1);
-
+    protected void BotonMovIzq_presionado(){
+        if(fg.movimientosDeLista != 0){
+            fg.moverListaHaciaIzquierda(lista_simbolos, 1);
+            fg.movimientosDeLista = fg.movimientosDeLista +1;
+            fg.limpiarCanvas(gc, Display);
+            fg.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+        }
+    
     }
     
-    protected void Dibujar_simbolos(GraphicsContext gc,int nSimbolo){
-        
-        int n = lista_simbolos.size();
-        System.out.println("Simbolos pre almacenados: "+n);
-        
-        double[] uno = {pivot_x-10,pivot_y-20,pivot_x-5,pivot_y-30,
-            pivot_x-5,pivot_y-30,pivot_x-5,pivot_y-10};
-        
-        
-        switch(nSimbolo){
-            case 1:
-                Simbolo s = new Simbolo(factor,pivot_x,pivot_y,uno);
-                lista_simbolos.add(s);
-                break;
-        }
-       
-        
-        if (n>0){
-            double espacio_acumulado = bloque * -n;
-            for(int i = 0; i< lista_simbolos.size();i++){
-
-                Simbolo s = lista_simbolos.get(i);
-
-                s.setXpos(espacio_acumulado);
-                s.dibujar_Simbolo(gc);
-                
-                espacio_acumulado = espacio_acumulado + bloque;
-            }
-
-            n = lista_simbolos.size();
-            System.out.println("Simbolos post almacenados: "+n);
-
-            if (n>4){
-                for(int i = 0; i< lista_simbolos.size();i++){
-                lista_simbolos.get(i).setFactor(0.5);
-                }
-            }
-            
-        }else{
-            Simbolo s = lista_simbolos.get(0);
-            s.dibujar_Simbolo(gc);
-        }
-        
+     */
+    @FXML
+    protected void Cerrar() {
+        Platform.exit();
     }
-    
 
     /**
      * Initializes the controller class.
@@ -139,6 +252,6 @@ public class InterfazController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
-    }    
-    
+    }
+
 }
