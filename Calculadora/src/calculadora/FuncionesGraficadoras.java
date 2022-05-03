@@ -18,13 +18,21 @@ public class FuncionesGraficadoras {
 
     int espacio = 15;
     CoordenadasSimbolos cs = new CoordenadasSimbolos();
-    int divisionActiva = 0;
-    int denominadorMenor = 1; // 0 falso, 1 verdadero;
+    
+    
     double xInicioDivision;
     double xFinalDivision;
     int movimientosDeLista= 0;
     int puntosControlActivo = 0;
     int divisionEliminada = 0;
+    
+    //Variables para la division
+    int divisionActiva = 0;
+    int denominadorMenor = 1; // 0 falso, 1 verdadero;
+    ArrayList<Integer> indicesNumeradores = new ArrayList();
+    ArrayList<Integer> indicesDenominadores = new ArrayList();
+    ArrayList<Integer> indicesDivisionCombinada = new ArrayList();
+    int anchoDivision;
 
     protected void dibujarTodosLosSimbolos(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < lista_simbolos.size(); i++) {
@@ -159,10 +167,13 @@ public class FuncionesGraficadoras {
                 xInicioDivision = coordenadaXDivision(lista_simbolos,pivot_x);
                 s.division(xInicioDivision, pivot_x);
                 s.setColor(Color.RED);
+                agregarNumeradores(lista_simbolos);
+                this.indicesNumeradores.add(lista_simbolos.size());
                 lista_simbolos.add(s);
+                debugPrintNumeradores(lista_simbolos);
                 break;
         }
-        
+        //Para activar los puntos de control de los simbolos
         if(puntosControlActivo == 1){
             s.switchPuntosControl();
         }
@@ -175,11 +186,19 @@ public class FuncionesGraficadoras {
             //diferenciaNumeradorDenominador = 0;
         }
 
+        
         //Verificando que el denominador sea menor que el numerador
-        if (posicionEnDenominador(lista_simbolos) < 0) {
-            denominadorMenor = 0;
-        } else {
+        if ((indicesNumeradores.size()-1) - indicesDenominadores.size() >=0) {
             denominadorMenor = 1;
+            anchoDivision = indicesNumeradores.size();
+        } else {
+            denominadorMenor = 0;
+            anchoDivision = indicesDenominadores.size();
+        }
+        
+        if(divisionActiva == 1 && s.valor != 13){
+            this.indicesDenominadores.add(lista_simbolos.size());
+        
         }
 
         //Dependiendo si el denominador es menor que el numerador, el numero a agregar
@@ -188,7 +207,6 @@ public class FuncionesGraficadoras {
             if (denominadorMenor == 1) {
                 s.moverAbajo(1);
                 s.moverIzquierda(posicionEnDenominador(lista_simbolos));
-                //System.out.println("Posicion: " + posicionEnDenominador(lista_simbolos));
             } else {
                 s.moverAbajo(1);
                 moverListaHaciaIzquierda(lista_simbolos,1);
@@ -199,7 +217,6 @@ public class FuncionesGraficadoras {
         //En caso de serlo, los demas numeros no se mueven hacia la izquierda
         if (s.getValor() != 13 && divisionActiva == 0) {
             moverListaHaciaIzquierda(lista_simbolos,1);
-
         } else {
             divisionActiva = 1;
         }
@@ -263,6 +280,28 @@ public class FuncionesGraficadoras {
         pos = nNumeradores - nDenominadores;
         //System.out.println(pos);
         return pos;
+    }
+    
+    protected void agregarNumeradores(ArrayList<Simbolo> lista_simbolos){
+        //System.out.print("Denominadores: ");
+        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
+            if (lista_simbolos.get(i).getTipo() == 0) {
+                this.indicesNumeradores.add(i);
+            } 
+        }
+        
+        
+    }
+    
+    protected void debugPrintNumeradores(ArrayList<Simbolo> lista_simbolos){
+        for(int i = 0;i<this.indicesNumeradores.size();i++){
+            System.out.print(lista_simbolos.get(this.indicesNumeradores.get(i)).valor+" ");
+        }
+        
+        for(int i = 0;i<this.indicesDenominadores.size();i++){
+            System.out.print(this.indicesDenominadores.get(i)+" ");
+        }
+    
     }
 
     protected void modificarLineaDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x) {
