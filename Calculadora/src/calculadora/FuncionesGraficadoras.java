@@ -167,10 +167,13 @@ public class FuncionesGraficadoras {
                 xInicioDivision = coordenadaXDivision(lista_simbolos,pivot_x);
                 s.division(xInicioDivision, pivot_x);
                 s.setColor(Color.RED);
-                agregarNumeradores(lista_simbolos);
-                this.indicesNumeradores.add(lista_simbolos.size());
-                lista_simbolos.add(s);
-                debugPrintNumeradores(lista_simbolos);
+                if(divisionActiva == 0){
+                    agregarNumeradores(lista_simbolos);
+                    this.indicesNumeradores.add(lista_simbolos.size());
+                    lista_simbolos.add(s);
+                }
+                
+            
                 break;
         }
         //Para activar los puntos de control de los simbolos
@@ -183,12 +186,14 @@ public class FuncionesGraficadoras {
         if (s.getValor() > 9 && s.getValor() < 13) {
             divisionActiva = 0;
             denominadorMenor = 1;
+            indicesNumeradores.clear();
+            indicesDenominadores.clear();
             //diferenciaNumeradorDenominador = 0;
         }
 
         
         //Verificando que el denominador sea menor que el numerador
-        if ((indicesNumeradores.size()-1) - indicesDenominadores.size() >=0) {
+        if ((indicesNumeradores.size()-1) - indicesDenominadores.size() >0) {
             denominadorMenor = 1;
             anchoDivision = indicesNumeradores.size();
         } else {
@@ -196,20 +201,37 @@ public class FuncionesGraficadoras {
             anchoDivision = indicesDenominadores.size();
         }
         
-        if(divisionActiva == 1 && s.valor != 13){
-            this.indicesDenominadores.add(lista_simbolos.size());
-        
+        if(divisionActiva == 1){
+            this.indicesDenominadores.add(lista_simbolos.size()-1);
+            
+            
         }
 
         //Dependiendo si el denominador es menor que el numerador, el numero a agregar
         // y dibujar baja y se mueve hacia la izquierda
         if (divisionActiva == 1) {
-            if (denominadorMenor == 1) {
-                s.moverAbajo(1);
-                s.moverIzquierda(posicionEnDenominador(lista_simbolos));
-            } else {
-                s.moverAbajo(1);
-                moverListaHaciaIzquierda(lista_simbolos,1);
+            if(s.valor != 13){
+            
+                if (denominadorMenor == 1) {
+                    s.moverAbajo(1);
+                    s.moverIzquierda(posicionEnDenominador(lista_simbolos));
+                } else {
+                    s.moverAbajo(1);
+                    moverListaHaciaIzquierda(lista_simbolos,1);
+                }
+            }else{
+                
+                this.indicesDivisionCombinada.addAll(indicesNumeradores);
+                this.indicesDivisionCombinada.addAll(indicesDenominadores);
+                this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
+                
+                //Mueve la fraccion anterior hacia arriba
+                moverFraccionArriba(lista_simbolos,1);
+                //Añade el simbolo como denominador
+                
+                //Agrega el simbolo a la lista de simbolos
+                
+                lista_simbolos.add(s);
             }
         }
 
@@ -233,7 +255,8 @@ public class FuncionesGraficadoras {
         limpiarCanvas(gc, Display);
         dibujarTodosLosSimbolos(gc, lista_simbolos);
 
-        //text_debugger(lista_simbolos);
+        text_debugger(lista_simbolos);
+        debugPrintNumeradores(lista_simbolos);
     }
     
     protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x){
@@ -252,6 +275,15 @@ public class FuncionesGraficadoras {
         
         return xFinal;
     
+    }
+    
+    protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){
+        
+        for(int i = 0; i<indicesDivisionCombinada.size();i++){
+            lista_simbolos.get(this.indicesDivisionCombinada.get(i)).moverArriba(posiciones);
+            System.out.println(lista_simbolos.get(this.indicesDivisionCombinada.get(i)));
+        }
+        
     }
 
     protected int posicionEnDenominador(ArrayList<Simbolo> lista_simbolos) {
@@ -287,7 +319,9 @@ public class FuncionesGraficadoras {
         for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
             if (lista_simbolos.get(i).getTipo() == 0) {
                 this.indicesNumeradores.add(i);
-            } 
+            } else{
+                break;
+            }
         }
         
         
@@ -297,11 +331,19 @@ public class FuncionesGraficadoras {
         for(int i = 0;i<this.indicesNumeradores.size();i++){
             System.out.print(lista_simbolos.get(this.indicesNumeradores.get(i)).valor+" ");
         }
-        
+        System.out.println();
         for(int i = 0;i<this.indicesDenominadores.size();i++){
-            System.out.print(this.indicesDenominadores.get(i)+" ");
+            System.out.print(lista_simbolos.get(this.indicesDenominadores.get(i)).valor+" ");
         }
-    
+        
+        System.out.println("Division combinada:");
+        if(indicesDivisionCombinada.size() > 0){
+            for(int i = 0;i<this.indicesDivisionCombinada.size();i++){
+            System.out.print(indicesDivisionCombinada.get(i)+" ");
+        }
+        }else{
+            System.out.println("");
+        }
     }
 
     protected void modificarLineaDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x) {
