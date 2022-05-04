@@ -33,6 +33,7 @@ public class FuncionesGraficadoras {
     ArrayList<Integer> indicesDenominadores = new ArrayList();
     ArrayList<Integer> indicesDivisionCombinada = new ArrayList();
     int anchoDivision;
+    int alturaDivision =0;
 
     protected void dibujarTodosLosSimbolos(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < lista_simbolos.size(); i++) {
@@ -169,6 +170,8 @@ public class FuncionesGraficadoras {
                 s.setColor(Color.RED);
                 if(divisionActiva == 0){
                     agregarNumeradores(lista_simbolos);
+                    
+                    moverNumeradoresArriba(lista_simbolos);
                     this.indicesNumeradores.add(lista_simbolos.size());
                     lista_simbolos.add(s);
                 }
@@ -184,10 +187,7 @@ public class FuncionesGraficadoras {
         
         //Si es un operador *,+ o -, los valores se reestablecen
         if (s.getValor() > 9 && s.getValor() < 13) {
-            divisionActiva = 0;
-            denominadorMenor = 1;
-            indicesNumeradores.clear();
-            indicesDenominadores.clear();
+            resetEstado();
             //diferenciaNumeradorDenominador = 0;
         }
 
@@ -211,22 +211,41 @@ public class FuncionesGraficadoras {
         // y dibujar baja y se mueve hacia la izquierda
         if (divisionActiva == 1) {
             if(s.valor != 13){
-            
+            System.out.println("Simbolo no 13 detectado.");
                 if (denominadorMenor == 1) {
+                    System.out.println("Denominador Menor");
                     s.moverAbajo(1);
                     s.moverIzquierda(posicionEnDenominador(lista_simbolos));
                 } else {
+                    System.out.println("Denominador Mayor");
                     s.moverAbajo(1);
                     moverListaHaciaIzquierda(lista_simbolos,1);
                 }
-            }else{
-                
+            }else if(alturaDivision == 0){ //Cuando hay division y se agrega otra division
+                System.out.println("Division existente, agregando otra division");
+                //Concatenacion de indices a un arreglo
                 this.indicesDivisionCombinada.addAll(indicesNumeradores);
                 this.indicesDivisionCombinada.addAll(indicesDenominadores);
                 this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
+                this.indicesNumeradores.clear();
+                this.indicesDenominadores.clear();
                 
                 //Mueve la fraccion anterior hacia arriba
-                moverFraccionArriba(lista_simbolos,1);
+                moverFraccionArriba(lista_simbolos,2);
+                //Añade el simbolo como denominador
+                
+                //Agrega el simbolo a la lista de simbolos
+                alturaDivision++;
+                lista_simbolos.add(s);
+            }else{
+                //Concatenacion de indices a un arreglo
+                this.indicesDivisionCombinada.addAll(indicesDenominadores);
+                this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
+                this.indicesNumeradores.clear();
+                this.indicesDenominadores.clear();
+                
+                //Mueve la fraccion anterior hacia arriba
+                moverFraccionArriba(lista_simbolos,2);
                 //Añade el simbolo como denominador
                 
                 //Agrega el simbolo a la lista de simbolos
@@ -240,6 +259,7 @@ public class FuncionesGraficadoras {
         if (s.getValor() != 13 && divisionActiva == 0) {
             moverListaHaciaIzquierda(lista_simbolos,1);
         } else {
+            
             divisionActiva = 1;
         }
 
@@ -255,8 +275,8 @@ public class FuncionesGraficadoras {
         limpiarCanvas(gc, Display);
         dibujarTodosLosSimbolos(gc, lista_simbolos);
 
-        text_debugger(lista_simbolos);
-        debugPrintNumeradores(lista_simbolos);
+        //text_debugger(lista_simbolos);
+        //debugPrintNumeradores(lista_simbolos);
     }
     
     protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x){
@@ -277,11 +297,29 @@ public class FuncionesGraficadoras {
     
     }
     
+    protected void resetEstado(){
+        divisionActiva = 0;
+        denominadorMenor = 1;
+        indicesNumeradores.clear();
+        indicesDenominadores.clear();
+        indicesDivisionCombinada.clear();
+        alturaDivision = 0;
+    
+    }
+    
+    
     protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){
-        
+        System.out.print("Movimiento de fracciones: ");
         for(int i = 0; i<indicesDivisionCombinada.size();i++){
             lista_simbolos.get(this.indicesDivisionCombinada.get(i)).moverArriba(posiciones);
-            System.out.println(lista_simbolos.get(this.indicesDivisionCombinada.get(i)));
+            System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).getValor());
+        }
+        
+    }
+    
+    protected void moverNumeradoresArriba(ArrayList<Simbolo> lista_simbolos){
+        for(int i = 0; i<indicesNumeradores.size();i++){
+            lista_simbolos.get(this.indicesNumeradores.get(i)).moverArriba(1);
         }
         
     }

@@ -195,7 +195,7 @@ public class InterfazController implements Initializable {
     protected void BotonDivision_presionado() {
         if (/*fg.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
             if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
-                fg.moverNumeradoresHaciaArriba(lista_simbolos);
+                //fg.moverNumeradoresHaciaArriba(lista_simbolos);
                 fg.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
 
             }
@@ -216,6 +216,7 @@ public class InterfazController implements Initializable {
     protected void BotonAC_presionado() {
 
         if (lista_simbolos.size() > 0) {
+            fg.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
         }
 
