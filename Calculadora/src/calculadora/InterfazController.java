@@ -97,106 +97,107 @@ public class InterfazController implements Initializable {
 
     GraphicsContext gc;
 
+    Logica l = new Logica();
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
 
     @FXML
     protected void Boton0_presionado() {
 
-        fg.agregarSimbolo(gc, 0, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 0, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton1_presionado() {
 
-        fg.agregarSimbolo(gc, 1, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 1, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton2_presionado() {
 
-        fg.agregarSimbolo(gc, 2, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 2, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton3_presionado() {
 
-        fg.agregarSimbolo(gc, 3, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 3, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton4_presionado() {
 
-        fg.agregarSimbolo(gc, 4, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 4, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton5_presionado() {
 
-        fg.agregarSimbolo(gc, 5, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 5, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton6_presionado() {
 
-        fg.agregarSimbolo(gc, 6, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 6, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton7_presionado() {
 
-        fg.agregarSimbolo(gc, 7, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 7, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton8_presionado() {
 
-        fg.agregarSimbolo(gc, 8, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 8, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton9_presionado() {
 
-        fg.agregarSimbolo(gc, 9, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 9, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void BotonMas_presionado() {
-        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
-            fg.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
+        if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            l.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
 
     @FXML
     protected void BotonMenos_presionado() {
-        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
-            fg.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
+        if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            l.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
 
     @FXML
     protected void BotonMultiplicar_presionado() {
-        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
-            fg.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
+        if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            l.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
         }
 
     }
 
     @FXML
     protected void BotonDivision_presionado() {
-        if (/*fg.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
+        if (/*l.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
             if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
-                //fg.moverNumeradoresHaciaArriba(lista_simbolos);
-                fg.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
+                //l.moverNumeradoresHaciaArriba(lista_simbolos);
+                l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
 
             }
         }
@@ -207,7 +208,7 @@ public class InterfazController implements Initializable {
     protected void BotonDEL_presionado() {
 
         if (lista_simbolos.size() > 0) {
-            fg.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
+            l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
         }
 
     }
@@ -216,36 +217,37 @@ public class InterfazController implements Initializable {
     protected void BotonAC_presionado() {
 
         if (lista_simbolos.size() > 0) {
-            fg.resetEstado();
+            l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
+            l.divisionActiva = 0;
         }
 
     }
 
     @FXML
     protected void BotonPuntosControl_presionado() {
-        fg.switchPuntosControl(lista_simbolos, gc, Display);
+        l.switchPuntosControl(lista_simbolos, gc, Display);
     }
 
     /*
     @FXML
     protected void BotonMovDer_presionado(){
       
-            fg.moverListaHaciaDerecha(lista_simbolos, 1);
-            fg.movimientosDeLista = fg.movimientosDeLista -1;
-            fg.limpiarCanvas(gc, Display);
-            fg.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+            l.moverListaHaciaDerecha(lista_simbolos, 1);
+            l.movimientosDeLista = l.movimientosDeLista -1;
+            l.limpiarCanvas(gc, Display);
+            l.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
 
     
     }
     
     @FXML
     protected void BotonMovIzq_presionado(){
-        if(fg.movimientosDeLista != 0){
-            fg.moverListaHaciaIzquierda(lista_simbolos, 1);
-            fg.movimientosDeLista = fg.movimientosDeLista +1;
-            fg.limpiarCanvas(gc, Display);
-            fg.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+        if(l.movimientosDeLista != 0){
+            l.moverListaHaciaIzquierda(lista_simbolos, 1);
+            l.movimientosDeLista = l.movimientosDeLista +1;
+            l.limpiarCanvas(gc, Display);
+            l.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
         }
     
     }
