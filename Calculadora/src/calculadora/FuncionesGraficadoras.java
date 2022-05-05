@@ -34,17 +34,18 @@ public class FuncionesGraficadoras {
     ArrayList<Integer> indicesDivisionCombinada = new ArrayList();
     int anchoDivision;
     int alturaDivision =0;
+    int indiceUltimaDivision;
 
     protected void dibujarTodosLosSimbolos(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < lista_simbolos.size(); i++) {
-            //System.out.println("----------------");
+            ////System.out.println("----------------");
 
             Simbolo s = lista_simbolos.get(i);
             s.dibujar_Simbolo(gc);
 
         }
         
-        //System.out.println("Division activa: "+divisionActiva);
+        ////System.out.println("Division activa: "+divisionActiva);
         //text_debugger(lista_simbolos);
 
     }
@@ -54,7 +55,7 @@ public class FuncionesGraficadoras {
         Canvas Display) {
 
         int n = lista_simbolos.size();
-        //System.out.println("Simbolos pre almacenados: " + n);
+        ////System.out.println("Simbolos pre almacenados: " + n);
 
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
@@ -173,6 +174,7 @@ public class FuncionesGraficadoras {
                     
                     moverNumeradoresArriba(lista_simbolos);
                     this.indicesNumeradores.add(lista_simbolos.size());
+                    indiceUltimaDivision = lista_simbolos.size();
                     lista_simbolos.add(s);
                 }
                 
@@ -190,66 +192,85 @@ public class FuncionesGraficadoras {
             resetEstado();
             //diferenciaNumeradorDenominador = 0;
         }
+        
+        if(divisionActiva == 1){
+            this.indicesDenominadores.add(lista_simbolos.size()-1);
+            
+        }
 
         
         //Verificando que el denominador sea menor que el numerador
-        if ((indicesNumeradores.size()-1) - indicesDenominadores.size() >0) {
+        if ((indicesNumeradores.size()-1) - indicesDenominadores.size() >=0) {
             denominadorMenor = 1;
-            anchoDivision = indicesNumeradores.size();
+            anchoDivision = indicesNumeradores.size()-1;
         } else {
             denominadorMenor = 0;
             anchoDivision = indicesDenominadores.size();
         }
         
-        if(divisionActiva == 1){
-            this.indicesDenominadores.add(lista_simbolos.size()-1);
-            
-            
-        }
+        
+        
+        //System.out.println("Ancho division:"+anchoDivision);
+        
 
         //Dependiendo si el denominador es menor que el numerador, el numero a agregar
         // y dibujar baja y se mueve hacia la izquierda
         if (divisionActiva == 1) {
             if(s.valor != 13){
-            System.out.println("Simbolo no 13 detectado.");
+            ////System.out.println("Simbolo no 13 detectado.");
                 if (denominadorMenor == 1) {
-                    System.out.println("Denominador Menor");
+                    //System.out.println("Denominador Menor");
                     s.moverAbajo(1);
                     s.moverIzquierda(posicionEnDenominador(lista_simbolos));
                 } else {
-                    System.out.println("Denominador Mayor");
+                    moverNumeradoresDerecha(lista_simbolos);
+                    //System.out.println("Denominador Mayor");
                     s.moverAbajo(1);
                     moverListaHaciaIzquierda(lista_simbolos,1);
                 }
             }else if(alturaDivision == 0){ //Cuando hay division y se agrega otra division
-                System.out.println("Division existente, agregando otra division");
+                //System.out.println("Division existente, agregando otra division");
                 //Concatenacion de indices a un arreglo
                 this.indicesDivisionCombinada.addAll(indicesNumeradores);
                 this.indicesDivisionCombinada.addAll(indicesDenominadores);
                 this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
+                
                 this.indicesNumeradores.clear();
+                this.indicesNumeradores.addAll(indicesDenominadores);
+                this.indicesNumeradores.add(lista_simbolos.size());
                 this.indicesDenominadores.clear();
                 
                 //Mueve la fraccion anterior hacia arriba
                 moverFraccionArriba(lista_simbolos,2);
-                //Añade el simbolo como denominador
-                
+                //Actualiza el indice de la ultima division
+                indiceUltimaDivision = lista_simbolos.size();
                 //Agrega el simbolo a la lista de simbolos
                 alturaDivision++;
                 lista_simbolos.add(s);
             }else{
+                //System.out.println("Division existente, agregando division sobre division");
                 //Concatenacion de indices a un arreglo
                 this.indicesDivisionCombinada.addAll(indicesDenominadores);
+                this.indicesDivisionCombinada.add(lista_simbolos.size());
                 this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
+                
+                //Los denominadores ahora son los numeradores en la nueva division
                 this.indicesNumeradores.clear();
+                this.indicesNumeradores.addAll(indicesDenominadores);
+                this.indicesNumeradores.add(lista_simbolos.size());
+               
                 this.indicesDenominadores.clear();
+                
                 
                 //Mueve la fraccion anterior hacia arriba
                 moverFraccionArriba(lista_simbolos,2);
                 //Añade el simbolo como denominador
                 
-                //Agrega el simbolo a la lista de simbolos
                 
+                //Actualiza el indice de la ultima division
+                indiceUltimaDivision = lista_simbolos.size();
+                //Agrega el simbolo a la lista de simbolos
+                alturaDivision++;
                 lista_simbolos.add(s);
             }
         }
@@ -265,8 +286,8 @@ public class FuncionesGraficadoras {
 
         //Modifica la linea de la division si hay una division activa y el
         //numerador es menor que el denominador
-        if (divisionActiva == 1 && denominadorMenor == 0) {
-            modificarLineaDivision(lista_simbolos, pivot_x);
+        if (divisionActiva == 1) {
+            modificarLineaDivision(lista_simbolos,pivot_x);
             //diferenciaNumeradorDenominador++;
         }
 
@@ -276,7 +297,7 @@ public class FuncionesGraficadoras {
         dibujarTodosLosSimbolos(gc, lista_simbolos);
 
         //text_debugger(lista_simbolos);
-        //debugPrintNumeradores(lista_simbolos);
+        debugPrintNumeradores(lista_simbolos);
     }
     
     protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x){
@@ -309,10 +330,10 @@ public class FuncionesGraficadoras {
     
     
     protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){
-        System.out.print("Movimiento de fracciones: ");
+        //System.out.print("Movimiento de fracciones: ");
         for(int i = 0; i<indicesDivisionCombinada.size();i++){
             lista_simbolos.get(this.indicesDivisionCombinada.get(i)).moverArriba(posiciones);
-            System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).getValor());
+            //System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).getValor());
         }
         
     }
@@ -323,21 +344,27 @@ public class FuncionesGraficadoras {
         }
         
     }
+    
+    protected void moverNumeradoresDerecha(ArrayList<Simbolo> lista_simbolos){
+        for(int i = 0; i<indicesNumeradores.size();i++){
+            lista_simbolos.get(this.indicesNumeradores.get(i)).moverDerecha(0.5);
+        }
+    }
 
     protected int posicionEnDenominador(ArrayList<Simbolo> lista_simbolos) {
         int nNumeradores = 0;
         int nDenominadores = 0;
         int pos;
-        //System.out.print("Denominadores: ");
+        ////System.out.print("Denominadores: ");
         for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
             if (lista_simbolos.get(i).getTipo() == 0) {
                 nDenominadores++;
-                //System.out.print(lista_simbolos.get(i).getValor());
+                ////System.out.print(lista_simbolos.get(i).getValor());
             } else {
-                //System.out.println("Numeradores: ");
+                ////System.out.println("Numeradores: ");
                 for (int j = i - 1; j >= 0; j--) {
                     if (lista_simbolos.get(j).getTipo() == 0) {
-                       // System.out.print(lista_simbolos.get(j).getValor());
+                       // //System.out.print(lista_simbolos.get(j).getValor());
                         nNumeradores++;
                     } else {
                         break;
@@ -348,12 +375,12 @@ public class FuncionesGraficadoras {
         }
 
         pos = nNumeradores - nDenominadores;
-        //System.out.println(pos);
+        ////System.out.println(pos);
         return pos;
     }
     
     protected void agregarNumeradores(ArrayList<Simbolo> lista_simbolos){
-        //System.out.print("Denominadores: ");
+        ////System.out.print("Denominadores: ");
         for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
             if (lista_simbolos.get(i).getTipo() == 0) {
                 this.indicesNumeradores.add(i);
@@ -366,32 +393,41 @@ public class FuncionesGraficadoras {
     }
     
     protected void debugPrintNumeradores(ArrayList<Simbolo> lista_simbolos){
+        System.out.println();
+        System.out.print("Valores de indices numeradores:");
         for(int i = 0;i<this.indicesNumeradores.size();i++){
             System.out.print(lista_simbolos.get(this.indicesNumeradores.get(i)).valor+" ");
         }
         System.out.println();
+        System.out.print("Valores de indices denominadores:");
         for(int i = 0;i<this.indicesDenominadores.size();i++){
             System.out.print(lista_simbolos.get(this.indicesDenominadores.get(i)).valor+" ");
         }
-        
-        System.out.println("Division combinada:");
+        System.out.println();
+        System.out.print("Division combinada:");
         if(indicesDivisionCombinada.size() > 0){
             for(int i = 0;i<this.indicesDivisionCombinada.size();i++){
-            System.out.print(indicesDivisionCombinada.get(i)+" ");
+            System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).valor+" ");
         }
         }else{
             System.out.println("");
         }
     }
 
-    protected void modificarLineaDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x) {
+    protected void modificarLineaDivision(ArrayList<Simbolo> lista_simbolos,double pivot_x) {
+        
+        double xInicio = pivot_x-(this.anchoDivision*15);
+        //System.out.println("Indice Ultima Division: "+indiceUltimaDivision);
+        lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
+        
+        /*
         int index = -1;
 
         for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
             if (lista_simbolos.get(i).getValor() == 13) {
                 index = i;
                 break;
-                //System.out.print(lista_simbolos.get(i));
+                ////System.out.print(lista_simbolos.get(i));
             }else if(lista_simbolos.get(i).getValor() > 9 && lista_simbolos.get(i).getValor() < 13){ //Si encuentra un operador
                 
                 index = -1;
@@ -404,6 +440,7 @@ public class FuncionesGraficadoras {
 
             s.division(s.forma[0], pivot_x);
         }
+        */
         
     }
 
@@ -475,7 +512,7 @@ public class FuncionesGraficadoras {
 
             }
         
-            //System.out.println("Pos: "+posicionEnDenominador(lista_simbolos));
+            ////System.out.println("Pos: "+posicionEnDenominador(lista_simbolos));
             if(divisionEliminada == 0){
                 if(posicionEnDenominador(lista_simbolos) <= -1){
                 moverListaHaciaDerecha(lista_simbolos,1);
@@ -484,8 +521,8 @@ public class FuncionesGraficadoras {
             }
             
         
-        //System.out.println("Denominador menor: "+denominadorMenor);
-        //System.out.println("DivisionActiva : "+divisionActiva);
+        ////System.out.println("Denominador menor: "+denominadorMenor);
+        ////System.out.println("DivisionActiva : "+divisionActiva);
         
 
         //Si no hay division, la lista se mueve hacia la derecha
@@ -493,8 +530,8 @@ public class FuncionesGraficadoras {
             moverListaHaciaDerecha(lista_simbolos,1);
           
         }
-        System.out.println("DivisionEliminada pre deteccion de simbolo /:"+divisionEliminada);
-        System.out.println("DivisionActiva pre deteccion de simbolo /:"+divisionActiva);
+        //System.out.println("DivisionEliminada pre deteccion de simbolo /:"+divisionEliminada);
+        //System.out.println("DivisionActiva pre deteccion de simbolo /:"+divisionActiva);
         
         //Si el simbolo eliminado es una division, los numeradores se mueven un 
         //espacio hacia abajo y a la derecha tantos espacios sea la diferencia de 
@@ -503,13 +540,13 @@ public class FuncionesGraficadoras {
             moverNumeradoresHaciaAbajo(lista_simbolos);
             divisionActiva = 0;
             divisionEliminada = 1;
-            //System.out.println("Diferencia numerador/denominador: "+diferenciaNumeradorDenominador);
+            ////System.out.println("Diferencia numerador/denominador: "+diferenciaNumeradorDenominador);
             //moverListaHaciaDerecha(lista_simbolos,diferenciaNumeradorDenominador);
             //diferenciaNumeradorDenominador = 0;
-            System.out.println("Division Eliminada");
+            //System.out.println("Division Eliminada");
         }
-        System.out.println("DivisionEliminada post deteccion de simbolo /:"+divisionEliminada);
-        System.out.println("DivisionActiva post deteccion de simbolo /:"+divisionActiva);
+        //System.out.println("DivisionEliminada post deteccion de simbolo /:"+divisionEliminada);
+        //System.out.println("DivisionActiva post deteccion de simbolo /:"+divisionActiva);
         
         
         //Borrado del simbolo
@@ -566,23 +603,23 @@ public class FuncionesGraficadoras {
             Simbolo s = lista_simbolos.get(i);
             if (s.valor > 9) {
                 if (s.valor == 10) {
-                    System.out.print(" + ");
+                    //System.out.print(" + ");
                 }
                 if (s.valor == 11) {
-                    System.out.print(" - ");
+                    //System.out.print(" - ");
                 }
                 if (s.valor == 12) {
-                    System.out.print(" * ");
+                    //System.out.print(" * ");
                 }
                 if (s.valor == 13) {
-                    System.out.print(" / ");
+                    //System.out.print(" / ");
                 }
             } else {
-                System.out.print(s.valor);
+                //System.out.print(s.valor);
             }
 
         }
-        System.out.println();
+        //System.out.println();
     }
 
 

@@ -157,7 +157,7 @@ public class Simbolo {
         }
     }
 
-    protected void moverDerecha(int factor) {
+    protected void moverDerecha(double factor) {
         for (int i = 0; i < this.forma.length; i = i + 2) {
             this.forma[i] = this.forma[i] + (espacio * factor);  // Coordenada X
         }
