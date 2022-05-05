@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
+import static javafx.scene.paint.Color.color;
+
 
 /**
  * FXML Controller class
@@ -68,7 +72,12 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected Button Btn_DEL;
-
+    
+    @FXML
+    protected Button Btn_adicional;
+    
+    @FXML
+    protected ColorPicker Btn_color;
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -84,6 +93,7 @@ public class InterfazController implements Initializable {
     double pivot_y = 200;
 
     double espacio_acumulado = 0;
+    Color colornumeros;
     ArrayList<Simbolo> lista_simbolos = new ArrayList();
 
     GraphicsContext gc;
@@ -216,7 +226,21 @@ public class InterfazController implements Initializable {
     protected void BotonPuntosControl_presionado() {
         fg.switchPuntosControl(lista_simbolos, gc, Display);
     }
+    
+    @FXML
+    protected void BotonaAdic_presionado() {
+        System.out.println("Funciona");
+    }
+    
 
+    @FXML
+    protected void BotonColor_presionar() {
+        System.out.println(Btn_color.getValue());
+        colornumeros= Color.valueOf(Btn_color.getValue().toString());
+        System.out.println(colornumeros);
+        lista_simbolos.get(lista_simbolos.size()-1).setColor(colornumeros);
+    }
+    
     /*
     @FXML
     protected void BotonMovDer_presionado(){
