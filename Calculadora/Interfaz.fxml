@@ -2,10 +2,8 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" pickOnBounds="false" prefHeight="651.0" prefWidth="439.0" styleClass="bodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadora.InterfazController">
@@ -109,11 +107,6 @@
             <Glow />
          </effect>
       </Button>
-      <Button fx:id="Btn_adicionales" layoutX="346.0" layoutY="445.0" mnemonicParsing="false" onAction="#BotonaAdic_presionado" prefHeight="92.0" prefWidth="31.0" text="&gt;" />
-      <ColorPicker fx:id="Btn_color" layoutX="208.0" layoutY="331.0" onAction="#BotonColor_presionar">
-         <value>
-            <Color />
-         </value>
-      </ColorPicker>
+      <Button fx:id="Btn_adicionales" layoutX="348.0" layoutY="445.0" mnemonicParsing="false" onAction="#BotonaAdic_presionado" prefHeight="92.0" prefWidth="31.0" text="&gt;" />
    </children>
 </AnchorPane>
