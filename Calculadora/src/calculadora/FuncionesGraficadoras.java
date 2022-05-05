@@ -185,6 +185,8 @@ public class FuncionesGraficadoras {
         if(puntosControlActivo == 1){
             s.switchPuntosControl();
         }
+        System.out.println("Pre numeradores: "+indicesNumeradores);
+        System.out.println("Pre Indice ultima division:"+indiceUltimaDivision);
         
         
         //Si es un operador *,+ o -, los valores se reestablecen
@@ -217,7 +219,7 @@ public class FuncionesGraficadoras {
         // y dibujar baja y se mueve hacia la izquierda
         if (divisionActiva == 1) {
             if(s.valor != 13){
-            ////System.out.println("Simbolo no 13 detectado.");
+            System.out.println(">Simbolo no 13 detectado.<");
                 if (denominadorMenor == 1) {
                     //System.out.println("Denominador Menor");
                     s.moverAbajo(1);
@@ -229,35 +231,44 @@ public class FuncionesGraficadoras {
                     moverListaHaciaIzquierda(lista_simbolos,1);
                 }
             }else if(alturaDivision == 0){ //Cuando hay division y se agrega otra division
-                //System.out.println("Division existente, agregando otra division");
+                System.out.println("----->Division existente, agregando otra division");
+                lista_simbolos.add(s);
                 //Concatenacion de indices a un arreglo
                 this.indicesDivisionCombinada.addAll(indicesNumeradores);
+                this.indicesDenominadores.remove(indicesDenominadores.size()-1);
+                //this.indicesNumeradores.add(lista_simbolos.size());
                 this.indicesDivisionCombinada.addAll(indicesDenominadores);
-                this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
+                this.indicesDenominadores.add(lista_simbolos.size()-1);
+                
+                
+                //this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
                 
                 this.indicesNumeradores.clear();
                 this.indicesNumeradores.addAll(indicesDenominadores);
-                this.indicesNumeradores.add(lista_simbolos.size());
+                this.indicesNumeradores.add(lista_simbolos.size()-1);
                 this.indicesDenominadores.clear();
                 
                 //Mueve la fraccion anterior hacia arriba
                 moverFraccionArriba(lista_simbolos,2);
                 //Actualiza el indice de la ultima division
-                indiceUltimaDivision = lista_simbolos.size();
+                indiceUltimaDivision = lista_simbolos.size()-1;
                 //Agrega el simbolo a la lista de simbolos
                 alturaDivision++;
+                
+            }else if (alturaDivision >0){
+                System.out.println("----->Division existente, agregando division sobre division");
                 lista_simbolos.add(s);
-            }else{
-                //System.out.println("Division existente, agregando division sobre division");
                 //Concatenacion de indices a un arreglo
+                this.indicesDenominadores.remove(indicesDenominadores.size()-1);
                 this.indicesDivisionCombinada.addAll(indicesDenominadores);
-                this.indicesDivisionCombinada.add(lista_simbolos.size());
-                this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
+                this.indicesDivisionCombinada.add(lista_simbolos.size()-1);
+                //this.indicesDivisionCombinada.add(lista_simbolos.size());
+                //this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
                 
                 //Los denominadores ahora son los numeradores en la nueva division
                 this.indicesNumeradores.clear();
                 this.indicesNumeradores.addAll(indicesDenominadores);
-                this.indicesNumeradores.add(lista_simbolos.size());
+                this.indicesNumeradores.add(lista_simbolos.size()-1);
                
                 this.indicesDenominadores.clear();
                 
@@ -268,10 +279,10 @@ public class FuncionesGraficadoras {
                 
                 
                 //Actualiza el indice de la ultima division
-                indiceUltimaDivision = lista_simbolos.size();
+                indiceUltimaDivision = lista_simbolos.size()-1;
                 //Agrega el simbolo a la lista de simbolos
                 alturaDivision++;
-                lista_simbolos.add(s);
+                
             }
         }
 
@@ -297,7 +308,10 @@ public class FuncionesGraficadoras {
         dibujarTodosLosSimbolos(gc, lista_simbolos);
 
         //text_debugger(lista_simbolos);
-        debugPrintNumeradores(lista_simbolos);
+        //debugPrintNumeradores(lista_simbolos);
+        
+        System.out.println("Post numeradores: "+indicesNumeradores);
+        System.out.println("Pre Indice ultima division:"+indiceUltimaDivision);
     }
     
     protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x){
@@ -333,7 +347,8 @@ public class FuncionesGraficadoras {
         //System.out.print("Movimiento de fracciones: ");
         for(int i = 0; i<indicesDivisionCombinada.size();i++){
             lista_simbolos.get(this.indicesDivisionCombinada.get(i)).moverArriba(posiciones);
-            //System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).getValor());
+            System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).getValor()
+            +" ");
         }
         
     }
