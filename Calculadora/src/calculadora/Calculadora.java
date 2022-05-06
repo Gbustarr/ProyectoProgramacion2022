@@ -5,10 +5,8 @@
  */
 package calculadora;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -26,7 +24,7 @@ public class Calculadora extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        AnchorPane root = FXMLLoader.load(getClass().getResource("Interfaz.fxml"));
+        AnchorPane root = FXMLLoader.load(getClass().getResource("Interfaz_basica.fxml"));
 
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.TRANSPARENT);
