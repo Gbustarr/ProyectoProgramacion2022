@@ -3,6 +3,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -106,6 +107,7 @@
                         <Glow />
                      </effect>
                   </Button>
+                  <TextField fx:id="textoSalida" editable="false" focusTraversable="false" layoutX="159.0" layoutY="349.0" prefHeight="25.0" prefWidth="211.0" />
                </children>
             </AnchorPane>
             <Canvas fx:id="Display" height="250.0" layoutX="50.0" layoutY="57.0" width="340.0" />

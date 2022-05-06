@@ -8,6 +8,7 @@ package calculadora;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 /**
@@ -36,9 +37,16 @@ public class Logica {
     int alturaDivision =0;
     int indiceUltimaDivision;
     
+    InterfazController context;
+
+    
     //FuncionesGraficadoras
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
     
+    public Logica(InterfazController context){
+        this.context = context;
+    }
+   
     
     protected void agregarSimbolo(GraphicsContext gc, int nSimbolo,
         ArrayList<Simbolo> lista_simbolos, double pivot_x, double pivot_y,
@@ -169,8 +177,8 @@ public class Logica {
         if(puntosControlActivo == 1){
             s.switchPuntosControl();
         }
-        System.out.println("Pre numeradores: "+indicesNumeradores);
-        System.out.println("Pre Indice ultima division:"+indiceUltimaDivision);
+        //System.out.println("Pre numeradores: "+indicesNumeradores);
+        //System.out.println("Pre Indice ultima division:"+indiceUltimaDivision);
         
         
         //Si es un operador *,+ o -, los valores se reestablecen
@@ -203,7 +211,7 @@ public class Logica {
         // y dibujar baja y se mueve hacia la izquierda
         if (divisionActiva == 1) {
             if(s.valor != 13){
-            System.out.println(">Simbolo no 13 detectado.<");
+            //System.out.println(">Simbolo no 13 detectado.<");
                 if (denominadorMenor == 1) {
                     //System.out.println("Denominador Menor");
                     s.moverAbajo(1);
@@ -215,7 +223,7 @@ public class Logica {
                     moverListaHaciaIzquierda(lista_simbolos,1);
                 }
             }else if(alturaDivision == 0){ //Cuando hay division y se agrega otra division
-                System.out.println("----->Division existente, agregando otra division");
+                //System.out.println("----->Division existente, agregando otra division");
                 lista_simbolos.add(s);
                 //Concatenacion de indices a un arreglo
                 this.indicesDivisionCombinada.addAll(indicesNumeradores);
@@ -240,7 +248,7 @@ public class Logica {
                 alturaDivision++;
                 
             }else if (alturaDivision >0){
-                System.out.println("----->Division existente, agregando division sobre division");
+                //System.out.println("----->Division existente, agregando division sobre division");
                 lista_simbolos.add(s);
                 //Concatenacion de indices a un arreglo
                 this.indicesDenominadores.remove(indicesDenominadores.size()-1);
@@ -291,11 +299,12 @@ public class Logica {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
 
-        //text_debugger(lista_simbolos);
+        text_debugger(lista_simbolos);
+        context.textoSalida.setText(listaATexto(lista_simbolos));
         //debugPrintNumeradores(lista_simbolos);
         
-        System.out.println("Post numeradores: "+indicesNumeradores);
-        System.out.println("Pre Indice ultima division:"+indiceUltimaDivision);
+        //System.out.println("Post numeradores: "+indicesNumeradores);
+        //System.out.println("Pre Indice ultima division:"+indiceUltimaDivision);
     }
     
     protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x){
@@ -323,6 +332,7 @@ public class Logica {
         indicesDenominadores.clear();
         indicesDivisionCombinada.clear();
         alturaDivision = 0;
+        context.textoSalida.setText("");
     
     }
     
@@ -407,6 +417,7 @@ public class Logica {
             for(int i = 0;i<this.indicesDivisionCombinada.size();i++){
             System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).valor+" ");
         }
+            System.out.println();
         }else{
             System.out.println("");
         }
@@ -524,23 +535,58 @@ public class Logica {
             Simbolo s = lista_simbolos.get(i);
             if (s.valor > 9) {
                 if (s.valor == 10) {
-                    //System.out.print(" + ");
+                    System.out.print(" + ");
+                    
                 }
                 if (s.valor == 11) {
-                    //System.out.print(" - ");
+                    System.out.print(" - ");
                 }
                 if (s.valor == 12) {
-                    //System.out.print(" * ");
+                    System.out.print(" * ");
                 }
                 if (s.valor == 13) {
-                    //System.out.print(" / ");
+                    System.out.print(" / ");
                 }
             } else {
-                //System.out.print(s.valor);
+                System.out.print(s.valor);
             }
 
         }
-        //System.out.println();
+        System.out.println();
+    }
+    
+    protected String listaATexto(ArrayList<Simbolo> lista_simbolos) {
+        
+        String string = "";
+        
+        for (int i = 0; i < lista_simbolos.size(); i++) {
+            Simbolo s = lista_simbolos.get(i);
+            if (s.valor > 9) {
+                if (s.valor == 10) {
+                    System.out.print(" + ");
+                    string = string+" + ";
+                }
+                if (s.valor == 11) {
+                    System.out.print(" - ");
+                    string = string+" - ";
+                }
+                if (s.valor == 12) {
+                    System.out.print(" * ");
+                    string = string+" * ";
+                }
+                if (s.valor == 13) {
+                    System.out.print(" / ");
+                    string = string+" / ";
+                }
+            } else {
+                System.out.print(s.valor);
+                string = string+ s.valor;
+            }
+
+        }
+        System.out.println();
+        
+        return string;
     }
     
     protected void borrarUltimo(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos, double pivot_x, Canvas Display) {

@@ -13,12 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -76,6 +73,9 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected Button Btn_Cientifico;
+    
+    @FXML
+    protected TextField textoSalida;
 
     /*
     @FXML
@@ -97,7 +97,7 @@ public class InterfazController implements Initializable {
 
     GraphicsContext gc;
 
-    Logica l = new Logica();
+    Logica l = new Logica(this);
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
 
     @FXML
