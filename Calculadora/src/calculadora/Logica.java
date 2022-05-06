@@ -38,6 +38,7 @@ public class Logica {
     int indiceUltimaDivision;
     
     InterfazController context;
+    InterfazControllerCientifica contextCientifica;
 
     
     //FuncionesGraficadoras
@@ -45,6 +46,10 @@ public class Logica {
     
     public Logica(InterfazController context){
         this.context = context;
+    }
+    
+    public Logica(InterfazControllerCientifica context){
+        this.contextCientifica = context;
     }
    
     
@@ -333,7 +338,6 @@ public class Logica {
         indicesDivisionCombinada.clear();
         alturaDivision = 0;
         context.textoSalida.setText("");
-    
     }
     
     protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){

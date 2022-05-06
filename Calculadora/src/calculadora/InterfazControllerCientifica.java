@@ -97,7 +97,7 @@ public class InterfazControllerCientifica implements Initializable {
     GraphicsContext gc;
 
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
-    Logica l = new Logica();
+    Logica l = new Logica(this);
 
     void setController(InterfazController controller) {
         this.controller = controller;
