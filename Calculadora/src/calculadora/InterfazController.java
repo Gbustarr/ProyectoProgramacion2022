@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -84,6 +85,9 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected Button Btn_Panel;
+    
+    @FXML 
+    protected TextArea textArea;
 
     /*
     @FXML
@@ -108,7 +112,7 @@ public class InterfazController implements Initializable {
     Logica l = new Logica(this);
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
     
-    Interfaz_panelController panelContext = new Interfaz_panelController();
+    Interfaz_panelController panelContext;
     
     
 
@@ -242,14 +246,20 @@ public class InterfazController implements Initializable {
     }
     
     @FXML
-    protected void BotonPanel_presionado(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
-        Parent root = loader.load();
-        Interfaz_panelController AC = loader.getController();
-        AC.setController(this);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+    protected void BotonPanel_presionado() throws IOException {
+        if(l.panelAgregado ==0){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
+            Parent root = loader.load();
+            panelContext = loader.getController();
+            panelContext.setController(this);
+            panelContext.setTextArea();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            l.panelAgregado = 1;
+        }else{
+            
+        }
     }
 
     /*

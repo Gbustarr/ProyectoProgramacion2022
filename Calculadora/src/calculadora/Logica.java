@@ -5,10 +5,10 @@
  */
 package calculadora;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 /**
@@ -39,6 +39,8 @@ public class Logica {
     
     InterfazController context;
     InterfazControllerCientifica contextCientifica;
+    
+    int panelAgregado = 0;
 
     
     //FuncionesGraficadoras
@@ -311,6 +313,10 @@ public class Logica {
         
         //System.out.println("Post numeradores: "+indicesNumeradores);
         //System.out.println("Pre Indice ultima division:"+indiceUltimaDivision);
+        
+        if(panelAgregado == 1){
+            context.panelContext.setTextArea();
+        }
     }
     
     protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x){

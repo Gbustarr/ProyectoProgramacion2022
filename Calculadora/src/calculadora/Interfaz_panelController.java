@@ -30,6 +30,9 @@ public class Interfaz_panelController implements Initializable {
         
     }
     
+    protected void setTextArea(){
+        textArea.setText(ic.textoSalida.getText());
+    }
     
 
     /**
@@ -37,7 +40,6 @@ public class Interfaz_panelController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     
