@@ -72,6 +72,7 @@ public class Logica {
                 forma = cs.cero(pivot_x, pivot_y);
                 s.setForma(forma);
                 s.setValor(0);
+                s.setColor(context.colorNum);
                 s.setTipo(0);
                 lista_simbolos.add(s);
                 break;
@@ -79,6 +80,7 @@ public class Logica {
                 forma = cs.uno(pivot_x, pivot_y);
                 s.setValor(1);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -86,6 +88,7 @@ public class Logica {
                 forma = cs.dos(pivot_x, pivot_y);
                 s.setValor(2);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -93,6 +96,7 @@ public class Logica {
                 forma = cs.tres(pivot_x, pivot_y);
                 s.setValor(3);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -100,6 +104,7 @@ public class Logica {
                 forma = cs.cuatro(pivot_x, pivot_y);
                 s.setValor(4);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -107,6 +112,7 @@ public class Logica {
                 forma = cs.cinco(pivot_x, pivot_y);
                 s.setValor(5);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -114,6 +120,7 @@ public class Logica {
                 forma = cs.seis(pivot_x, pivot_y);
                 s.setValor(6);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -122,6 +129,7 @@ public class Logica {
                 forma = cs.siete(pivot_x, pivot_y);
                 s.setValor(7);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -129,6 +137,7 @@ public class Logica {
                 forma = cs.ocho(pivot_x, pivot_y);
                 s.setValor(8);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -136,6 +145,7 @@ public class Logica {
                 forma = cs.nueve(pivot_x, pivot_y);
                 s.setValor(9);
                 s.setTipo(0);
+                s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
@@ -143,34 +153,34 @@ public class Logica {
                 forma = cs.mas(pivot_x, pivot_y);
                 s.setValor(10);
                 s.setTipo(1);
+                s.setColor(context.colorOp);
                 s.setForma(forma);
-                s.setColor(Color.RED);
                 lista_simbolos.add(s);
                 break;
             case 11:
                 forma = cs.menos(pivot_x, pivot_y);
                 s.setValor(11);
                 s.setTipo(1);
+                s.setColor(context.colorOp);
                 s.setForma(forma);
-                s.setColor(Color.RED);
                 lista_simbolos.add(s);
                 break;
             case 12:
                 forma = cs.multiplicar(pivot_x, pivot_y);
                 s.setValor(12);
                 s.setTipo(1);
+                s.setColor(context.colorOp);
                 s.setForma(forma);
-                s.setColor(Color.RED);
                 lista_simbolos.add(s);
                 break;
             case 13:
                 forma = cs.dividir(pivot_x, pivot_y);
                 s.setValor(13);
                 s.setTipo(1);
+                s.setColor(context.colorOp);
                 s.setForma(forma);
                 xInicioDivision = coordenadaXDivision(lista_simbolos,pivot_x);
                 s.division(xInicioDivision, pivot_x);
-                s.setColor(Color.RED);
                 if(divisionActiva == 0){
                     agregarNumeradores(lista_simbolos);
                     moverNumeradoresArriba(lista_simbolos);

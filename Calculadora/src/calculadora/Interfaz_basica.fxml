@@ -3,6 +3,11 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -99,7 +104,7 @@
                         <Font name="Consolas" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="379.0" layoutY="349.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="C">
+                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" disable="true" layoutX="379.0" layoutY="349.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="C">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -107,7 +112,7 @@
                         <Glow />
                      </effect>
                   </Button>
-                  <TextField fx:id="textoSalida" editable="false" focusTraversable="false" layoutX="159.0" layoutY="349.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: gold;" />
+                  <TextField fx:id="textoSalida" disable="true" editable="false" focusTraversable="false" layoutX="159.0" layoutY="349.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: gold;" visible="false" />
                   <Button fx:id="Btn_puntosControl" blendMode="OVERLAY" layoutX="120.0" layoutY="348.0" mnemonicParsing="false" onAction="#BotonPuntosControl_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="P">
                      <font>
                         <Font name="Consolas" size="15.0" />
@@ -116,7 +121,7 @@
                         <Glow />
                      </effect>
                   </Button>
-                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="379.0" layoutY="389.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="P">
+                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="379.0" layoutY="389.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="S">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -124,6 +129,26 @@
                         <Glow />
                      </effect>
                   </Button>
+                  <MenuButton layoutX="159.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" text="Opciones">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Color Numeros">
+                           <graphic>
+                              <ColorPicker fx:id="colorNumeros" onAction="#BotonColorNumeros_presionado" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Color Operadores">
+                           <graphic>
+                              <ColorPicker fx:id="colorOperadores" onAction="#BotonColorOperadores_presionado" />
+                           </graphic>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem mnemonicParsing="false" text="Tamaño Caracteres">
+                           <graphic>
+                              <Slider fx:id="tamanoCaracteres" blockIncrement="1.0" disable="true" majorTickUnit="1.0" max="8.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                           </graphic>
+                        </MenuItem>
+                    </items>
+                  </MenuButton>
                </children>
             </AnchorPane>
             <Canvas fx:id="Display" height="250.0" layoutX="50.0" layoutY="57.0" width="340.0" />

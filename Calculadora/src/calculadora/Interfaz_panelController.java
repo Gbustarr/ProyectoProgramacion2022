@@ -9,7 +9,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -21,17 +23,27 @@ public class Interfaz_panelController implements Initializable {
     @FXML
     TextArea textArea;
     
-    InterfazController ic;
+    @FXML
+    Button Btn_Close;
+    
+    InterfazController context;
 
     
     
     protected void setController(InterfazController ic) {
-        this.ic = ic;
+        this.context = ic;
         
     }
     
     protected void setTextArea(){
-        textArea.setText(ic.textoSalida.getText());
+        textArea.setText(context.textoSalida.getText());
+    }
+    @FXML
+    protected void Cerrar() {
+        Stage stage = (Stage) Btn_Close.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+        context.l.panelAgregado = 0;
     }
     
 
