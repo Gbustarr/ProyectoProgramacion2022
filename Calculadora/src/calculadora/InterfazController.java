@@ -13,9 +13,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -76,6 +81,9 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected TextField textoSalida;
+    
+    @FXML
+    protected Button Btn_Panel;
 
     /*
     @FXML
@@ -99,6 +107,10 @@ public class InterfazController implements Initializable {
 
     Logica l = new Logica(this);
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
+    
+    Interfaz_panelController panelContext = new Interfaz_panelController();
+    
+    
 
     @FXML
     protected void Boton0_presionado() {
@@ -228,6 +240,17 @@ public class InterfazController implements Initializable {
     protected void BotonPuntosControl_presionado() {
         l.switchPuntosControl(lista_simbolos, gc, Display);
     }
+    
+    @FXML
+    protected void BotonPanel_presionado(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
+        Parent root = loader.load();
+        Interfaz_panelController AC = loader.getController();
+        AC.setController(this);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
     /*
     @FXML
@@ -279,6 +302,7 @@ public class InterfazController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
+        
     }
 
 }

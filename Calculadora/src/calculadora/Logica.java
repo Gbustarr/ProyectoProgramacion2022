@@ -306,6 +306,7 @@ public class Logica {
 
         text_debugger(lista_simbolos);
         context.textoSalida.setText(listaATexto(lista_simbolos));
+        //context.panelContext.
         //debugPrintNumeradores(lista_simbolos);
         
         //System.out.println("Post numeradores: "+indicesNumeradores);
