@@ -13,9 +13,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -76,7 +85,22 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected TextField textoSalida;
+    
+    @FXML
+    protected Button Btn_Panel;
+    
+    @FXML 
+    protected TextArea textArea;
 
+    @FXML
+    protected ColorPicker colorNumeros;
+
+    @FXML
+    protected ColorPicker colorOperadores;
+
+    @FXML
+    protected Slider tamanoCaracteres;
+    
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -99,6 +123,17 @@ public class InterfazController implements Initializable {
 
     Logica l = new Logica(this);
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
+    
+    Interfaz_panelController panelContext;
+    
+    
+    //Para los colores de los numeros y operadores
+    Color colorNum = Color.GREEN;
+    Color colorOp = Color.RED;
+    
+    //Para el movimiento de la ventana panel
+    private double x, y = 0;
+    
 
     @FXML
     protected void Boton0_presionado() {
@@ -228,6 +263,49 @@ public class InterfazController implements Initializable {
     protected void BotonPuntosControl_presionado() {
         l.switchPuntosControl(lista_simbolos, gc, Display);
     }
+    
+    @FXML
+    protected void BotonPanel_presionado() throws IOException {
+        if(l.panelAgregado ==0){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
+            Parent root = loader.load();
+            
+            
+            Scene scene = new Scene(root);
+            panelContext = loader.getController();
+            panelContext.setController(this);
+            panelContext.setTextArea();
+            
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+            //Para el movimiento de el programa mediante el mouse
+            root.setOnMousePressed(mouseEvent -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+
+            root.setOnMouseDragged(mouseEvent -> {
+                stage.setX(mouseEvent.getScreenX() - x);
+                stage.setY(mouseEvent.getScreenY() - y);
+            });
+            stage.show();
+            l.panelAgregado = 1;
+        }
+    }
+    
+    @FXML
+    protected void BotonColorNumeros_presionado(){
+        colorNum= Color.valueOf(colorNumeros.getValue().toString());
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOperadores_presionado(){
+        colorOp= Color.valueOf(colorOperadores.getValue().toString());
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
 
     /*
     @FXML
@@ -279,6 +357,7 @@ public class InterfazController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
+        
     }
 
 }
