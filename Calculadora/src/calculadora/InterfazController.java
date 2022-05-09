@@ -71,6 +71,9 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected Button Btn_dividir;
+    
+    @FXML
+    protected Button Btn_potencia;
 
     @FXML
     protected Canvas Display;
@@ -226,7 +229,7 @@ public class InterfazController implements Initializable {
         }
 
     }
-
+    
     @FXML
     protected void BotonDivision_presionado() {
         if (/*l.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
@@ -237,6 +240,13 @@ public class InterfazController implements Initializable {
             }
         }
 
+    }
+    
+    @FXML
+    protected void BotonO_presionado(){
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0){
+            fg.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+        }
     }
 
     @FXML

@@ -63,6 +63,11 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
+      <Button fx:id="Btn_o" blendMode="OVERLAY" layoutX="277.0" layoutY="300.0" mnemonicParsing="false" onAction="#BotonO_presionado" prefHeight="50.0" prefWidth="40.0" text="*">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
       <Button fx:id="Btn_dividir" blendMode="OVERLAY" layoutX="277.0" layoutY="363.0" mnemonicParsing="false" onAction="#BotonDivision_presionado" prefHeight="51.0" prefWidth="57.0" text="/">
          <font>
             <Font size="24.0" />
