@@ -242,12 +242,6 @@ public class InterfazController implements Initializable {
 
     }
     
-    @FXML
-    protected void BotonO_presionado(){
-        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0){
-            fg.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
-        }
-    }
 
     @FXML
     protected void BotonDEL_presionado() {
