@@ -5,11 +5,9 @@
  */
 package calculadora;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -448,29 +446,12 @@ public class Logica {
         
         double xInicio = pivot_x-(this.anchoDivision*15);
         //System.out.println("Indice Ultima Division: "+indiceUltimaDivision);
-        lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
-        
-        /*
-        int index = -1;
-
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).getValor() == 13) {
-                index = i;
-                break;
-                ////System.out.print(lista_simbolos.get(i));
-            }else if(lista_simbolos.get(i).getValor() > 9 && lista_simbolos.get(i).getValor() < 13){ //Si encuentra un operador
-                
-                index = -1;
-                break;
-            }
+        if(alturaDivision == 0){
+            lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
+        }else{
+            xInicio = xInicio +15;
+            lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
         }
-        
-        if(index != -1){
-            Simbolo s = lista_simbolos.get(index);
-
-            s.division(s.forma[0], pivot_x);
-        }
-        */
         
     }
 
@@ -531,6 +512,24 @@ public class Logica {
             return 1;
         }
 
+    }
+    
+    protected int bloqueadorSignoNegativo(ArrayList<Simbolo> lista_simbolos){
+    
+        if(lista_simbolos.isEmpty()){
+            return 1;
+        }else{
+            if(lista_simbolos.size() >0){
+                if(lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 0 || (lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 1 && lista_simbolos.get(lista_simbolos.size()-2).getTipo() == 0 )){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }else{
+                return 0;
+            }
+        }
+        
     }
     
     protected void switchPuntosControl(ArrayList<Simbolo> lista_simbolos,GraphicsContext gc, Canvas Display){
