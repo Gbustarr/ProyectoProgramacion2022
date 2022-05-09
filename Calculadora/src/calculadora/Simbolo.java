@@ -42,6 +42,7 @@ public class Simbolo {
         //System.out.println("Simbolo: " +this.valor);
         for (int i = 0; i < this.forma.length; i = i + 4) {
             gc.setStroke(this.color);
+            gc.setLineWidth(2); //Cambia el tamaño de las lineas
             gc.strokeLine((this.forma[i]) * Xfactor, this.forma[i + 1] * Yfactor,
                 (this.forma[i + 2]) * Xfactor, this.forma[i + 3] * Yfactor);
 
@@ -157,7 +158,7 @@ public class Simbolo {
         }
     }
 
-    protected void moverDerecha(int factor) {
+    protected void moverDerecha(double factor) {
         for (int i = 0; i < this.forma.length; i = i + 2) {
             this.forma[i] = this.forma[i] + (espacio * factor);  // Coordenada X
         }
