@@ -161,6 +161,13 @@ public class FuncionesGraficadoras {
                 s.setColor(Color.RED);
                 lista_simbolos.add(s);
                 break;
+            case 14:
+                forma =cs.o(pivot_x, pivot_y);
+                s.setValor(14);
+                s.setTipo(1);
+                s.setForma(forma);
+                s.setColor(Color.RED);
+                lista_simbolos.add(s);
         }
         
         if(puntosControlActivo == 1){
