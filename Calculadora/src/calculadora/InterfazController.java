@@ -310,6 +310,11 @@ public class InterfazController implements Initializable {
         colorOp= Color.valueOf(colorOperadores.getValue().toString());
         fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
     }
+    
+    @FXML
+    protected void Slider_presionado(){
+        System.out.println(tamanoCaracteres.getValue());
+    }
 
     /*
     @FXML

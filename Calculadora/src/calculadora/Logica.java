@@ -415,8 +415,6 @@ public class Logica {
                 break;
             }
         }
-        
-        
     }
     
     protected void debugPrintNumeradores(ArrayList<Simbolo> lista_simbolos){
@@ -529,7 +527,6 @@ public class Logica {
                 return 0;
             }
         }
-        
     }
     
     protected void switchPuntosControl(ArrayList<Simbolo> lista_simbolos,GraphicsContext gc, Canvas Display){

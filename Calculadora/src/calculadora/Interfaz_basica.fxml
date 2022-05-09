@@ -144,7 +144,7 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
                       <MenuItem mnemonicParsing="false" text="Tamaño Caracteres">
                            <graphic>
-                              <Slider fx:id="tamanoCaracteres" blockIncrement="1.0" disable="true" majorTickUnit="1.0" max="8.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                              <Slider fx:id="tamanoCaracteres" blockIncrement="1.0" majorTickUnit="1.0" max="8.0" min="1.0" minorTickCount="0" onMouseReleased="#Slider_presionado" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
                            </graphic>
                         </MenuItem>
                     </items>
