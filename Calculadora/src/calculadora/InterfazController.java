@@ -104,6 +104,8 @@ public class InterfazController implements Initializable {
     @FXML
     protected Slider tamanoCaracteres;
     
+    @FXML
+    protected Button Btn_operador;
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -239,9 +241,12 @@ public class InterfazController implements Initializable {
 
             }
         }
-
     }
     
+    @FXML
+    protected void BtnOperador_presionado(){
+        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+    }
 
     @FXML
     protected void BotonDEL_presionado() {
@@ -258,6 +263,7 @@ public class InterfazController implements Initializable {
         if (lista_simbolos.size() > 0) {
             l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
+            l.context.
             l.divisionActiva = 0;
         }
 

@@ -20,7 +20,7 @@ public class Simbolo {
     double Ypos;
     double[] forma;
     Color color = Color.GREEN;
-    int tipo; //0 = numero, 1= operador
+    int tipo; //0 = numero, 1= operador, 2 = operador especial
     int valor;
     int enDivision = 0;
     int puntosControl = 0;
@@ -138,6 +138,17 @@ public class Simbolo {
 
     public void setValor(int valor) {
         this.valor = valor;
+    }
+    
+    protected void concatenarForma(double[] formaAdicional){
+        int forma1len = forma.length;
+        int forma2len = formaAdicional.length;
+        
+        double[] formaFinal = new double[forma1len+forma2len];
+        System.arraycopy(this.forma, 0, formaFinal, 0, forma1len);
+        System.arraycopy(formaAdicional,0,formaFinal,forma1len,forma2len);
+        
+        this.forma = formaFinal;
     }
 
     protected void moverArriba(double factor) {

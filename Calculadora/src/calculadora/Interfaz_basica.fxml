@@ -149,6 +149,7 @@
                         </MenuItem>
                     </items>
                   </MenuButton>
+                  <Button fx:id="Btn_operador" layoutX="41.0" layoutY="376.0" mnemonicParsing="false" onAction="#BtnOperador_presionado" text="Button" />
                </children>
             </AnchorPane>
             <Canvas fx:id="Display" height="250.0" layoutX="50.0" layoutY="57.0" width="340.0" />

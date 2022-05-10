@@ -8,6 +8,7 @@ package calculadora;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -186,6 +187,30 @@ public class Logica {
                     indiceUltimaDivision = lista_simbolos.size();
                     lista_simbolos.add(s);
                 }
+                break;
+            case 14: //Seno
+                s.setValor(14);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                formaOperadorCientifico(14,pivot_x,pivot_y,s);
+                lista_simbolos.add(s);
+                moverListaHaciaIzquierda(lista_simbolos,2);
+                break;
+             case 15: //Coseno
+                s.setValor(15);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                formaOperadorCientifico(15,pivot_x,pivot_y,s);
+                lista_simbolos.add(s);
+                moverListaHaciaIzquierda(lista_simbolos,2);
+                break;
+             case 16: //Tangente
+                s.setValor(16);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                formaOperadorCientifico(16,pivot_x,pivot_y,s);
+                lista_simbolos.add(s);
+                moverListaHaciaIzquierda(lista_simbolos,2);
                 break;
         }
         //Para activar los puntos de control de los simbolos
@@ -370,6 +395,44 @@ public class Logica {
             lista_simbolos.get(this.indicesNumeradores.get(i)).moverArriba(1);
         }
         
+    }
+    
+    protected void formaOperadorCientifico(int valor,double pivot_x, double pivot_y,Simbolo s){
+        
+        double []forma;
+        
+        switch(valor){
+            case 14: //Operador Seno
+                forma = cs.s(pivot_x, pivot_y); //Agrega la S
+                s.forma = forma;
+                s.moverIzquierda(1);
+                forma = cs.i(pivot_x, pivot_y); //Agregar I
+                s.concatenarForma(forma);
+                s.moverIzquierda(1);
+                forma = cs.n(pivot_x, pivot_y); //Agregar N
+                s.concatenarForma(forma);
+                break;
+             case 15: //Operador Coseno
+                forma = cs.c(pivot_x, pivot_y); //Agrega la C
+                s.forma = forma;
+                s.moverIzquierda(1);
+                forma = cs.o(pivot_x, pivot_y); //Agregar O
+                s.concatenarForma(forma);
+                s.moverIzquierda(1);
+                forma = cs.s(pivot_x, pivot_y); //Agregar S
+                s.concatenarForma(forma);
+                break;
+            case 16: //Operador Tangente
+                forma = cs.t(pivot_x, pivot_y); //Agrega la T
+                s.forma = forma;
+                s.moverIzquierda(1);
+                forma = cs.a(pivot_x, pivot_y); //Agregar A
+                s.concatenarForma(forma);
+                s.moverIzquierda(1);
+                forma = cs.n(pivot_x, pivot_y); //Agregar N
+                s.concatenarForma(forma);
+                break;
+        }
     }
     
     protected void moverNumeradoresDerecha(ArrayList<Simbolo> lista_simbolos){
