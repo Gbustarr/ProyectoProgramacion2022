@@ -5,6 +5,7 @@
  */
 package calculadora;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -17,7 +18,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -64,6 +72,9 @@ public class InterfazControllerCientifica implements Initializable {
 
     @FXML
     protected Button Btn_dividir;
+    
+    @FXML
+    protected Button Btn_potencia;
 
     @FXML
     protected Canvas Display;
@@ -75,7 +86,32 @@ public class InterfazControllerCientifica implements Initializable {
     
     @FXML
     protected Button Btn_Cientifico;
+    
+    @FXML
+    protected TextField textoSalida;
+    
+    @FXML
+    protected Button Btn_Panel;
+    
+    @FXML 
+    protected TextArea textArea;
 
+    @FXML
+    protected ColorPicker colorNumeros;
+
+    @FXML
+    protected ColorPicker colorOperadores;
+
+    @FXML
+    protected Slider tamanoCaracteres;
+    
+    @FXML
+    protected Button Btn_Sen;
+    @FXML
+    protected Button Btn_Cos;
+    @FXML
+    protected Button Btn_Tan;
+    
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -86,7 +122,7 @@ public class InterfazControllerCientifica implements Initializable {
      */
     @FXML
     protected Button Btn_puntosControl;
-    protected InterfazController controller;
+    protected InterfazControllerCientifica controller;
 
     double pivot_x = 300;
     double pivot_y = 200;
@@ -96,12 +132,24 @@ public class InterfazControllerCientifica implements Initializable {
 
     GraphicsContext gc;
 
-    FuncionesGraficadoras fg = new FuncionesGraficadoras();
     Logica l = new Logica(this);
+    FuncionesGraficadoras fg = new FuncionesGraficadoras();
+    
+    Interfaz_panelController panelContext;
+    
+    
+    //Para los colores de los numeros y operadores
+    Color colorNum = Color.GREEN;
+    Color colorOp = Color.RED;
+    
+    //Para el movimiento de la ventana panel
+    private double x, y = 0;
+    
+    //Para el cambio de basica a cientifica
+    
+    @FXML
+    AnchorPane rootPane;
 
-    void setController(InterfazController controller) {
-        this.controller = controller;
-    }
     @FXML
     protected void Boton0_presionado() {
 
@@ -181,7 +229,7 @@ public class InterfazControllerCientifica implements Initializable {
 
     @FXML
     protected void BotonMenos_presionado() {
-        if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+        if (l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
             l.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
@@ -193,17 +241,34 @@ public class InterfazControllerCientifica implements Initializable {
         }
 
     }
-
+    
     @FXML
     protected void BotonDivision_presionado() {
-        if (l.divisionActiva != 1 && lista_simbolos.size() > 0) {
+        if (/*l.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
             if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
-                l.moverNumeradoresHaciaArriba(lista_simbolos);
+                //l.moverNumeradoresHaciaArriba(lista_simbolos);
                 l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
 
             }
         }
-
+    }
+    
+    @FXML
+    protected void BtnOperador_presionado(){
+        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonSeno_presionado(){
+        l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    @FXML
+    protected void BotonCos_presionado(){
+        l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    @FXML
+    protected void BotonTan_presionado(){
+        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
     }
 
     @FXML
@@ -214,12 +279,17 @@ public class InterfazControllerCientifica implements Initializable {
         }
 
     }
+    
+    
 
     @FXML
     protected void BotonAC_presionado() {
 
         if (lista_simbolos.size() > 0) {
+            l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
+            l.context.
+            l.divisionActiva = 0;
         }
 
     }
@@ -227,6 +297,54 @@ public class InterfazControllerCientifica implements Initializable {
     @FXML
     protected void BotonPuntosControl_presionado() {
         l.switchPuntosControl(lista_simbolos, gc, Display);
+    }
+    
+    @FXML
+    protected void BotonPanel_presionado() throws IOException {
+        if(l.panelAgregado ==0){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
+            Parent root = loader.load();
+            
+            
+            Scene scene = new Scene(root);
+            panelContext = loader.getController();
+            panelContext.setControllerC(this);
+            panelContext.setTextArea();
+            
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+            //Para el movimiento de el programa mediante el mouse
+            root.setOnMousePressed(mouseEvent -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+
+            root.setOnMouseDragged(mouseEvent -> {
+                stage.setX(mouseEvent.getScreenX() - x);
+                stage.setY(mouseEvent.getScreenY() - y);
+            });
+            stage.show();
+            l.panelAgregado = 1;
+        }
+    }
+    
+    @FXML
+    protected void BotonColorNumeros_presionado(){
+        colorNum= Color.valueOf(colorNumeros.getValue().toString());
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOperadores_presionado(){
+        colorOp= Color.valueOf(colorOperadores.getValue().toString());
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void Slider_presionado(){
+        System.out.println(tamanoCaracteres.getValue());
     }
 
     /*
@@ -255,8 +373,18 @@ public class InterfazControllerCientifica implements Initializable {
      */
     
     @FXML
-    protected void BotonCientifico_presionado(){
-
+    protected void BotonCientifico_presionado() throws IOException{
+    /*
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_cientifica.fxml"));
+        Parent root = loader.load();
+        InterfazControllerCientifica AC = loader.getController();
+        AC.setController(this);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        */
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("Interfaz_cientifica.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
     
     
@@ -271,6 +399,7 @@ public class InterfazControllerCientifica implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
+        
     }
 
 }

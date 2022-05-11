@@ -22,6 +22,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -104,8 +105,6 @@ public class InterfazController implements Initializable {
     @FXML
     protected Slider tamanoCaracteres;
     
-    @FXML
-    protected Button Btn_operador;
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -139,6 +138,10 @@ public class InterfazController implements Initializable {
     //Para el movimiento de la ventana panel
     private double x, y = 0;
     
+    //Para el cambio de basica a cientifica
+    
+    @FXML
+    AnchorPane rootPane;
 
     @FXML
     protected void Boton0_presionado() {
@@ -358,6 +361,8 @@ public class InterfazController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
         */
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("Interfaz_cientifica.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
     
     

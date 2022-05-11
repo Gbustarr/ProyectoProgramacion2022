@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" pickOnBounds="false" prefHeight="693.0" prefWidth="527.0" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadora.InterfazController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" pickOnBounds="false" prefHeight="693.0" prefWidth="527.0" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadora.InterfazController">
    <children>
       <Group layoutX="58.0" layoutY="17.0">
          <children>
@@ -104,7 +104,7 @@
                         <Font name="Consolas" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" disable="true" layoutX="379.0" layoutY="349.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="C">
+                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="379.0" layoutY="349.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="C">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -149,7 +149,6 @@
                         </MenuItem>
                     </items>
                   </MenuButton>
-                  <Button fx:id="Btn_operador" layoutX="41.0" layoutY="376.0" mnemonicParsing="false" onAction="#BtnOperador_presionado" text="Button" />
                </children>
             </AnchorPane>
             <Canvas fx:id="Display" height="250.0" layoutX="50.0" layoutY="57.0" width="340.0" />
