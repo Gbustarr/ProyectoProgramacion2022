@@ -383,7 +383,7 @@ public class InterfazControllerCientifica implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
         */
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("Interfaz_cientifica.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("Interfaz_basica.fxml"));
         rootPane.getChildren().setAll(pane);
     }
     

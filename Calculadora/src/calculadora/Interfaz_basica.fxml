@@ -104,7 +104,7 @@
                         <Font name="Consolas" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="379.0" layoutY="349.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="C">
+                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" disable="true" layoutX="379.0" layoutY="349.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="C">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
