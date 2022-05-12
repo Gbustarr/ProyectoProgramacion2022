@@ -378,6 +378,7 @@ public class Logica {
         indicesDivisionCombinada.clear();
         alturaDivision = 0;
         context.textoSalida.setText("");
+        context.panelContext.setTextArea();
     }
     
     protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){

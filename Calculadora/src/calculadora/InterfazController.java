@@ -404,7 +404,9 @@ public class InterfazController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
-        
+        fg.limpiarCanvas(gc, Display);
+        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        System.out.println("Dibujando todos los simbolos");
     }
 
 }
