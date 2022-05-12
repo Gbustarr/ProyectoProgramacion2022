@@ -352,23 +352,50 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected void BotonCientifico_presionado() throws IOException{
-    /*
+    
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_cientifica.fxml"));
         Parent root = loader.load();
         InterfazControllerCientifica AC = loader.getController();
         AC.setController(this);
+        rootPane.setVisible(false);
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        //Para el movimiento de el programa mediante el mouse
+            root.setOnMousePressed(mouseEvent -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+
+            root.setOnMouseDragged(mouseEvent -> {
+                stage.setX(mouseEvent.getScreenX() - x);
+                stage.setY(mouseEvent.getScreenY() - y);
+            });
         stage.show();
-        */
+        
+        /*
+        
+        InterfazControllerCientifica contextCientifica = new InterfazControllerCientifica();
+        contextCientifica.setContext(this);
         AnchorPane pane = FXMLLoader.load(getClass().getResource("Interfaz_cientifica.fxml"));
         rootPane.getChildren().setAll(pane);
+        */
     }
     
     
     @FXML
     protected void Cerrar() {
         Platform.exit();
+    }
+    
+    protected void setController(InterfazController ic){
+        this.controller = ic;
+        this.lista_simbolos = controller.lista_simbolos;
+                fg.limpiarCanvas(gc, Display);
+        System.out.println("Canvas");
+        fg.dibujarTodosLosSimbolos(gc, controller.lista_simbolos);
     }
 
     /**

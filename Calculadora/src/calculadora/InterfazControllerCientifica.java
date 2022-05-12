@@ -7,11 +7,11 @@ package calculadora;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -128,12 +128,13 @@ public class InterfazControllerCientifica implements Initializable {
     double pivot_y = 200;
 
     double espacio_acumulado = 0;
-    ArrayList<Simbolo> lista_simbolos = new ArrayList();
 
     GraphicsContext gc;
+    
+    ArrayList<Simbolo> lista_simbolos;
 
-    Logica l = new Logica(this);
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
+    InterfazController context ;
     
     Interfaz_panelController panelContext;
     
@@ -153,91 +154,91 @@ public class InterfazControllerCientifica implements Initializable {
     @FXML
     protected void Boton0_presionado() {
 
-        l.agregarSimbolo(gc, 0, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 0, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton1_presionado() {
 
-        l.agregarSimbolo(gc, 1, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 1, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton2_presionado() {
 
-        l.agregarSimbolo(gc, 2, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 2, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton3_presionado() {
 
-        l.agregarSimbolo(gc, 3, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 3, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton4_presionado() {
 
-        l.agregarSimbolo(gc, 4, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 4, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton5_presionado() {
 
-        l.agregarSimbolo(gc, 5, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 5, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton6_presionado() {
 
-        l.agregarSimbolo(gc, 6, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 6, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton7_presionado() {
 
-        l.agregarSimbolo(gc, 7, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 7, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton8_presionado() {
 
-        l.agregarSimbolo(gc, 8, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 8, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void Boton9_presionado() {
 
-        l.agregarSimbolo(gc, 9, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 9, lista_simbolos, pivot_x, pivot_y, Display);
 
     }
 
     @FXML
     protected void BotonMas_presionado() {
-        if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
-            l.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
+        if (context.l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            context.l.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
 
     @FXML
     protected void BotonMenos_presionado() {
-        if (l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
-            l.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
+        if (context.l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
+            context.l.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
 
     @FXML
     protected void BotonMultiplicar_presionado() {
-        if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
-            l.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
+        if (context.l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            context.l.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
         }
 
     }
@@ -247,7 +248,7 @@ public class InterfazControllerCientifica implements Initializable {
         if (/*l.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
             if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
                 //l.moverNumeradoresHaciaArriba(lista_simbolos);
-                l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
+                context.l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
 
             }
         }
@@ -255,27 +256,27 @@ public class InterfazControllerCientifica implements Initializable {
     
     @FXML
     protected void BtnOperador_presionado(){
-        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
     }
     
     @FXML
     protected void BotonSeno_presionado(){
-        l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
     }
     @FXML
     protected void BotonCos_presionado(){
-        l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
     }
     @FXML
     protected void BotonTan_presionado(){
-        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+        context.l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
     }
 
     @FXML
     protected void BotonDEL_presionado() {
 
         if (lista_simbolos.size() > 0) {
-            l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
+            context.l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
         }
 
     }
@@ -286,22 +287,21 @@ public class InterfazControllerCientifica implements Initializable {
     protected void BotonAC_presionado() {
 
         if (lista_simbolos.size() > 0) {
-            l.resetEstado();
+            context.l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
-            l.context.
-            l.divisionActiva = 0;
+            context.l.divisionActiva = 0;
         }
 
     }
 
     @FXML
     protected void BotonPuntosControl_presionado() {
-        l.switchPuntosControl(lista_simbolos, gc, Display);
+        context.l.switchPuntosControl(lista_simbolos, gc, Display);
     }
     
     @FXML
     protected void BotonPanel_presionado() throws IOException {
-        if(l.panelAgregado ==0){
+        if(context.l.panelAgregado ==0){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
             Parent root = loader.load();
             
@@ -326,7 +326,7 @@ public class InterfazControllerCientifica implements Initializable {
                 stage.setY(mouseEvent.getScreenY() - y);
             });
             stage.show();
-            l.panelAgregado = 1;
+            context.l.panelAgregado = 1;
         }
     }
     
@@ -374,23 +374,55 @@ public class InterfazControllerCientifica implements Initializable {
     
     @FXML
     protected void BotonCientifico_presionado() throws IOException{
-    /*
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_cientifica.fxml"));
+    
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_basica.fxml"));
         Parent root = loader.load();
-        InterfazControllerCientifica AC = loader.getController();
-        AC.setController(this);
+        InterfazController AC = loader.getController();
+        AC.setController(context);
+        rootPane.setVisible(false);
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        //Para el movimiento de el programa mediante el mouse
+            root.setOnMousePressed(mouseEvent -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+
+            root.setOnMouseDragged(mouseEvent -> {
+                stage.setX(mouseEvent.getScreenX() - x);
+                stage.setY(mouseEvent.getScreenY() - y);
+            });
         stage.show();
-        */
+        
+        /*
+        
+        InterfazControllerCientifica contextCientifica = new InterfazControllerCientifica();
+        contextCientifica.setContext(this);
         AnchorPane pane = FXMLLoader.load(getClass().getResource("Interfaz_cientifica.fxml"));
         rootPane.getChildren().setAll(pane);
+        */
+    }
+    
+    protected void setContext(InterfazController context){
+        this.context = context;
+        this.lista_simbolos = context.lista_simbolos;
     }
     
     
     @FXML
     protected void Cerrar() {
         Platform.exit();
+    }
+    
+    protected void setController(InterfazController ic){
+        this.context = ic;
+        this.lista_simbolos = context.lista_simbolos;
+                fg.limpiarCanvas(gc, Display);
+        System.out.println("Canvas");
+        fg.dibujarTodosLosSimbolos(gc, context.lista_simbolos);
     }
 
     /**
@@ -399,6 +431,7 @@ public class InterfazControllerCientifica implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
+
         
     }
 
