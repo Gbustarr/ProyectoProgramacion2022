@@ -134,15 +134,15 @@ public class CoordenadasSimbolos {
     }
     
     double[] s(double x, double y){
-        double [] s = {x,y-40,x-5,y-40,x-5,y-40,
-                       x-10,y-33.5,x-10,y-33.5,
-                       x,y-17.5,x,y-17.5,x-5,y-10,
-                       x-5,y-10,x-10,y-10};
+        double [] s = {x,y-35,x,y-40,x,y-40,x-10,y-40,
+                       x-10,y-40,x-10,y-30,x-10,y-30,x,y-30,
+                       x,y-30,x,y-10,x,y-10,x-10,y-10,
+                       x-10,y-10,x-10,y-15};
         return s;
     }
     
     double [] i(double x, double y){
-        double [] i ={x-5,y-10,x-5,y-30,
+        double [] i ={x-5,y-10,x-5,y-35,
                       x-5,y-40,x-5,y-40,
                       x-5,y-40,x-5,y-40};
         return i;
@@ -156,11 +156,13 @@ public class CoordenadasSimbolos {
     }
     
     double [] c(double x, double y){
-        double [] c = {x,y-40,x-5,y-40,
+        double [] c = {x,y-35,x,y-40,
+                       x,y-40,x-5,y-40,
                        x-5,y-40,x-10,y-32.5,
                        x-10,y-32.5,x-10,y-17.5,
                        x-10,y-17.5,x-5,y-10,
-                       x-5,y-10,x,y-10};
+                       x-5,y-10,x,y-10,
+                       x,y-10,x,y-15};
         return c;
     }
     
