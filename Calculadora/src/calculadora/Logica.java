@@ -339,7 +339,7 @@ public class Logica {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
 
-        text_debugger(lista_simbolos);
+        //text_debugger(lista_simbolos);
         context.textoSalida.setText(listaATexto(lista_simbolos));
         //context.panelContext.
         //debugPrintNumeradores(lista_simbolos);
@@ -378,7 +378,6 @@ public class Logica {
         indicesDivisionCombinada.clear();
         alturaDivision = 0;
         context.textoSalida.setText("");
-        context.panelContext.setTextArea();
     }
     
     protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){
@@ -659,6 +658,19 @@ public class Logica {
                     System.out.print(" / ");
                     string = string+" / ";
                 }
+                if (s.valor == 14) {
+                    System.out.print(" Sin ");
+                    string = string+" Sin ";
+                }
+                if (s.valor == 15) {
+                    System.out.print(" Cos ");
+                    string = string+" Cos ";
+                }
+                if (s.valor == 16) {
+                    System.out.print(" Tan ");
+                    string = string+" Tan ";
+                }
+                
             } else {
                 System.out.print(s.valor);
                 string = string+ s.valor;

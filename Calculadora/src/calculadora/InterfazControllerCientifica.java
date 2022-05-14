@@ -333,13 +333,13 @@ public class InterfazControllerCientifica implements Initializable {
     @FXML
     protected void BotonColorNumeros_presionado(){
         colorNum= Color.valueOf(colorNumeros.getValue().toString());
-        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+        context.fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
     }
     
     @FXML
     protected void BotonColorOperadores_presionado(){
         colorOp= Color.valueOf(colorOperadores.getValue().toString());
-        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+        context.fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
     }
     
     @FXML
@@ -396,7 +396,14 @@ public class InterfazControllerCientifica implements Initializable {
                 stage.setY(mouseEvent.getScreenY() - y);
             });
         stage.show();
-
+        
+        /*
+        
+        InterfazControllerCientifica contextCientifica = new InterfazControllerCientifica();
+        contextCientifica.setContext(this);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("Interfaz_cientifica.fxml"));
+        rootPane.getChildren().setAll(pane);
+        */
     }
     
     protected void setContext(InterfazController context){
