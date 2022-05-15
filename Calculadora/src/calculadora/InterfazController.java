@@ -253,6 +253,80 @@ public class InterfazController implements Initializable {
     }
     
     @FXML
+    protected void BotonColorNum_Azul(){
+        colorNum = Color.web("#0D3C94");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Rojo(){
+        colorNum = Color.web("#CC0000");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Verde(){
+        colorNum = Color.web("#32940D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Cafe(){
+        colorNum = Color.web("#94550D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Morado(){
+        colorNum = Color.web("#540E64");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Naranjo(){
+        colorNum = Color.web("#E56B20");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    
+    @FXML
+    protected void BotonColorOp_Azul(){
+        colorOp = Color.web("#0D3C94");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Rojo(){
+        colorOp = Color.web("#CC0000");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Verde(){
+        colorOp = Color.web("#32940D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Cafe(){
+        colorOp = Color.web("#94550D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Morado(){
+        colorOp = Color.web("#540E64");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Naranjo(){
+        colorOp = Color.web("#E56B20");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    
+    @FXML
     protected void BtnOperador_presionado(){
         l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
     }
@@ -272,8 +346,8 @@ public class InterfazController implements Initializable {
         if (lista_simbolos.size() > 0) {
             l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
-            l.context.
             l.divisionActiva = 0;
+            l.context.panelContext.setTextArea();
         }
 
     }
