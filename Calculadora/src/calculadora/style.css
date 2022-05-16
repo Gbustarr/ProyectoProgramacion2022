@@ -20,3 +20,23 @@ and open the template in the editor.
     -fx-background-size: 527 693;
     -fx-background-repeat: no-repeat;
 }
+
+.rojo{
+    -fx-background-color: #CC0000;
+    -fx-text-fill: #FFFFFF;
+}
+.naranjo{
+    -fx-background-color: #E56B20;
+}
+.verde{
+    -fx-background-color: #32940D;
+}
+.cafe{
+    -fx-background-color: #94550D;
+}
+.azul{
+    -fx-background-color: #0D3C94;
+}
+.morado{
+    -fx-background-color: #540E64;
+}

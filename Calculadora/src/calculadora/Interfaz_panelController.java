@@ -27,11 +27,16 @@ public class Interfaz_panelController implements Initializable {
     Button Btn_Close;
     
     InterfazController context;
+    InterfazControllerCientifica  contextCientifica;
 
     
     
     protected void setController(InterfazController ic) {
         this.context = ic;
+        
+    }
+    protected void setControllerC(InterfazControllerCientifica ic) {
+        this.contextCientifica = ic;
         
     }
     

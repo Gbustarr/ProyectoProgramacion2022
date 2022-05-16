@@ -5,7 +5,6 @@
  */
 package calculadora;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -189,6 +188,30 @@ public class Logica {
                     lista_simbolos.add(s);
                 }
                 break;
+            case 14: //Seno
+                s.setValor(14);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                formaOperadorCientifico(14,pivot_x,pivot_y,s);
+                lista_simbolos.add(s);
+                moverListaHaciaIzquierda(lista_simbolos,2);
+                break;
+             case 15: //Coseno
+                s.setValor(15);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                formaOperadorCientifico(15,pivot_x,pivot_y,s);
+                lista_simbolos.add(s);
+                moverListaHaciaIzquierda(lista_simbolos,2);
+                break;
+             case 16: //Tangente
+                s.setValor(16);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                formaOperadorCientifico(16,pivot_x,pivot_y,s);
+                lista_simbolos.add(s);
+                moverListaHaciaIzquierda(lista_simbolos,2);
+                break;
         }
         //Para activar los puntos de control de los simbolos
         if(puntosControlActivo == 1){
@@ -316,7 +339,7 @@ public class Logica {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
 
-        text_debugger(lista_simbolos);
+        //text_debugger(lista_simbolos);
         context.textoSalida.setText(listaATexto(lista_simbolos));
         //context.panelContext.
         //debugPrintNumeradores(lista_simbolos);
@@ -355,6 +378,7 @@ public class Logica {
         indicesDivisionCombinada.clear();
         alturaDivision = 0;
         context.textoSalida.setText("");
+        
     }
     
     protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){
@@ -372,6 +396,44 @@ public class Logica {
             lista_simbolos.get(this.indicesNumeradores.get(i)).moverArriba(1);
         }
         
+    }
+    
+    protected void formaOperadorCientifico(int valor,double pivot_x, double pivot_y,Simbolo s){
+        
+        double []forma;
+        
+        switch(valor){
+            case 14: //Operador Seno
+                forma = cs.s(pivot_x, pivot_y); //Agrega la S
+                s.forma = forma;
+                s.moverIzquierda(1);
+                forma = cs.i(pivot_x, pivot_y); //Agregar I
+                s.concatenarForma(forma);
+                s.moverIzquierda(1);
+                forma = cs.n(pivot_x, pivot_y); //Agregar N
+                s.concatenarForma(forma);
+                break;
+             case 15: //Operador Coseno
+                forma = cs.c(pivot_x, pivot_y); //Agrega la C
+                s.forma = forma;
+                s.moverIzquierda(1);
+                forma = cs.o(pivot_x, pivot_y); //Agregar O
+                s.concatenarForma(forma);
+                s.moverIzquierda(1);
+                forma = cs.s(pivot_x, pivot_y); //Agregar S
+                s.concatenarForma(forma);
+                break;
+            case 16: //Operador Tangente
+                forma = cs.t(pivot_x, pivot_y); //Agrega la T
+                s.forma = forma;
+                s.moverIzquierda(1);
+                forma = cs.a(pivot_x, pivot_y); //Agregar A
+                s.concatenarForma(forma);
+                s.moverIzquierda(1);
+                forma = cs.n(pivot_x, pivot_y); //Agregar N
+                s.concatenarForma(forma);
+                break;
+        }
     }
     
     protected void moverNumeradoresDerecha(ArrayList<Simbolo> lista_simbolos){
@@ -417,8 +479,6 @@ public class Logica {
                 break;
             }
         }
-        
-        
     }
     
     protected void debugPrintNumeradores(ArrayList<Simbolo> lista_simbolos){
@@ -448,29 +508,12 @@ public class Logica {
         
         double xInicio = pivot_x-(this.anchoDivision*15);
         //System.out.println("Indice Ultima Division: "+indiceUltimaDivision);
-        lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
-        
-        /*
-        int index = -1;
-
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).getValor() == 13) {
-                index = i;
-                break;
-                ////System.out.print(lista_simbolos.get(i));
-            }else if(lista_simbolos.get(i).getValor() > 9 && lista_simbolos.get(i).getValor() < 13){ //Si encuentra un operador
-                
-                index = -1;
-                break;
-            }
+        if(alturaDivision == 0){
+            lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
+        }else{
+            xInicio = xInicio +15;
+            lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
         }
-        
-        if(index != -1){
-            Simbolo s = lista_simbolos.get(index);
-
-            s.division(s.forma[0], pivot_x);
-        }
-        */
         
     }
 
@@ -531,6 +574,23 @@ public class Logica {
             return 1;
         }
 
+    }
+    
+    protected int bloqueadorSignoNegativo(ArrayList<Simbolo> lista_simbolos){
+    
+        if(lista_simbolos.isEmpty()){
+            return 1;
+        }else{
+            if(lista_simbolos.size() >0){
+                if(lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 0 || (lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 1 && lista_simbolos.get(lista_simbolos.size()-2).getTipo() == 0 )){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }else{
+                return 0;
+            }
+        }
     }
     
     protected void switchPuntosControl(ArrayList<Simbolo> lista_simbolos,GraphicsContext gc, Canvas Display){
@@ -599,6 +659,19 @@ public class Logica {
                     System.out.print(" / ");
                     string = string+" / ";
                 }
+                if (s.valor == 14) {
+                    System.out.print(" Sin ");
+                    string = string+" Sin ";
+                }
+                if (s.valor == 15) {
+                    System.out.print(" Cos ");
+                    string = string+" Cos ";
+                }
+                if (s.valor == 16) {
+                    System.out.print(" Tan ");
+                    string = string+" Tan ";
+                }
+                
             } else {
                 System.out.print(s.valor);
                 string = string+ s.valor;

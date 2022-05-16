@@ -3,114 +3,111 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" pickOnBounds="false" prefHeight="693.0" prefWidth="527.0" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadora.InterfazController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" pickOnBounds="false" prefHeight="693.0" prefWidth="527.0" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadora.InterfazController">
    <children>
       <Group layoutX="58.0" layoutY="17.0">
          <children>
-            <AnchorPane layoutX="-54.0" layoutY="-16.0" prefHeight="694.0" prefWidth="520.0" styleClass="bodybg" stylesheets="@style.css">
+            <AnchorPane fx:id="fondoInterfaz" layoutX="-54.0" layoutY="-16.0" prefHeight="694.0" prefWidth="520.0" styleClass="bodybg" stylesheets="@style.css">
                <children>
-                  <Button fx:id="Btn_91" layoutX="435.0" layoutY="15.0" mnemonicParsing="false" onAction="#Cerrar" prefHeight="33.0" prefWidth="31.0" style="-fx-background-color: red;" stylesheets="@style.css" text="X" textFill="WHITE">
+                  <Button fx:id="Btn_91" layoutX="436.0" layoutY="7.0" mnemonicParsing="false" onAction="#Cerrar" prefHeight="33.0" prefWidth="31.0" style="-fx-background-color: red;" stylesheets="@style.css" text="X" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_1" blendMode="MULTIPLY" layoutX="151.0" layoutY="552.0" mnemonicParsing="false" onAction="#Boton1_presionado" prefHeight="51.0" prefWidth="57.0" text="1">
+                  <Button fx:id="Btn_1" blendMode="MULTIPLY" layoutX="151.0" layoutY="564.0" mnemonicParsing="false" onAction="#Boton1_presionado" prefHeight="51.0" prefWidth="57.0" text="1">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_2" blendMode="MULTIPLY" layoutX="208.0" layoutY="552.0" mnemonicParsing="false" onAction="#Boton2_presionado" prefHeight="51.0" prefWidth="57.0" text="2">
+                  <Button fx:id="Btn_2" blendMode="MULTIPLY" layoutX="208.0" layoutY="564.0" mnemonicParsing="false" onAction="#Boton2_presionado" prefHeight="51.0" prefWidth="57.0" text="2">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_3" blendMode="MULTIPLY" layoutX="265.0" layoutY="552.0" mnemonicParsing="false" onAction="#Boton3_presionado" prefHeight="51.0" prefWidth="57.0" text="3">
+                  <Button fx:id="Btn_3" blendMode="MULTIPLY" layoutX="265.0" layoutY="564.0" mnemonicParsing="false" onAction="#Boton3_presionado" prefHeight="51.0" prefWidth="57.0" text="3">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_4" blendMode="MULTIPLY" layoutX="151.0" layoutY="501.0" mnemonicParsing="false" onAction="#Boton4_presionado" prefHeight="51.0" prefWidth="57.0" text="4">
+                  <Button fx:id="Btn_4" blendMode="MULTIPLY" layoutX="151.0" layoutY="513.0" mnemonicParsing="false" onAction="#Boton4_presionado" prefHeight="51.0" prefWidth="57.0" text="4">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_5" blendMode="MULTIPLY" layoutX="208.0" layoutY="501.0" mnemonicParsing="false" onAction="#Boton5_presionado" prefHeight="51.0" prefWidth="57.0" text="5">
+                  <Button fx:id="Btn_5" blendMode="MULTIPLY" layoutX="208.0" layoutY="513.0" mnemonicParsing="false" onAction="#Boton5_presionado" prefHeight="51.0" prefWidth="57.0" text="5">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_6" blendMode="MULTIPLY" layoutX="265.0" layoutY="501.0" mnemonicParsing="false" onAction="#Boton6_presionado" prefHeight="51.0" prefWidth="57.0" text="6">
+                  <Button fx:id="Btn_6" blendMode="MULTIPLY" layoutX="265.0" layoutY="513.0" mnemonicParsing="false" onAction="#Boton6_presionado" prefHeight="51.0" prefWidth="57.0" text="6">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_7" blendMode="MULTIPLY" layoutX="151.0" layoutY="450.0" mnemonicParsing="false" onAction="#Boton7_presionado" prefHeight="51.0" prefWidth="57.0" text="7">
+                  <Button fx:id="Btn_7" blendMode="MULTIPLY" layoutX="151.0" layoutY="462.0" mnemonicParsing="false" onAction="#Boton7_presionado" prefHeight="51.0" prefWidth="57.0" text="7">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_8" blendMode="MULTIPLY" layoutX="208.0" layoutY="450.0" mnemonicParsing="false" onAction="#Boton8_presionado" prefHeight="51.0" prefWidth="57.0" text="8">
+                  <Button fx:id="Btn_8" blendMode="MULTIPLY" layoutX="208.0" layoutY="462.0" mnemonicParsing="false" onAction="#Boton8_presionado" prefHeight="51.0" prefWidth="57.0" text="8">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_9" blendMode="MULTIPLY" layoutX="265.0" layoutY="450.0" mnemonicParsing="false" onAction="#Boton9_presionado" prefHeight="51.0" prefWidth="57.0" text="9">
+                  <Button fx:id="Btn_9" blendMode="MULTIPLY" layoutX="265.0" layoutY="462.0" mnemonicParsing="false" onAction="#Boton9_presionado" prefHeight="51.0" prefWidth="57.0" text="9">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_resta" blendMode="OVERLAY" layoutX="322.0" layoutY="501.0" mnemonicParsing="false" onAction="#BotonMenos_presionado" prefHeight="51.0" prefWidth="57.0" text="-">
+                  <Button fx:id="Btn_resta" blendMode="OVERLAY" layoutX="322.0" layoutY="513.0" mnemonicParsing="false" onAction="#BotonMenos_presionado" prefHeight="51.0" prefWidth="57.0" text="-">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_suma" blendMode="OVERLAY" layoutX="322.0" layoutY="552.0" mnemonicParsing="false" onAction="#BotonMas_presionado" prefHeight="43.0" prefWidth="57.0" text="+">
+                  <Button fx:id="Btn_suma" blendMode="OVERLAY" layoutX="322.0" layoutY="564.0" mnemonicParsing="false" onAction="#BotonMas_presionado" prefHeight="43.0" prefWidth="57.0" text="+">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_0" blendMode="MULTIPLY" layoutX="151.0" layoutY="603.0" mnemonicParsing="false" onAction="#Boton0_presionado" prefHeight="55.0" prefWidth="116.0" text="0">
+                  <Button fx:id="Btn_0" blendMode="MULTIPLY" layoutX="151.0" layoutY="615.0" mnemonicParsing="false" onAction="#Boton0_presionado" prefHeight="55.0" prefWidth="116.0" text="0">
                      <font>
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_multiplicar" blendMode="OVERLAY" layoutX="322.0" layoutY="450.0" mnemonicParsing="false" onAction="#BotonMultiplicar_presionado" prefHeight="40.0" prefWidth="57.0" text="*">
+                  <Button fx:id="Btn_multiplicar" blendMode="OVERLAY" layoutX="322.0" layoutY="462.0" mnemonicParsing="false" onAction="#BotonMultiplicar_presionado" prefHeight="40.0" prefWidth="57.0" text="*">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_dividir" blendMode="OVERLAY" layoutX="322.0" layoutY="399.0" mnemonicParsing="false" onAction="#BotonDivision_presionado" prefHeight="51.0" prefWidth="57.0" text="/">
+                  <Button fx:id="Btn_dividir" blendMode="OVERLAY" layoutX="322.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonDivision_presionado" prefHeight="51.0" prefWidth="57.0" text="/">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_igual" blendMode="MULTIPLY" layoutX="322.0" layoutY="603.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="57.0" text="=">
+                  <Button fx:id="Btn_igual" blendMode="MULTIPLY" layoutX="322.0" layoutY="615.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="57.0" text="=">
                      <font>
                         <Font name="Consolas" size="29.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_AC" blendMode="HARD_LIGHT" layoutX="151.0" layoutY="399.0" mnemonicParsing="false" onAction="#BotonAC_presionado" prefHeight="51.0" prefWidth="57.0" text="AC">
+                  <Button fx:id="Btn_AC" blendMode="HARD_LIGHT" layoutX="151.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonAC_presionado" prefHeight="51.0" prefWidth="57.0" text="CE">
                      <font>
                         <Font name="Consolas" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" disable="true" layoutX="379.0" layoutY="349.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="C">
+                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="206.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="28.0" prefWidth="116.0" style="-fx-background-color: green;" text="Baśico">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
-                     <effect>
-                        <Glow />
-                     </effect>
                   </Button>
                   <TextField fx:id="textoSalida" disable="true" editable="false" focusTraversable="false" layoutX="159.0" layoutY="349.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: gold;" visible="false" />
                   <Button fx:id="Btn_puntosControl" blendMode="OVERLAY" layoutX="120.0" layoutY="348.0" mnemonicParsing="false" onAction="#BotonPuntosControl_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="P">
@@ -121,34 +118,67 @@
                         <Glow />
                      </effect>
                   </Button>
-                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="379.0" layoutY="389.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="S">
+                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="206.0" layoutY="437.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="19.0" prefWidth="116.0" style="-fx-background-color: green;" text="Panel">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
-                     <effect>
-                        <Glow />
-                     </effect>
                   </Button>
-                  <MenuButton layoutX="159.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" text="Opciones">
+                  <MenuButton layoutX="237.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" stylesheets="@style.css" text="Tamaño">
+                     <items>
+                        <Menu mnemonicParsing="false">
+                           <graphic>
+                              <Slider fx:id="tamanoCaracteres" blockIncrement="1.0" majorTickUnit="1.0" max="8.0" min="1.0" minorTickCount="0" onMouseReleased="#Slider_presionado" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                           </graphic>
+                        </Menu>
+                     </items>
+                  </MenuButton>
+                  <MenuButton layoutX="159.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" stylesheets="@style.css" text="Colores">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Color Numeros">
-                           <graphic>
-                              <ColorPicker fx:id="colorNumeros" onAction="#BotonColorNumeros_presionado" />
-                           </graphic>
-                        </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Color Operadores">
-                           <graphic>
-                              <ColorPicker fx:id="colorOperadores" onAction="#BotonColorOperadores_presionado" />
-                           </graphic>
-                        </MenuItem>
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem mnemonicParsing="false" text="Tamaño Caracteres">
-                           <graphic>
-                              <Slider fx:id="tamanoCaracteres" blockIncrement="1.0" disable="true" majorTickUnit="1.0" max="8.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
-                           </graphic>
-                        </MenuItem>
+                        <Menu mnemonicParsing="false" text="Numeros">
+                          <items>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorNum_Azul" styleClass="azul" text="Azul">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="CN" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorNum_Cafe" styleClass="cafe" text="Café" toggleGroup="$CN" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorNum_Morado" styleClass="morado" text="Morado" toggleGroup="$CN" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorNum_Naranjo" styleClass="naranjo" text="Naranjo" toggleGroup="$CN" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorNum_Rojo" styleClass="rojo" text="Rojo" toggleGroup="$CN" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorNum_Verde" styleClass="verde" text="Verde" toggleGroup="$CN" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Operadores">
+                           <items>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorOp_Azul" styleClass="azul" text="Azul">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="CO" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorOp_Cafe" styleClass="cafe" text="Café" toggleGroup="$CO" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorOp_Morado" styleClass="morado" text="Morado" toggleGroup="$CO" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorOp_Naranjo" styleClass="naranjo" text="Naranjo" toggleGroup="$CO" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorOp_Rojo" styleClass="rojo" text="Rojo" toggleGroup="$CO" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#BotonColorOp_Verde" styleClass="verde" text="Verde" toggleGroup="$CO" />
+                           </items>
+                        </Menu>
                     </items>
                   </MenuButton>
+                  <Button fx:id="Btn_Sen" blendMode="MULTIPLY" layoutX="45.0" layoutY="425.0" mnemonicParsing="false" onAction="#BotonSeno_presionado" prefHeight="51.0" prefWidth="57.0" text="Sen" visible="false">
+                     <font>
+                        <Font name="Consolas" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Btn_Cos" blendMode="MULTIPLY" layoutX="45.0" layoutY="476.0" mnemonicParsing="false" onAction="#BotonCos_presionado" prefHeight="51.0" prefWidth="57.0" text="Cos" visible="false">
+                     <font>
+                        <Font name="Consolas" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Btn_Tan" blendMode="MULTIPLY" layoutX="45.0" layoutY="527.0" mnemonicParsing="false" onAction="#BotonTan_presionado" prefHeight="51.0" prefWidth="57.0" text="Tan" visible="false">
+                     <font>
+                        <Font name="Consolas" size="18.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <Canvas fx:id="Display" height="250.0" layoutX="50.0" layoutY="57.0" width="340.0" />
