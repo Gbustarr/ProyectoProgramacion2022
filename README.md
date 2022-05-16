@@ -26,7 +26,7 @@
     <img src="img/Logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Hiper Calculadora Mark I:
+<h3 align="center">Hiper Calculadora Mark II:
 Sopaipleto Edition</h3>
 
   <p align="center">
@@ -81,6 +81,16 @@ Para la Unidad 1, se debe:
 - [x] La aplicación debe permitir dibujar los números del 0 al 9.
 - [x] La aplicación de debe permitir dibujar los operadores de suma (+), resta(-), multiplicación(*) y división(/). 
 
+Para la Unidad 2, se debe:
+
+- [ ] La aplicación debe cumplir con los requisitos indispensables y deseables de las unidades anteriores. No cumplir con uno o más de ellos aplicará una penalidad del 20% sobre su nota final de la unidad.
+- [ ] Implementar el botón “limpiar” (CE), que regresa el programa a su estado inicial (borra el contenido del control de visualización).
+
+- [ ] Agregar operadores de potencia, factorial, seno, coseno, y tangente, mostrando su equivalente dibujado dentro de la fórmula. Distinga números de grados.
+- [ ] Mostrar en un panel independiente y visible (ej., un TextBox) la secuencia de números y operadores ingresados, respetando la precedencia de los operadores.
+
+- [ ] Agregar los símbolos y lógica de los paréntesis. Cuando se usen en divisiones, los paréntesis deben “crecer” para cubrir la división y los otros números de la expresión.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -102,9 +112,6 @@ Para la Unidad 1, se debe:
 
 
 <!-- GETTING STARTED -->
-## Preparación
-
-_En construcción_
 
 ### Prerequisitos 
 

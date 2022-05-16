@@ -22,6 +22,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -115,6 +116,13 @@ public class InterfazController implements Initializable {
     @FXML
     protected Button Btn_puntosControl;
     protected InterfazController controller;
+    
+    @FXML
+    protected Button Btn_Sen;
+    @FXML
+    protected Button Btn_Cos;
+    @FXML
+    protected Button Btn_Tan;
 
     double pivot_x = 300;
     double pivot_y = 200;
@@ -137,6 +145,9 @@ public class InterfazController implements Initializable {
     //Para el movimiento de la ventana panel
     private double x, y = 0;
     
+    //Para el cambio de fondo
+    @FXML
+    AnchorPane fondoInterfaz;
 
     @FXML
     protected void Boton0_presionado() {
@@ -217,7 +228,7 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected void BotonMenos_presionado() {
-        if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+        if (l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
             l.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
         }
     }
@@ -239,9 +250,86 @@ public class InterfazController implements Initializable {
 
             }
         }
-
     }
     
+    @FXML
+    protected void BotonColorNum_Azul(){
+        colorNum = Color.web("#0D3C94");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Rojo(){
+        colorNum = Color.web("#CC0000");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Verde(){
+        colorNum = Color.web("#32940D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Cafe(){
+        colorNum = Color.web("#94550D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Morado(){
+        colorNum = Color.web("#540E64");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorNum_Naranjo(){
+        colorNum = Color.web("#E56B20");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    
+    @FXML
+    protected void BotonColorOp_Azul(){
+        colorOp = Color.web("#0D3C94");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Rojo(){
+        colorOp = Color.web("#CC0000");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Verde(){
+        colorOp = Color.web("#32940D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Cafe(){
+        colorOp = Color.web("#94550D");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Morado(){
+        colorOp = Color.web("#540E64");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOp_Naranjo(){
+        colorOp = Color.web("#E56B20");
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    
+    @FXML
+    protected void BtnOperador_presionado(){
+        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+    }
 
     @FXML
     protected void BotonDEL_presionado() {
@@ -259,6 +347,7 @@ public class InterfazController implements Initializable {
             l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
             l.divisionActiva = 0;
+            l.context.panelContext.setTextArea();
         }
 
     }
@@ -310,43 +399,32 @@ public class InterfazController implements Initializable {
         colorOp= Color.valueOf(colorOperadores.getValue().toString());
         fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
     }
-
-    /*
-    @FXML
-    protected void BotonMovDer_presionado(){
-      
-            l.moverListaHaciaDerecha(lista_simbolos, 1);
-            l.movimientosDeLista = l.movimientosDeLista -1;
-            l.limpiarCanvas(gc, Display);
-            l.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
-
     
+    
+    @FXML
+    protected void Slider_presionado(){
+        System.out.println(tamanoCaracteres.getValue());
     }
     
     @FXML
-    protected void BotonMovIzq_presionado(){
-        if(l.movimientosDeLista != 0){
-            l.moverListaHaciaIzquierda(lista_simbolos, 1);
-            l.movimientosDeLista = l.movimientosDeLista +1;
-            l.limpiarCanvas(gc, Display);
-            l.dibujarTodosLosSimbolos(pivot_x, gc, lista_simbolos);
+    protected void BotonCientifico_presionado() {
+       
+        if(Btn_Sen.isVisible() == true){
+            Btn_Sen.setVisible(false);
+            Btn_Cos.setVisible(false);
+            Btn_Tan.setVisible(false);
+            Btn_Cientifico.setText("Básico");
+            fondoInterfaz.getStyleClass().clear();
+            fondoInterfaz.getStyleClass().add("bodybg");
+        }else{
+            Btn_Sen.setVisible(true);
+            Btn_Cos.setVisible(true);
+            Btn_Tan.setVisible(true);
+            Btn_Cientifico.setText("Científico");
+            fondoInterfaz.getStyleClass().clear();
+            fondoInterfaz.getStyleClass().add("bodybgC");
         }
-    
-    }
-    
-     */
-    
-    @FXML
-    protected void BotonCientifico_presionado() throws IOException{
-    /*
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_cientifica.fxml"));
-        Parent root = loader.load();
-        InterfazControllerCientifica AC = loader.getController();
-        AC.setController(this);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-        */
+
     }
     
     
@@ -354,7 +432,26 @@ public class InterfazController implements Initializable {
     protected void Cerrar() {
         Platform.exit();
     }
+    
+    protected void setController(InterfazController ic){
+        this.controller = ic;
+        this.lista_simbolos = controller.lista_simbolos;
+                fg.limpiarCanvas(gc, Display);
+        fg.dibujarTodosLosSimbolos(gc, controller.lista_simbolos);
+    }
 
+    @FXML
+    protected void BotonSeno_presionado(){
+        l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    @FXML
+    protected void BotonCos_presionado(){
+        l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    @FXML
+    protected void BotonTan_presionado(){
+        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+    }
     /**
      * Initializes the controller class.
      */

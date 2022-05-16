@@ -5,10 +5,12 @@
  */
 package calculadora;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -40,8 +42,9 @@ public class Calculadora extends Application {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
         });
-
+        
         stage.setScene(scene);
+        stage.getIcons().add(new Image("calculadora/img/Logo.png"));
         stage.show();
     }
 
