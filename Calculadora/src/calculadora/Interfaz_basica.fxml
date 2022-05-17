@@ -104,7 +104,7 @@
                         <Font name="Consolas" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="206.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="28.0" prefWidth="116.0" style="-fx-background-color: green;" text="Baśico">
+                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="326.0" layoutY="348.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="29.0" prefWidth="73.0" style="-fx-background-color: green;" text="Baśico">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -118,7 +118,7 @@
                         <Glow />
                      </effect>
                   </Button>
-                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="206.0" layoutY="437.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="19.0" prefWidth="116.0" style="-fx-background-color: green;" text="Panel">
+                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="329.0" layoutY="375.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="29.0" prefWidth="73.0" style="-fx-background-color: green;" text="Panel">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -177,6 +177,16 @@
                   <Button fx:id="Btn_Tan" blendMode="MULTIPLY" layoutX="45.0" layoutY="527.0" mnemonicParsing="false" onAction="#BotonTan_presionado" prefHeight="51.0" prefWidth="57.0" text="Tan" visible="false">
                      <font>
                         <Font name="Consolas" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Btn_pAbierto" blendMode="MULTIPLY" layoutX="208.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonParentesisAbierto_presionado" prefHeight="51.0" prefWidth="57.0" text="(">
+                     <font>
+                        <Font name="Consolas" size="25.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Btn_pCerrado" blendMode="MULTIPLY" layoutX="265.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonParentesisCerrado_presionado" prefHeight="51.0" prefWidth="57.0" text=")">
+                     <font>
+                        <Font name="Consolas" size="25.0" />
                      </font>
                   </Button>
                </children>
