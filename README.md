@@ -26,7 +26,8 @@
     <img src="img/Logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Graficador interactivo de expresiones mátematicas</h3>
+<h3 align="center">Hiper Calculadora Mark II:
+Sopaipleto Edition</h3>
 
   <p align="center">
     Repositorio del proyecto del graficador interactivo del grupo "Los Sopaipletos".
@@ -75,10 +76,20 @@ La contrucción de la aplicación se encrementará a medida que las unidades del
 Para la Unidad 1, se debe:
 - [x] Crear Repositorio Github, con al menos un branch por cada integrante del grupo
 - [x] Crear y mantener un Tablero Kanban
-- [ ] Definir un diseño que guie el desarrollo del proyecto
-- [ ] La aplicacion debe permitir ingresar interactivamente una expresion matematica
-- [ ] La aplicación debe permitir dibujar los números del 0 al 9.
-- [ ] La aplicación de debe permitir dibujar los operadores de suma (+), resta(-), multiplicación(*) y división(/). 
+- [x] Definir un diseño que guie el desarrollo del proyecto
+- [x] La aplicacion debe permitir ingresar interactivamente una expresion matematica
+- [x] La aplicación debe permitir dibujar los números del 0 al 9.
+- [x] La aplicación de debe permitir dibujar los operadores de suma (+), resta(-), multiplicación(*) y división(/). 
+
+Para la Unidad 2, se debe:
+
+- [ ] La aplicación debe cumplir con los requisitos indispensables y deseables de las unidades anteriores. No cumplir con uno o más de ellos aplicará una penalidad del 20% sobre su nota final de la unidad.
+- [ ] Implementar el botón “limpiar” (CE), que regresa el programa a su estado inicial (borra el contenido del control de visualización).
+
+- [ ] Agregar operadores de potencia, factorial, seno, coseno, y tangente, mostrando su equivalente dibujado dentro de la fórmula. Distinga números de grados.
+- [ ] Mostrar en un panel independiente y visible (ej., un TextBox) la secuencia de números y operadores ingresados, respetando la precedencia de los operadores.
+
+- [ ] Agregar los símbolos y lógica de los paréntesis. Cuando se usen en divisiones, los paréntesis deben “crecer” para cubrir la división y los otros números de la expresión.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -86,7 +97,10 @@ Para la Unidad 1, se debe:
 
 ### Tecnologias utilizadas
 
-_Proximamente_
+- JDK 8u111 (Herramienta de desarrollo)
+- NetBeans 8.2 (IDE)
+- SceneBuilder (Interfaz)
+- JavaFx (Interfaz)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -98,9 +112,6 @@ _Proximamente_
 
 
 <!-- GETTING STARTED -->
-## Preparación
-
-_En construcción_
 
 ### Prerequisitos 
 
@@ -127,9 +138,9 @@ _En construcción_
 
 - Guillermo Bustamante - [Gbustarr](https://github.com/Gbustarr)
 - Robinson Galvez - [Neuromender](https://github.com/Neuromender)
-- Juan Machuca - [Juan Machuca]()
+- Juan Machuca - [Juan Machuca](https://github.com/JCCH1)
 
-Enlace del Proyecto: [https://github.com/Gbustarr/ProyectoProgramacion2022](https://github.com/Gbustarr/ProyectoProgramacion2022)
+Enlace del Proyecto: [Enlace](https://github.com/Gbustarr/ProyectoProgramacion2022)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
