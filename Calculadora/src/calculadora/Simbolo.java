@@ -83,6 +83,12 @@ public class Simbolo {
         this.forma[0] = xInicio;
         this.forma[2] = xFinal;
     }
+    
+    protected void dimensionarParentesis(GraphicsContext gc,int incremento){
+        this.forma[1] = this.forma[1] - (22 * incremento);
+        this.forma[3] = this.forma[3] - (22 * incremento);
+        this.forma[5] = this.forma[5] - (22 * incremento);
+    }
 
     public double getXFactor() {
         return Xfactor;

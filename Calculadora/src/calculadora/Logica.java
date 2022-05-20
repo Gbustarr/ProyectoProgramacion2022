@@ -8,7 +8,6 @@ package calculadora;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -37,7 +36,6 @@ public class Logica {
     int indiceUltimaDivision;
     
     InterfazController context;
-    InterfazControllerCientifica contextCientifica;
     
     int panelAgregado = 0;
 
@@ -48,11 +46,6 @@ public class Logica {
     public Logica(InterfazController context){
         this.context = context;
     }
-    
-    public Logica(InterfazControllerCientifica context){
-        this.contextCientifica = context;
-    }
-   
     
     protected void agregarSimbolo(GraphicsContext gc, int nSimbolo,
         ArrayList<Simbolo> lista_simbolos, double pivot_x, double pivot_y,
@@ -212,6 +205,16 @@ public class Logica {
                 lista_simbolos.add(s);
                 moverListaHaciaIzquierda(lista_simbolos,2);
                 break;
+             case 17: //Parentesis Abierto
+                 s.setValor(17);
+                 s.setTipo(2);
+                 s.setColor(context.colorOp);
+                 forma = cs.pAbierto(pivot_x, pivot_y);
+                 s.setForma(forma);
+                 lista_simbolos.add(s);
+                 break;
+                 //
+                 
         }
         //Para activar los puntos de control de los simbolos
         if(puntosControlActivo == 1){
@@ -339,7 +342,7 @@ public class Logica {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
 
-        text_debugger(lista_simbolos);
+        //text_debugger(lista_simbolos);
         context.textoSalida.setText(listaATexto(lista_simbolos));
         //context.panelContext.
         //debugPrintNumeradores(lista_simbolos);
@@ -378,7 +381,7 @@ public class Logica {
         indicesDivisionCombinada.clear();
         alturaDivision = 0;
         context.textoSalida.setText("");
-        context.panelContext.setTextArea();
+        
     }
     
     protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos,double posiciones){
@@ -659,6 +662,19 @@ public class Logica {
                     System.out.print(" / ");
                     string = string+" / ";
                 }
+                if (s.valor == 14) {
+                    System.out.print(" Sin ");
+                    string = string+" Sin ";
+                }
+                if (s.valor == 15) {
+                    System.out.print(" Cos ");
+                    string = string+" Cos ";
+                }
+                if (s.valor == 16) {
+                    System.out.print(" Tan ");
+                    string = string+" Tan ";
+                }
+                
             } else {
                 System.out.print(s.valor);
                 string = string+ s.valor;

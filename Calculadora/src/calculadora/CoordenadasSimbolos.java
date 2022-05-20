@@ -179,17 +179,6 @@ public class CoordenadasSimbolos {
         return o;
     }
     
-    double[] s2(double x, double y){
-        double [] s2 = {x,y-40,x-5,y-40,x-5,y-40,
-                       x-10,y-33.5,x-10,y-33.5,
-                       x,y-17.5,x,y-17.5,x-5,y-10,
-                       x-5,y-10,x-10,y-10};
-        return s2;
-    }
-    
-    
-     
-    
     double[] t(double x, double y){
         double [] t={x-5,y-10,x-5,y-40,
                      x-5,y-40,x,y-40,x,y-40,x-10,y-40};
@@ -206,11 +195,17 @@ public class CoordenadasSimbolos {
                      x,y-25,x-10,y-25}  ;
         return a;
     }
-    double [] n2(double x, double y){
-        double [] n2={x-10,y-10,x-10,y-40,
-                     x-10,y-40,x,y-10,x,y-10,
-                     x,y-40};
-        return n2;
+
+    
+    double[] pAbierto(double x, double y){
+        double[] pAbierto =     {x-3,y-40,
+                                            x-7,y-32.5,
+                                            x-7,y-32.5,
+                                            x-7,y-17.5,
+                                             x-7,y-17.5,
+                                            x-3,y-10
+        };
+        return pAbierto;
     }
     
    
