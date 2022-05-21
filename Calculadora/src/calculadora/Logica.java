@@ -38,6 +38,9 @@ public class Logica {
     InterfazController context;
     
     int panelAgregado = 0;
+    
+    //Variables para los parentesis
+    ArrayList<Integer> indicesParentesisAbierto = new ArrayList();
 
     
     //FuncionesGraficadoras
@@ -179,7 +182,15 @@ public class Logica {
                     this.indicesNumeradores.add(lista_simbolos.size());
                     indiceUltimaDivision = lista_simbolos.size();
                     lista_simbolos.add(s);
+                    //Cambio de la altura del parentesis
+                    if(!indicesParentesisAbierto.isEmpty()){
+                    int indiceUltimoParentesis = indicesParentesisAbierto.get(indicesParentesisAbierto.size()-1);
+                    lista_simbolos.get(indiceUltimoParentesis).dimensionarParentesis(gc, 1);
+                    lista_simbolos.get(indiceUltimoParentesis).moverAbajo(1);
                 }
+                
+                }
+                
                 break;
             case 14: //Seno
                 s.setValor(14);
@@ -212,6 +223,7 @@ public class Logica {
                  forma = cs.pAbierto(pivot_x, pivot_y);
                  s.setForma(forma);
                  lista_simbolos.add(s);
+                 indicesParentesisAbierto.add(lista_simbolos.size()-1);
                  break;
                  //
                  
@@ -245,8 +257,7 @@ public class Logica {
             anchoDivision = indicesDenominadores.size();
         }
         
-        
-        
+      
         //System.out.println("Ancho division:"+anchoDivision);
         
 
@@ -290,6 +301,13 @@ public class Logica {
                 //Agrega el simbolo a la lista de simbolos
                 alturaDivision++;
                 
+                //Cambio de la altura del parentesis
+                if(!indicesParentesisAbierto.isEmpty()){
+                    int indiceUltimoParentesis = indicesParentesisAbierto.get(indicesParentesisAbierto.size()-1);
+                    lista_simbolos.get(indiceUltimoParentesis).dimensionarParentesis(gc, 1);
+
+                }
+                
             }else if (alturaDivision >0){
                 //System.out.println("----->Division existente, agregando division sobre division");
                 lista_simbolos.add(s);
@@ -317,6 +335,11 @@ public class Logica {
                 indiceUltimaDivision = lista_simbolos.size()-1;
                 //Agrega el simbolo a la lista de simbolos
                 alturaDivision++;
+                if(!indicesParentesisAbierto.isEmpty()){
+                    int indiceUltimoParentesis = indicesParentesisAbierto.get(indicesParentesisAbierto.size()-1);
+                    lista_simbolos.get(indiceUltimoParentesis).dimensionarParentesis(gc, 1);
+
+                }
                 
             }
         }
