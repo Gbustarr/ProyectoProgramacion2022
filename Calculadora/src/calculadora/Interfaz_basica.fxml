@@ -109,7 +109,6 @@
                         <Font name="Consolas" size="15.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="textoSalida" disable="true" editable="false" focusTraversable="false" layoutX="159.0" layoutY="349.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: gold;" visible="false" />
                   <Button fx:id="Btn_puntosControl" blendMode="OVERLAY" layoutX="120.0" layoutY="348.0" mnemonicParsing="false" onAction="#BotonPuntosControl_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="P">
                      <font>
                         <Font name="Consolas" size="15.0" />
@@ -132,7 +131,7 @@
                         </Menu>
                      </items>
                   </MenuButton>
-                  <MenuButton layoutX="159.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" stylesheets="@style.css" text="Colores">
+                  <MenuButton layoutX="158.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" stylesheets="@style.css" text="Colores">
                     <items>
                         <Menu mnemonicParsing="false" text="Numeros">
                           <items>
@@ -207,6 +206,7 @@
                   <Font name="Consolas" size="20.0" />
                </font>
             </Button>
+            <TextField fx:id="textoSalida" editable="false" focusTraversable="false" layoutX="60.0" layoutY="295.0" prefHeight="25.0" prefWidth="292.0" style="-fx-background-color: gold;" />
          </children>
       </Group>
    </children>

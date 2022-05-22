@@ -445,14 +445,17 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonSeno_presionado(){
         l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
     }
     @FXML
     protected void BotonCos_presionado(){
         l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
     }
     @FXML
     protected void BotonTan_presionado(){
         l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
     }
     
     @FXML
