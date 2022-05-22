@@ -24,7 +24,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -463,7 +462,7 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected void BotonParentesisCerrado_presionado(){
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
     }
     
     /**

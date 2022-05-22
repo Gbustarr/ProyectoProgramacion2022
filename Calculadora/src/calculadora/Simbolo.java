@@ -89,6 +89,17 @@ public class Simbolo {
         this.forma[3] = this.forma[3] - (44 * incremento);
         this.forma[5] = this.forma[5] - (44 * incremento);
     }
+    
+    protected double[] getAlturaParentesis(){
+        double[] altura = {this.forma[1],this.forma[3],this.forma[5]}; //Cordenadas Y del parentesis
+            return altura;
+    }
+    
+    protected void setAlturaParentesis(double[] altura){
+        this.forma[1] = altura[0];
+        this.forma[3] = altura[1];
+        this.forma[5] = altura[2];
+    }
 
     public double getXFactor() {
         return Xfactor;

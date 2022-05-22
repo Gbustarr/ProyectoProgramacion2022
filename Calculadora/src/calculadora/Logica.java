@@ -225,8 +225,23 @@ public class Logica {
                  lista_simbolos.add(s);
                  indicesParentesisAbierto.add(lista_simbolos.size()-1);
                  break;
-                 //
+             case 18: //Parentesis Cerrado
+                 s.setValor(18);
+                 s.setTipo(2);
+                 s.setColor(context.colorOp);
+                 resetEstado();
+                 forma = cs.pCerrado(pivot_x, pivot_y);
+                 s.setForma(forma);
+                 s.moverAbajo(1);
+                 s.setAlturaParentesis(getAlturaParentesisAbierto(lista_simbolos));
+                 lista_simbolos.add(s);
                  
+                 if(!indicesParentesisAbierto.isEmpty()){
+                     indicesParentesisAbierto.remove(indicesParentesisAbierto.size()-1); //Elimina el parentesis abierto anterior
+                 }
+                 
+                 break;
+                       
         }
         //Para activar los puntos de control de los simbolos
         if(puntosControlActivo == 1){
@@ -376,6 +391,11 @@ public class Logica {
         if(panelAgregado == 1){
             context.panelContext.setTextArea();
         }
+    }
+    
+    protected double[] getAlturaParentesisAbierto(ArrayList<Simbolo> lista_simbolos){
+
+        return lista_simbolos.get(indicesParentesisAbierto.get(indicesParentesisAbierto.size()-1)).getAlturaParentesis();
     }
     
     protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x){
@@ -707,6 +727,10 @@ public class Logica {
         System.out.println();
         
         return string;
+    }
+    
+    protected void conseguirAlturaUltimoParentesis(){
+        
     }
     
     protected void borrarUltimo(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos, double pivot_x, Canvas Display) {

@@ -199,15 +199,25 @@ public class CoordenadasSimbolos {
     
     double[] pAbierto(double x, double y){
         double[] pAbierto =     {x-3,y-40,
-                                            x-7,y-32.5,
-                                            x-7,y-32.5,
-                                            x-7,y-17.5,
-                                             x-7,y-17.5,
-                                            x-3,y-10
+                                x-7,y-32.5,
+                                x-7,y-32.5,
+                                x-7,y-17.5,
+                                 x-7,y-17.5,
+                                x-3,y-10
         };
         return pAbierto;
     }
     
+    double[] pCerrado(double x, double y){
+        double[] pCerrado =     {x-7,y-40,
+                                x-3,y-32.5,
+                                x-3,y-32.5,
+                                x-3,y-17.5,
+                                 x-3,y-17.5,
+                                x-7,y-10
+        };
+        return pCerrado;
+    }
    
 
     
