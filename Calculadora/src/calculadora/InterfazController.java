@@ -24,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -347,7 +348,9 @@ public class InterfazController implements Initializable {
             l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
             l.divisionActiva = 0;
-            l.context.panelContext.setTextArea();
+            if (l.panelAgregado == 1){
+                l.context.panelContext.setTextArea();
+            }
         }
 
     }
@@ -452,13 +455,29 @@ public class InterfazController implements Initializable {
     protected void BotonTan_presionado(){
         l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
     }
+    
+    @FXML
+    protected void BotonParentesisAbierto_presionado(){
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonParentesisCerrado_presionado(){
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
-        
+        /*
+        gc.beginPath();
+        gc.moveTo(80,80);
+        gc.bezierCurveTo(150, 20, 150, 150, 75, 150);
+        gc.closePath();
+        */
     }
 
 }
