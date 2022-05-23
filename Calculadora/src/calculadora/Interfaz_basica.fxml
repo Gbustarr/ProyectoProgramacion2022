@@ -104,12 +104,11 @@
                         <Font name="Consolas" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="206.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="28.0" prefWidth="116.0" style="-fx-background-color: green;" text="Baśico">
+                  <Button fx:id="Btn_Cientifico" blendMode="OVERLAY" layoutX="329.0" layoutY="345.0" mnemonicParsing="false" onAction="#BotonCientifico_presionado" prefHeight="29.0" prefWidth="86.0" style="-fx-background-color: green;" text="Baśico">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="textoSalida" disable="true" editable="false" focusTraversable="false" layoutX="159.0" layoutY="349.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: gold;" visible="false" />
                   <Button fx:id="Btn_puntosControl" blendMode="OVERLAY" layoutX="120.0" layoutY="348.0" mnemonicParsing="false" onAction="#BotonPuntosControl_presionado" prefHeight="22.0" prefWidth="31.0" style="-fx-background-color: green;" text="P">
                      <font>
                         <Font name="Consolas" size="15.0" />
@@ -118,7 +117,7 @@
                         <Glow />
                      </effect>
                   </Button>
-                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="206.0" layoutY="437.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="19.0" prefWidth="116.0" style="-fx-background-color: green;" text="Panel">
+                  <Button fx:id="Btn_Panel" blendMode="OVERLAY" layoutX="329.0" layoutY="377.0" mnemonicParsing="false" onAction="#BotonPanel_presionado" prefHeight="29.0" prefWidth="85.0" style="-fx-background-color: green;" text="Panel">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -132,7 +131,7 @@
                         </Menu>
                      </items>
                   </MenuButton>
-                  <MenuButton layoutX="159.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" stylesheets="@style.css" text="Colores">
+                  <MenuButton layoutX="158.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-color: gold;" stylesheets="@style.css" text="Colores">
                     <items>
                         <Menu mnemonicParsing="false" text="Numeros">
                           <items>
@@ -179,6 +178,21 @@
                         <Font name="Consolas" size="18.0" />
                      </font>
                   </Button>
+                  <Button fx:id="Btn_pAbierto" blendMode="MULTIPLY" layoutX="208.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonParentesisAbierto_presionado" prefHeight="51.0" prefWidth="57.0" text="(">
+                     <font>
+                        <Font name="Consolas" size="25.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Btn_pCerrado" blendMode="MULTIPLY" layoutX="265.0" layoutY="411.0" mnemonicParsing="false" onAction="#BotonParentesisCerrado_presionado" prefHeight="51.0" prefWidth="57.0" text=")">
+                     <font>
+                        <Font name="Consolas" size="25.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Btn_Fact" blendMode="MULTIPLY" layoutX="427.0" layoutY="418.0" mnemonicParsing="false" onAction="#BotonFact_presionado" prefHeight="51.0" prefWidth="57.0" text="x!" visible="false">
+                     <font>
+                        <Font name="Consolas" size="18.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <Canvas fx:id="Display" height="250.0" layoutX="50.0" layoutY="57.0" width="340.0" />
@@ -197,6 +211,7 @@
                   <Font name="Consolas" size="20.0" />
                </font>
             </Button>
+            <TextField fx:id="textoSalida" editable="false" focusTraversable="false" layoutX="60.0" layoutY="295.0" prefHeight="25.0" prefWidth="292.0" style="-fx-background-color: gold;" />
          </children>
       </Group>
    </children>

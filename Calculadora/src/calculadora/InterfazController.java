@@ -123,6 +123,9 @@ public class InterfazController implements Initializable {
     protected Button Btn_Cos;
     @FXML
     protected Button Btn_Tan;
+    
+    @FXML
+    protected Button Btn_Fact;
 
     double pivot_x = 300;
     double pivot_y = 200;
@@ -347,7 +350,9 @@ public class InterfazController implements Initializable {
             l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
             l.divisionActiva = 0;
-            l.context.panelContext.setTextArea();
+            if (l.panelAgregado == 1){
+                l.context.panelContext.setTextArea();
+            }
         }
 
     }
@@ -413,11 +418,13 @@ public class InterfazController implements Initializable {
             Btn_Sen.setVisible(false);
             Btn_Cos.setVisible(false);
             Btn_Tan.setVisible(false);
+            Btn_Fact.setVisible(false);
             Btn_Cientifico.setText("Básico");
             fondoInterfaz.getStyleClass().clear();
             fondoInterfaz.getStyleClass().add("bodybg");
         }else{
             Btn_Sen.setVisible(true);
+            Btn_Fact.setVisible(true);
             Btn_Cos.setVisible(true);
             Btn_Tan.setVisible(true);
             Btn_Cientifico.setText("Científico");
@@ -426,8 +433,7 @@ public class InterfazController implements Initializable {
         }
 
     }
-    
-    
+
     @FXML
     protected void Cerrar() {
         Platform.exit();
@@ -443,22 +449,49 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonSeno_presionado(){
         l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
     }
     @FXML
     protected void BotonCos_presionado(){
         l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
     }
     @FXML
     protected void BotonTan_presionado(){
         l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
     }
+    
+    @FXML
+    protected void BotonFact_presionado(){
+        l.agregarSimbolo(gc, 19, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonParentesisAbierto_presionado(){
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonParentesisCerrado_presionado(){
+        if(!lista_simbolos.isEmpty() || !l.indicesParentesisAbierto.isEmpty()){
+            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
+
+        }
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = Display.getGraphicsContext2D();
-        
+        /*
+        gc.beginPath();
+        gc.moveTo(80,80);
+        gc.bezierCurveTo(150, 20, 150, 150, 75, 150);
+        gc.closePath();
+        */
     }
 
 }
