@@ -86,6 +86,10 @@ public class InterfazController implements Initializable {
     protected Button Btn_moverIzq;
     
      */
+    
+    @FXML
+    protected Button Btn_elevar;
+    
     @FXML
     protected Button Btn_puntosControl;
 
@@ -239,6 +243,13 @@ public class InterfazController implements Initializable {
         colornumeros= Color.valueOf(Btn_color.getValue().toString());
         System.out.println(colornumeros);
         lista_simbolos.get(lista_simbolos.size()-1).setColor(colornumeros);
+    }
+    
+    @FXML
+    protected void BotonElevar_presionado() {
+        if (fg.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
+            fg.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+        }
     }
     
     /*

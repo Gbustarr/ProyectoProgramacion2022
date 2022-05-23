@@ -115,5 +115,10 @@
             <Color />
          </value>
       </ColorPicker>
+      <Button fx:id="Btn_elevar" layoutX="168.0" layoutY="367.0" mnemonicParsing="false" onAction="#BotonElevar_presionado" prefHeight="44.0" prefWidth="46.0" text="^">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -21,6 +21,15 @@ public class CoordenadasSimbolos {
         return cero;
     }
     
+    double[] cerochiquito(double x,double y){
+        double[] cerochiquito =     {x-5,y-40,x,y-40,
+                            x,y-40,x,y-25,
+                            x,y-25,x-5,y-25,
+                            x-5,y-25,x-5,y-40
+                            };
+        return cerochiquito;
+    }
+    
     double[] uno(double x,double y){
         double[] uno =      {x-10,y-35,x-5,y-40,
                             x-5,y-40,x-5,y-10,
@@ -117,5 +126,11 @@ public class CoordenadasSimbolos {
      
         double[] dividir =      {x-10,y-25,x,y-25};
         return dividir;
+    }
+
+    double[] potencia(double x, double y){
+     
+        double[] potencia =      {x-10,y-35,x-5,y-40,x-5,y-40,x,y-35};
+        return potencia;
     }
 }
