@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -85,6 +86,9 @@ public class InterfazController implements Initializable {
     protected Button Btn_DEL;
     
     @FXML
+    protected Button Btn_next;
+    
+    @FXML
     protected Button Btn_Cientifico;
     
     @FXML
@@ -105,6 +109,11 @@ public class InterfazController implements Initializable {
     @FXML
     protected Slider tamanoCaracteres;
     
+    @FXML
+    protected Label divisionActiva;
+    
+    @FXML
+    protected Label alturaDivision;
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -250,7 +259,6 @@ public class InterfazController implements Initializable {
             if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
                 //l.moverNumeradoresHaciaArriba(lista_simbolos);
                 l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
-
             }
         }
     }
@@ -340,7 +348,6 @@ public class InterfazController implements Initializable {
         if (lista_simbolos.size() > 0) {
             l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
         }
-
     }
 
     @FXML
@@ -470,6 +477,11 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonParentesisAbierto_presionado(){
         l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonNext_presionado(){
+        l.resetEstado();
     }
     
     @FXML

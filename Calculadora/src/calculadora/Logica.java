@@ -8,6 +8,7 @@ package calculadora;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -41,10 +42,13 @@ public class Logica {
     
     //Variables para los parentesis
     ArrayList<Integer> indicesParentesisAbierto = new ArrayList();
+    boolean parentesisAgregadoANumerador = false;
+    int alturaParentesis = 0;
 
     
     //FuncionesGraficadoras
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
+    
     
     public Logica(InterfazController context){
         this.context = context;
@@ -176,17 +180,26 @@ public class Logica {
                 s.setForma(forma);
                 xInicioDivision = coordenadaXDivision(lista_simbolos,pivot_x);
                 s.division(xInicioDivision, pivot_x);
+                
                 if(divisionActiva == 0){
-                    agregarNumeradores(lista_simbolos);
+                    if(lista_simbolos.get(lista_simbolos.size()-1).valor == 18){ // Si el ultimo simbolo agregado es un parentesis
+                        agregarParentesisANumerador(lista_simbolos);
+                        parentesisAgregadoANumerador = true;
+                        moverNumeradoresArriba(lista_simbolos);
+                    }else{
+                        agregarNumeradores(lista_simbolos);
+                        
+                    }
                     moverNumeradoresArriba(lista_simbolos);
-                    this.indicesNumeradores.add(lista_simbolos.size());
-                    indiceUltimaDivision = lista_simbolos.size();
-                    lista_simbolos.add(s);
-                    //Cambio de la altura del parentesis
-                    if(!indicesParentesisAbierto.isEmpty()){
-                    int indiceUltimoParentesis = indicesParentesisAbierto.get(indicesParentesisAbierto.size()-1);
-                    lista_simbolos.get(indiceUltimoParentesis).dimensionarParentesis(gc, 1);
-                    lista_simbolos.get(indiceUltimoParentesis).moverAbajo(1);
+                        this.indicesNumeradores.add(lista_simbolos.size());
+                        indiceUltimaDivision = lista_simbolos.size();
+                        lista_simbolos.add(s);
+                        //Cambio de la altura del parentesis
+                        if(!indicesParentesisAbierto.isEmpty()){
+                            int indiceUltimoParentesis = indicesParentesisAbierto.get(indicesParentesisAbierto.size()-1);
+                            lista_simbolos.get(indiceUltimoParentesis).dimensionarParentesis(gc, 1);
+                            lista_simbolos.get(indiceUltimoParentesis).moverAbajo(1);
+                    
                 }
                 
                 }
@@ -231,8 +244,9 @@ public class Logica {
                  s.setColor(context.colorOp);
                  forma = cs.pCerrado(pivot_x, pivot_y);
                  s.setForma(forma);
-                 if(divisionActiva == 1){
+                 if(indiceUltimaDivision != 0){
                      s.moverAbajo(1);
+                     
                  }
                  
                  s.setAlturaParentesis(getAlturaParentesisAbierto(lista_simbolos));
@@ -241,7 +255,7 @@ public class Logica {
                  if(!indicesParentesisAbierto.isEmpty()){
                      indicesParentesisAbierto.remove(indicesParentesisAbierto.size()-1); //Elimina el parentesis abierto anterior
                  }
-                 resetEstado();
+                 //resetEstado();
                  break;
              case 19:
                 forma = cs.factorial(pivot_x, pivot_y);
@@ -252,6 +266,7 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
         }
+        
         //Para activar los puntos de control de los simbolos
         if(puntosControlActivo == 1){
             s.switchPuntosControl();
@@ -261,23 +276,32 @@ public class Logica {
         
         //Si es un operador *,+ o -, los valores se reestablecen
         if (s.getValor() > 9 && s.getValor() < 13) {
-            resetEstado();
+            //resetEstado();
             //diferenciaNumeradorDenominador = 0;
         }
         
         if(divisionActiva == 1){
             this.indicesDenominadores.add(lista_simbolos.size()-1);
-            
         }
 
         
         //Verificando que el denominador sea menor que el numerador
-        if ((indicesNumeradores.size()-1) - indicesDenominadores.size() >=0) {
+        if(parentesisAgregadoANumerador){
+            if ((indicesNumeradores.size()-3) - indicesDenominadores.size() >=0) {
             denominadorMenor = 1;
             anchoDivision = indicesNumeradores.size()-1;
         } else {
             denominadorMenor = 0;
             anchoDivision = indicesDenominadores.size();
+        }
+        }else{
+            if ((indicesNumeradores.size()-1) - indicesDenominadores.size() >=0) {
+            denominadorMenor = 1;
+            anchoDivision = indicesNumeradores.size()-1;
+        } else {
+            denominadorMenor = 0;
+            anchoDivision = indicesDenominadores.size();
+        }
         }
         
       
@@ -386,6 +410,7 @@ public class Logica {
         //  Se borra el contenido del canvas para redibujar sobre ella.
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        
 
 
         context.textoSalida.setText(listaATexto(lista_simbolos));
@@ -394,6 +419,9 @@ public class Logica {
         if(panelAgregado == 1){
             context.panelContext.setTextArea();
         }
+        
+        context.alturaDivision.setText("Altura Division: "+alturaDivision);
+        context.divisionActiva.setText("División activa: "+divisionActiva);
     }
     
     protected double[] getAlturaParentesisAbierto(ArrayList<Simbolo> lista_simbolos){
@@ -425,8 +453,11 @@ public class Logica {
         indicesNumeradores.clear();
         indicesDenominadores.clear();
         indicesDivisionCombinada.clear();
+        alturaParentesis = alturaDivision;
         alturaDivision = 0;
         context.textoSalida.setText("");
+        parentesisAgregadoANumerador = false;
+        
         
     }
     
@@ -522,12 +553,24 @@ public class Logica {
     protected void agregarNumeradores(ArrayList<Simbolo> lista_simbolos){
         ////System.out.print("Denominadores: ");
         for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).getTipo() == 0) {
+            if (lista_simbolos.get(i).getTipo() == 0 || lista_simbolos.get(i).getValor() == 11) {
                 this.indicesNumeradores.add(i);
             } else{
                 break;
             }
         }
+    }
+    
+    protected void agregarParentesisANumerador(ArrayList<Simbolo> lista_simbolos){
+        for(int i = lista_simbolos.size()- 1;i >= 0;i --){
+            if(lista_simbolos.get(i).valor == 17){
+                this.indicesNumeradores.add(i);
+               break; 
+            }else{
+                this.indicesNumeradores.add(i);
+            }
+        }
+    
     }
     
     protected void debugPrintNumeradores(ArrayList<Simbolo> lista_simbolos){
