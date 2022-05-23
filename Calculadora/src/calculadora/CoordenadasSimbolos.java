@@ -126,10 +126,10 @@ public class CoordenadasSimbolos {
     }
     
     double [] factorial(double x, double y){
-        double [] factorial = {x-10,y-40,x-10,y-18,
-                               x-10,y-10,x-10,y-10,
-                               x-10,y-10,x-10,y-10,
-                               x-10,y-10,x-10,y-10};
+        double [] factorial = {x-7,y-40,x-7,y-18,
+                               x-7,y-10,x-7,y-10,
+                               x-7,y-10,x-7,y-10,
+                               x-7,y-10,x-7,y-10};
         return factorial;
     }
     

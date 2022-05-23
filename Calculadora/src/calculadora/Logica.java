@@ -243,7 +243,14 @@ public class Logica {
                  }
                  resetEstado();
                  break;
-                       
+             case 19:
+                forma = cs.factorial(pivot_x, pivot_y);
+                s.setValor(19);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                s.setForma(forma);
+                lista_simbolos.add(s);
+                break;
         }
         //Para activar los puntos de control de los simbolos
         if(puntosControlActivo == 1){
@@ -603,7 +610,7 @@ public class Logica {
         int index = lista_simbolos.size() - 1;
         if (!lista_simbolos.isEmpty()) {
             if (index != -1) {
-                if (lista_simbolos.get(index).tipo == 0) {
+                if (lista_simbolos.get(index).tipo == 0 || lista_simbolos.get(index).tipo == 2) {
                     return 0;
                 } else {
                     return 1;
@@ -624,7 +631,10 @@ public class Logica {
             return 1;
         }else{
             if(lista_simbolos.size() >0){
-                if(lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 0 || (lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 1 && lista_simbolos.get(lista_simbolos.size()-2).getTipo() == 0 )){
+                if(lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 0 ||
+                    lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 2 ||
+                    (lista_simbolos.get(lista_simbolos.size()-1).getTipo() == 1 && 
+                    lista_simbolos.get(lista_simbolos.size()-2).getTipo() == 0 )){
                     return 1;
                 }else{
                     return 0;
@@ -721,6 +731,10 @@ public class Logica {
                     System.out.print(")");
                     string = string+")";
                 }
+                if (s.valor == 19) {
+                    System.out.print("!");
+                    string = string+"!";
+                }
                 
             } else {
                 System.out.print(s.valor);
@@ -733,9 +747,6 @@ public class Logica {
         return string;
     }
     
-    protected void conseguirAlturaUltimoParentesis(){
-        
-    }
     
     protected void borrarUltimo(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos, double pivot_x, Canvas Display) {
         
