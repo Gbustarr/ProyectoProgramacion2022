@@ -51,7 +51,12 @@ public class division {
                 if (l.denominadorMenor == 1) {
                     //System.out.println("Denominador Menor");
                     s.moverAbajo(1);
-                    s.moverIzquierda(l.posicionEnDenominador(lista_simbolos));
+                    if(l.parentesisAgregadoANumerador){
+                        s.moverIzquierda((l.indicesNumeradores.size()-l.indicesDenominadores.size()-1));
+                    }else{
+                        s.moverIzquierda(l.posicionEnDenominador(lista_simbolos));
+                    }
+                    
                 } else {
                     l.moverNumeradoresDerecha(lista_simbolos);
                     //System.out.println("Denominador Mayor");
@@ -143,12 +148,23 @@ public class division {
         this.l = l;
         
         if (l.alturaDivision == 0) {
-            if ((l.indicesNumeradores.size() - 1) - l.indicesDenominadores.size() >= 0) {
+            if(!l.parentesisAgregadoANumerador){
+                if ((l.indicesNumeradores.size() - 3) - l.indicesDenominadores.size() >= 0) {
                 l.denominadorMenor = 1;
                 l.anchoDivision = l.indicesNumeradores.size() - 1;
             } else {
                 l.denominadorMenor = 0;
                 l.anchoDivision = l.indicesDenominadores.size();
+            }
+            
+            }else{
+                if ((l.indicesNumeradores.size() - 1) - l.indicesDenominadores.size() >= 0) {
+                l.denominadorMenor = 1;
+                l.anchoDivision = l.indicesNumeradores.size() - 1;
+            } else {
+                l.denominadorMenor = 0;
+                l.anchoDivision = l.indicesDenominadores.size();
+            }
             }
         }else{
             if(l.anchoDivisionAnterior >= l.indicesDenominadores.size()){
