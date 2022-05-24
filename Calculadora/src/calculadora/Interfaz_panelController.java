@@ -35,7 +35,15 @@ public class Interfaz_panelController implements Initializable {
     }
 
     protected void setTextArea(){
-        textArea.setText(context.textoSalida.getText());
+        StringBuilder s = new StringBuilder();
+        for(int i = 0; i<context.lista_simbolos.size();i++){
+            if(context.lista_simbolos.get(i).valor == 13){
+            s.append(context.lista_simbolos.get(i));
+            s.append("\n");
+            }
+        }
+        
+        textArea.setText(s.toString());
     }
     @FXML
     protected void Cerrar() {

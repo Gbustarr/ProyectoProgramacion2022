@@ -114,6 +114,22 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected Label alturaDivision;
+    
+    @FXML
+    protected Label indiceUltimaDivision;
+    
+    @FXML
+    protected Label denominadorMenor;
+    @FXML
+    protected Label indicesNumeradores;
+    @FXML
+    protected Label indicesDenominadores;
+    @FXML
+    protected Label indicesDivisionCombinada;
+    @FXML
+    protected Label anchoDivision;
+    @FXML
+    protected Label anchoDivisionAnterior;
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -486,7 +502,7 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected void BotonParentesisCerrado_presionado(){
-        if(!lista_simbolos.isEmpty() || !l.indicesParentesisAbierto.isEmpty()){
+        if(!lista_simbolos.isEmpty() || !l.ParentesisAbiertos.isEmpty()){
             l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
 
         }

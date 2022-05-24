@@ -6,14 +6,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="166.0" prefWidth="600.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadora.Interfaz_panelController">
+<AnchorPane id="AnchorPane" prefHeight="505.0" prefWidth="600.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadora.Interfaz_panelController">
    <children>
-      <TextArea fx:id="textArea" editable="false" layoutX="13.0" layoutY="45.0" prefHeight="107.0" prefWidth="575.0" wrapText="true" />
-      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Secuencia de simbolos">
+      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Información de simbolos">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
+      <TextArea fx:id="textArea" editable="false" layoutX="13.0" layoutY="53.0" prefHeight="425.0" prefWidth="575.0" wrapText="true" />
       <Button fx:id="Btn_Close" layoutX="565.0" layoutY="6.0" mnemonicParsing="false" onAction="#Cerrar" prefHeight="33.0" prefWidth="31.0" style="-fx-background-color: red;" stylesheets="@style.css" text="X" textFill="WHITE">
          <font>
             <Font name="Arial" size="15.0" />

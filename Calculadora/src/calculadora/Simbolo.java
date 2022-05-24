@@ -5,6 +5,7 @@
  */
 package calculadora;
 
+import java.util.Arrays;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -190,5 +191,9 @@ public class Simbolo {
         for (int i = 0; i < this.forma.length; i = i + 2) {
             this.forma[i] = this.forma[i] + (espacio * factor);  // Coordenada X
         }
+    }
+    @Override
+    public String toString(){
+        return Arrays.toString(this.forma);
     }
 }

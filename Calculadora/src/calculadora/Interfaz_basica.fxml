@@ -220,6 +220,13 @@
             </Button>
             <TextField fx:id="textoSalida" editable="false" focusTraversable="false" layoutX="60.0" layoutY="295.0" prefHeight="25.0" prefWidth="292.0" style="-fx-background-color: gold;" />
             <Label fx:id="alturaDivision" layoutX="63.0" layoutY="59.0" text="Label" />
+            <Label fx:id="indiceUltimaDivision" layoutX="63.0" layoutY="76.0" text="Label" />
+            <Label fx:id="denominadorMenor" layoutX="63.0" layoutY="93.0" text="Label" />
+            <Label fx:id="indicesNumeradores" layoutX="63.0" layoutY="110.0" text="Label" />
+            <Label fx:id="indicesDenominadores" layoutX="63.0" layoutY="127.0" text="Label" />
+            <Label fx:id="indicesDivisionCombinada" layoutX="63.0" layoutY="144.0" text="Label" />
+            <Label fx:id="anchoDivision" layoutX="63.0" layoutY="161.0" text="Label" />
+            <Label fx:id="anchoDivisionAnterior" layoutX="63.0" layoutY="178.0" text="Label" />
          </children>
       </Group>
    </children>
