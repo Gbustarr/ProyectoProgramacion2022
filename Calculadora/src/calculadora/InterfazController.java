@@ -373,6 +373,7 @@ public class InterfazController implements Initializable {
             l.resetEstado();
             fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
             l.divisionActiva = 0;
+            l.salidaDivision =false;
             if (l.panelAgregado == 1){
                 l.context.panelContext.setTextArea();
             }
@@ -498,6 +499,7 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonNext_presionado(){
         l.resetEstado();
+        l.salidaDivision =true;
     }
     
     @FXML

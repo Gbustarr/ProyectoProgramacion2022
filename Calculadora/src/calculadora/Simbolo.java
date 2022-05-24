@@ -25,6 +25,8 @@ public class Simbolo {
     int valor;
     int enDivision = 0;
     int puntosControl = 0;
+    boolean parentesisDimensionado = false;
+    boolean bloqueParentesis = false;
 
     private static double espacio = 15;
 
@@ -60,6 +62,21 @@ public class Simbolo {
              */
         }
         //System.out.println();
+    }
+    protected void setBloqueParentesis(){
+        this.bloqueParentesis = true;
+    }
+    
+    protected boolean getBloqueParentesis(){
+        return this.bloqueParentesis;
+    }
+    
+    protected void setParentesisDimensionado(){
+        this.parentesisDimensionado = true;
+    }
+    
+    protected boolean getParentesisDimensionado(){
+        return this.parentesisDimensionado;
     }
 
     protected void graficarPuntosControl(GraphicsContext gc, int i) {

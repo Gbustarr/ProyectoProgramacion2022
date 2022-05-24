@@ -27,6 +27,7 @@ public class Logica {
 
     //Variables para la division
     int divisionActiva = 0;
+    boolean salidaDivision = false;
     int alturaDivision = 0;
     int indiceUltimaDivision;
 
@@ -222,11 +223,12 @@ public class Logica {
                 s.setColor(context.colorOp);
                 forma = cs.pCerrado(pivot_x, pivot_y);
                 s.setForma(forma);
-                if (divisionActiva == 1) {
+                if (ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getParentesisDimensionado()) {
                     s.moverAbajo(1);
+                    s.setAlturaParentesis(getAlturaParentesisAbierto());
                 }
-
-                s.setAlturaParentesis(getAlturaParentesisAbierto());
+                if(salidaDivision){s.setBloqueParentesis();};
+                
                 lista_simbolos.add(s);
 
                 if (!ParentesisAbiertos.isEmpty()) {
@@ -251,8 +253,9 @@ public class Logica {
 
         //Si es un operador *,+ o -, los valores se reestablecen
         if (s.getValor() > 9 && s.getValor() < 13) {
-            //resetEstado();
-            //diferenciaNumeradorDenominador = 0;
+            if(lista_simbolos.get(lista_simbolos.size()-2).getBloqueParentesis()){
+                anchoDivision = 0;
+            }
         }
 
         if (divisionActiva == 1) {
@@ -424,12 +427,34 @@ public class Logica {
     }
 
     protected void agregarParentesisANumerador(ArrayList<Simbolo> lista_simbolos) {
+        
         for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).valor == 17) {
+            if (lista_simbolos.get(i).valor == 17) { // 17 = parentesis abierto
                 this.indicesNumeradores.add(i);
                 break;
             } else {
                 this.indicesNumeradores.add(i);
+            }
+        }
+
+    }
+    
+    protected void agregarBloqueParentesisANumerador(ArrayList<Simbolo> lista_simbolos) {
+        int contadorParentesis = 1;
+        this.indicesNumeradores.add(lista_simbolos.size()-1);
+        
+        for (int i = lista_simbolos.size() - 2; i >= 0; i--) {
+            if (contadorParentesis != 0) { 
+                if(lista_simbolos.get(i).valor == 18){
+                    contadorParentesis++;
+                }else if(lista_simbolos.get(i).valor == 17){
+                    contadorParentesis--;
+                }
+                this.indicesNumeradores.add(i);
+                
+            } else {
+                this.indicesNumeradores.add(i);
+                break;
             }
         }
 

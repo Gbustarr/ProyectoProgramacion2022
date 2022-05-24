@@ -21,8 +21,12 @@ public class division {
     protected void nuevaDivision(Logica l,ArrayList<Simbolo> lista_simbolos, Simbolo s,GraphicsContext gc){
         if (l.divisionActiva == 0) {
                     if (lista_simbolos.get(lista_simbolos.size() - 1).valor == 18) { // Si el ultimo simbolo agregado es un parentesis
-                        l.agregarParentesisANumerador(lista_simbolos);
-                        l.parentesisAgregadoANumerador = true;
+                        if(lista_simbolos.get(lista_simbolos.size()-1).getBloqueParentesis()){
+                            l.agregarBloqueParentesisANumerador(lista_simbolos);
+                        }else{
+                            l.agregarParentesisANumerador(lista_simbolos);
+                            l.parentesisAgregadoANumerador = true;
+                        }
                         //moverNumeradoresArriba(lista_simbolos);
                     } else {
                         l.agregarNumeradores(lista_simbolos);
@@ -35,6 +39,7 @@ public class division {
                     if (!l.ParentesisAbiertos.isEmpty()) {
                         l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).dimensionarParentesis(gc, 1);
                         l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).moverAbajo(1);
+                        l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).setParentesisDimensionado();
                     }
 
                 }
