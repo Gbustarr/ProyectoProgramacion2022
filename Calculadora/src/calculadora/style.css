@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 06-04-2022, 20:03:59
+    Author     : Guillermo
+*/
+
+.bodybg{
+    -fx-background-image: url("./img/Background_image_sopaipletos.png");
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-size: 527 693;
+    -fx-background-repeat: no-repeat;
+}
+.bodybgC{
+    -fx-background-image: url("./img/Background_image_sopaipletos_scientific.png");
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-size: 527 693;
+    -fx-background-repeat: no-repeat;
+}
+
+.rojo{
+    -fx-background-color: #CC0000;
+    -fx-text-fill: #FFFFFF;
+}
+.naranjo{
+    -fx-background-color: #E56B20;
+}
+.verde{
+    -fx-background-color: #32940D;
+}
+.cafe{
+    -fx-background-color: #94550D;
+}
+.azul{
+    -fx-background-color: #0D3C94;
+}
+.morado{
+    -fx-background-color: #540E64;
+}
