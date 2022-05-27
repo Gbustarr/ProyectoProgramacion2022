@@ -130,6 +130,10 @@ public class InterfazController implements Initializable {
     protected Label anchoDivision;
     @FXML
     protected Label anchoDivisionAnterior;
+    @FXML
+    protected Label divisionEliminada;
+    @FXML
+    protected Label movimientosDeLista;
     /*
     @FXML
     protected Button Btn_moverDer;
@@ -275,6 +279,7 @@ public class InterfazController implements Initializable {
             if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
                 //l.moverNumeradoresHaciaArriba(lista_simbolos);
                 l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
+                l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
             }
         }
     }
@@ -500,6 +505,10 @@ public class InterfazController implements Initializable {
     protected void BotonNext_presionado(){
         l.resetEstado();
         l.salidaDivision =true;
+        if(!l.ParentesisAbiertos.isEmpty()){
+            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
+        }
+        l.anchoDivision = l.anchoDivisionAnterior;
     }
     
     @FXML

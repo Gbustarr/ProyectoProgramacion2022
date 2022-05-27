@@ -200,6 +200,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
+                  <Label fx:id="divisionEliminada" layoutX="285.0" layoutY="59.0" text="Label" />
                </children>
             </AnchorPane>
             <Canvas fx:id="Display" height="250.0" layoutX="50.0" layoutY="57.0" width="340.0" />
@@ -227,6 +228,7 @@
             <Label fx:id="indicesDivisionCombinada" layoutX="63.0" layoutY="144.0" text="Label" />
             <Label fx:id="anchoDivision" layoutX="63.0" layoutY="161.0" text="Label" />
             <Label fx:id="anchoDivisionAnterior" layoutX="63.0" layoutY="178.0" text="Label" />
+            <Label fx:id="movimientosDeLista" layoutX="233.0" layoutY="55.0" text="Label" />
          </children>
       </Group>
    </children>

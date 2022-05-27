@@ -8,7 +8,6 @@ package calculadora;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -57,7 +56,7 @@ public class Logica {
     protected void agregarSimbolo(GraphicsContext gc, int nSimbolo,
         ArrayList<Simbolo> lista_simbolos, double pivot_x, double pivot_y,
         Canvas Display) {
-
+        updateTags();
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
         s.setXpos(pivot_x);
@@ -278,15 +277,7 @@ public class Logica {
             context.panelContext.setTextArea();
         }
 
-        context.alturaDivision.setText("Altura Division: " + alturaDivision);
-        context.divisionActiva.setText("División activa: " + divisionActiva);
-        context.indiceUltimaDivision.setText("Indice Ultima Division: " + indiceUltimaDivision);
-        context.denominadorMenor.setText("Denominador Menor: " + denominadorMenor);
-        context.indicesNumeradores.setText("Indices Numeradores: " + indicesNumeradores.size());
-        context.indicesDenominadores.setText("Indices Denominadores: " + indicesDenominadores.size());
-        context.indicesDivisionCombinada.setText("Indices Division Combinada: " + indicesDivisionCombinada.size());
-        context.anchoDivision.setText("Ancho Division: " + anchoDivision);
-        context.anchoDivisionAnterior.setText("Ancho Division Anterior: " + anchoDivisionAnterior);
+        updateTags();
     }
 
     protected double[] getAlturaParentesisAbierto() {
@@ -335,12 +326,36 @@ public class Logica {
         }
 
     }
+    
+    protected void moverBloqueArriba(ArrayList<Simbolo> lista_simbolos, double posiciones) {
+        //System.out.print("Movimiento de fracciones: ");
+        for (int i = 0; i < indicesNumeradores.size(); i++) {
+            lista_simbolos.get(this.indicesNumeradores.get(i)).moverArriba(posiciones);
+            System.out.print(lista_simbolos.get(this.indicesNumeradores.get(i)).getValor()
+                + " ");
+        }
+
+    }
 
     protected void moverNumeradoresArriba(ArrayList<Simbolo> lista_simbolos) {
         for (int i = 0; i < indicesNumeradores.size(); i++) {
             lista_simbolos.get(this.indicesNumeradores.get(i)).moverArriba(1);
         }
 
+    }
+    
+    protected void updateTags(){
+        context.alturaDivision.setText("Altura Division: " + alturaDivision);
+        context.divisionActiva.setText("División activa: " + divisionActiva);
+        context.indiceUltimaDivision.setText("Indice Ultima Division: " + indiceUltimaDivision);
+        context.denominadorMenor.setText("Denominador Menor: " + denominadorMenor);
+        context.indicesNumeradores.setText("Indices Numeradores: " + indicesNumeradores.size());
+        context.indicesDenominadores.setText("Indices Denominadores: " + indicesDenominadores.size());
+        context.indicesDivisionCombinada.setText("Indices Division Combinada: " + indicesDivisionCombinada.size());
+        context.anchoDivision.setText("Ancho Division: " + anchoDivision);
+        context.anchoDivisionAnterior.setText("Ancho Division Anterior: " + anchoDivisionAnterior);
+        context.divisionEliminada.setText("Division eliminada: "+divisionEliminada);
+        context.movimientosDeLista.setText("Salida division: "+salidaDivision);
     }
 
     protected void formaOperadorCientifico(int valor, double pivot_x, double pivot_y, Simbolo s) {
