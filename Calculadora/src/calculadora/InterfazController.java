@@ -156,8 +156,8 @@ public class InterfazController implements Initializable {
     @FXML
     protected Button Btn_Fact;
 
-    double pivot_x = 300;
-    double pivot_y = 200;
+    double pivot_x = 250;
+    double pivot_y = 100;
 
     double espacio_acumulado = 0;
     ArrayList<Simbolo> lista_simbolos = new ArrayList();
@@ -276,7 +276,7 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonDivision_presionado() {
         if (/*l.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
-            if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() != 1) {
+            if (lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 18) {
                 //l.moverNumeradoresHaciaArriba(lista_simbolos);
                 l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
                 l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
@@ -284,6 +284,244 @@ public class InterfazController implements Initializable {
         }
     }
     
+    @FXML
+    protected void BtnOperador_presionado(){
+        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+
+    @FXML
+    protected void BotonDEL_presionado() {
+
+        if (lista_simbolos.size() > 0) {
+            //l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
+        }
+    }
+
+    @FXML
+    protected void BotonAC_presionado() {
+
+        if (lista_simbolos.size() > 0) {
+            l.resetEstado();
+            fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
+            if (l.panelAgregado == 1){
+                l.context.panelContext.setTextArea();
+            }
+        }
+    }
+
+    @FXML
+    protected void BotonPuntosControl_presionado() {
+        l.switchPuntosControl(lista_simbolos, gc, Display);
+    }
+    
+    @FXML
+    protected void BotonPanel_presionado() throws IOException {
+        if(l.panelAgregado ==0){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
+            Parent root = loader.load();
+            
+            
+            Scene scene = new Scene(root);
+            panelContext = loader.getController();
+            panelContext.setController(this);
+            panelContext.setTextArea();
+            
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+            //Para el movimiento de el programa mediante el mouse
+            root.setOnMousePressed(mouseEvent -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+
+            root.setOnMouseDragged(mouseEvent -> {
+                stage.setX(mouseEvent.getScreenX() - x);
+                stage.setY(mouseEvent.getScreenY() - y);
+            });
+            stage.show();
+            l.panelAgregado = 1;
+        }
+    }
+    
+    @FXML
+    protected void BotonColorNumeros_presionado(){
+        colorNum= Color.valueOf(colorNumeros.getValue().toString());
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    @FXML
+    protected void BotonColorOperadores_presionado(){
+        colorOp= Color.valueOf(colorOperadores.getValue().toString());
+        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
+    }
+    
+    
+    @FXML
+    protected void Slider_presionado(){
+        double valor = tamanoCaracteres.getValue();
+        System.out.println(tamanoCaracteres.getValue());
+        switch((int)valor){
+            case 1:
+                l.cambiarTamano(0.70);
+                l.factor = 0.70;
+                
+                break;
+            case 2:
+                l.cambiarTamano(0.85);
+                l.factor = 0.85;
+                break;
+            case 3:
+                l.cambiarTamano(1);
+                l.factor = 1;
+                break;
+            case 4:
+                l.cambiarTamano(1.15);
+                l.factor = 1.15;
+                break;
+            case 5:
+                l.cambiarTamano(1.30);
+                l.factor = 1.30;
+                break;
+        }
+    }
+    
+    @FXML
+    protected void BotonCientifico_presionado() {
+       
+        if(Btn_Sen.isVisible() == true){
+            Btn_Sen.setVisible(false);
+            Btn_Cos.setVisible(false);
+            Btn_Tan.setVisible(false);
+            Btn_Fact.setVisible(false);
+            Btn_Cientifico.setText("Básico");
+            fondoInterfaz.getStyleClass().clear();
+            fondoInterfaz.getStyleClass().add("bodybg");
+        }else{
+            Btn_Sen.setVisible(true);
+            Btn_Fact.setVisible(true);
+            Btn_Cos.setVisible(true);
+            Btn_Tan.setVisible(true);
+            Btn_Cientifico.setText("Científico");
+            fondoInterfaz.getStyleClass().clear();
+            fondoInterfaz.getStyleClass().add("bodybgC");
+        }
+
+    }
+
+    @FXML
+    protected void Cerrar() {
+        Platform.exit();
+    }
+    
+    @FXML
+    protected void BotonArriba_presionado(){
+        for(int i = 0; i < lista_simbolos.size();i++){
+            lista_simbolos.get(i).moverAbajo(1);
+        }
+        fg.limpiarCanvas(gc, Display);
+        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        pivot_y = pivot_y +22;
+        
+                
+    }
+    
+    @FXML
+    protected void BotonAbajo_presionado(){
+        for(int i = 0; i < lista_simbolos.size();i++){
+            lista_simbolos.get(i).moverArriba(1);
+            
+        }
+        fg.limpiarCanvas(gc, Display);
+        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        pivot_y = pivot_y -22;
+                
+    }
+    @FXML
+    protected void BotonDerecha_presionado(){
+        for(int i = 0; i < lista_simbolos.size();i++){
+            lista_simbolos.get(i).moverIzquierda(1);
+        }
+        fg.limpiarCanvas(gc, Display);
+        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        pivot_x = pivot_x - 15;
+                
+    }
+    @FXML
+    protected void BotonIzquierda_presionado(){
+        for(int i = 0; i < lista_simbolos.size();i++){
+            lista_simbolos.get(i).moverDerecha(1);
+            
+        }
+        fg.limpiarCanvas(gc, Display);
+        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        pivot_x = pivot_x + 15;
+                
+    }
+    
+    protected void setController(InterfazController ic){
+        this.controller = ic;
+        this.lista_simbolos = controller.lista_simbolos;
+                fg.limpiarCanvas(gc, Display);
+        fg.dibujarTodosLosSimbolos(gc, controller.lista_simbolos);
+    }
+
+    @FXML
+    protected void BotonSeno_presionado(){
+        l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    @FXML
+    protected void BotonCos_presionado(){
+        l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    @FXML
+    protected void BotonTan_presionado(){
+        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonFact_presionado(){
+        l.agregarSimbolo(gc, 19, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonParentesisAbierto_presionado(){
+        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+    }
+    
+    @FXML
+    protected void BotonNext_presionado(){
+        l.enDivision = false;
+        l.denominadorMenor = true;
+        l.divisionAgregada = true;
+        l.Numeradores.clear();
+        l.subidasDivision = 0;
+        l.Denominadores.clear();
+        l.Bloque.clear();
+        l.context.textoSalida.setText("");
+        l.parentesisAgregadoANumerador = false;
+        
+        if(!l.ParentesisAbiertos.isEmpty()){
+            l.movimientosDeLista++;
+            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
+        }
+    }
+    
+    @FXML
+    protected void BotonParentesisCerrado_presionado(){
+        if(!lista_simbolos.isEmpty() || !l.ParentesisAbiertos.isEmpty()){
+            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
+
+        }
+    }
+    
+    //Colores
+    
+     
     @FXML
     protected void BotonColorNum_Azul(){
         colorNum = Color.web("#0D3C94");
@@ -355,168 +593,6 @@ public class InterfazController implements Initializable {
     protected void BotonColorOp_Naranjo(){
         colorOp = Color.web("#E56B20");
         fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
-    }
-    
-    
-    @FXML
-    protected void BtnOperador_presionado(){
-        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
-    }
-
-    @FXML
-    protected void BotonDEL_presionado() {
-
-        if (lista_simbolos.size() > 0) {
-            l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
-        }
-    }
-
-    @FXML
-    protected void BotonAC_presionado() {
-
-        if (lista_simbolos.size() > 0) {
-            l.resetEstado();
-            fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
-            l.divisionActiva = 0;
-            l.salidaDivision =false;
-            if (l.panelAgregado == 1){
-                l.context.panelContext.setTextArea();
-            }
-        }
-
-    }
-
-    @FXML
-    protected void BotonPuntosControl_presionado() {
-        l.switchPuntosControl(lista_simbolos, gc, Display);
-    }
-    
-    @FXML
-    protected void BotonPanel_presionado() throws IOException {
-        if(l.panelAgregado ==0){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Interfaz_panel.fxml"));
-            Parent root = loader.load();
-            
-            
-            Scene scene = new Scene(root);
-            panelContext = loader.getController();
-            panelContext.setController(this);
-            panelContext.setTextArea();
-            
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.initStyle(StageStyle.TRANSPARENT);
-            scene.setFill(Color.TRANSPARENT);
-            //Para el movimiento de el programa mediante el mouse
-            root.setOnMousePressed(mouseEvent -> {
-                x = mouseEvent.getSceneX();
-                y = mouseEvent.getSceneY();
-            });
-
-            root.setOnMouseDragged(mouseEvent -> {
-                stage.setX(mouseEvent.getScreenX() - x);
-                stage.setY(mouseEvent.getScreenY() - y);
-            });
-            stage.show();
-            l.panelAgregado = 1;
-        }
-    }
-    
-    @FXML
-    protected void BotonColorNumeros_presionado(){
-        colorNum= Color.valueOf(colorNumeros.getValue().toString());
-        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
-    }
-    
-    @FXML
-    protected void BotonColorOperadores_presionado(){
-        colorOp= Color.valueOf(colorOperadores.getValue().toString());
-        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp,Display);
-    }
-    
-    
-    @FXML
-    protected void Slider_presionado(){
-        System.out.println(tamanoCaracteres.getValue());
-    }
-    
-    @FXML
-    protected void BotonCientifico_presionado() {
-       
-        if(Btn_Sen.isVisible() == true){
-            Btn_Sen.setVisible(false);
-            Btn_Cos.setVisible(false);
-            Btn_Tan.setVisible(false);
-            Btn_Fact.setVisible(false);
-            Btn_Cientifico.setText("Básico");
-            fondoInterfaz.getStyleClass().clear();
-            fondoInterfaz.getStyleClass().add("bodybg");
-        }else{
-            Btn_Sen.setVisible(true);
-            Btn_Fact.setVisible(true);
-            Btn_Cos.setVisible(true);
-            Btn_Tan.setVisible(true);
-            Btn_Cientifico.setText("Científico");
-            fondoInterfaz.getStyleClass().clear();
-            fondoInterfaz.getStyleClass().add("bodybgC");
-        }
-
-    }
-
-    @FXML
-    protected void Cerrar() {
-        Platform.exit();
-    }
-    
-    protected void setController(InterfazController ic){
-        this.controller = ic;
-        this.lista_simbolos = controller.lista_simbolos;
-                fg.limpiarCanvas(gc, Display);
-        fg.dibujarTodosLosSimbolos(gc, controller.lista_simbolos);
-    }
-
-    @FXML
-    protected void BotonSeno_presionado(){
-        l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
-    }
-    @FXML
-    protected void BotonCos_presionado(){
-        l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
-    }
-    @FXML
-    protected void BotonTan_presionado(){
-        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
-    }
-    
-    @FXML
-    protected void BotonFact_presionado(){
-        l.agregarSimbolo(gc, 19, lista_simbolos, pivot_x, pivot_y, Display);
-    }
-    
-    @FXML
-    protected void BotonParentesisAbierto_presionado(){
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
-    }
-    
-    @FXML
-    protected void BotonNext_presionado(){
-        l.resetEstado();
-        l.salidaDivision =true;
-        if(!l.ParentesisAbiertos.isEmpty()){
-            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
-        }
-        l.anchoDivision = l.anchoDivisionAnterior;
-    }
-    
-    @FXML
-    protected void BotonParentesisCerrado_presionado(){
-        if(!lista_simbolos.isEmpty() || !l.ParentesisAbiertos.isEmpty()){
-            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
-
-        }
     }
     
     /**

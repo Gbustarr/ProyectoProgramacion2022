@@ -8,6 +8,7 @@ package calculadora;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -15,27 +16,26 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Logica {
 
-    int espacio = 15;
+    double espacioEntreSimbolos = 1.1;
     CoordenadasSimbolos cs = new CoordenadasSimbolos();
 
-    double xInicioDivision;
-    double xFinalDivision;
-    int movimientosDeLista = 0;
+    double movimientosDeLista = 0;
     int puntosControlActivo = 0;
-    int divisionEliminada = 0;
 
+    //variable para el tamano 
+    double factor = 1;
     //Variables para la division
-    int divisionActiva = 0;
-    boolean salidaDivision = false;
-    int alturaDivision = 0;
-    int indiceUltimaDivision;
-
-    int denominadorMenor = 1; // 0 falso, 1 verdadero;
-    ArrayList<Integer> indicesNumeradores = new ArrayList();
-    ArrayList<Integer> indicesDenominadores = new ArrayList();
-    ArrayList<Integer> indicesDivisionCombinada = new ArrayList();
-    int anchoDivision;
-    int anchoDivisionAnterior;
+    ArrayList<Simbolo> Numeradores = new ArrayList();
+    ArrayList<Simbolo> Denominadores = new ArrayList();
+    ArrayList<Simbolo> Bloque = new ArrayList();
+    ArrayList<Integer> anchosDivision = new ArrayList();
+    boolean enDivision;
+    boolean divisionAgregada;
+    boolean denominadorMenor = true;
+    Simbolo divisor;
+    double diferenciaNumeradorDenominador = 0;
+    int subidasDivision;
+    int contadorReset = 0;
 
     InterfazController context;
     division d = new division();
@@ -61,6 +61,8 @@ public class Logica {
         Simbolo s = new Simbolo();
         s.setXpos(pivot_x);
         s.setYpos(pivot_y);
+        s.Xfactor = factor;
+        s.Yfactor = factor;
 
         //Iniciación de una forma general
         double[] forma;
@@ -148,6 +150,7 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 10:
+                resetMovimientoLista();
                 forma = cs.mas(pivot_x, pivot_y);
                 s.setValor(10);
                 s.setTipo(1);
@@ -156,6 +159,7 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 11:
+                resetMovimientoLista();
                 forma = cs.menos(pivot_x, pivot_y);
                 s.setValor(11);
                 s.setTipo(1);
@@ -164,6 +168,7 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 12:
+                resetMovimientoLista();
                 forma = cs.multiplicar(pivot_x, pivot_y);
                 s.setValor(12);
                 s.setTipo(1);
@@ -177,17 +182,19 @@ public class Logica {
                 s.setTipo(1);
                 s.setColor(context.colorOp);
                 s.setForma(forma);
-                xInicioDivision = coordenadaXDivision(lista_simbolos, pivot_x);
-                s.division(xInicioDivision, pivot_x);
+                subidasDivision++;
 
                 d.nuevaDivision(this, lista_simbolos, s, gc);
-
+                divisor = s;
+                d.modificarLineaDivision(this, pivot_x);
+                lista_simbolos.add(s);
                 break;
             case 14: //Seno
                 s.setValor(14);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(14, pivot_x, pivot_y, s);
+
                 lista_simbolos.add(s);
                 moverListaHaciaIzquierda(lista_simbolos, 2);
                 break;
@@ -196,6 +203,7 @@ public class Logica {
                 s.setTipo(2);
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(15, pivot_x, pivot_y, s);
+
                 lista_simbolos.add(s);
                 moverListaHaciaIzquierda(lista_simbolos, 2);
                 break;
@@ -204,10 +212,18 @@ public class Logica {
                 s.setTipo(2);
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(16, pivot_x, pivot_y, s);
+
                 lista_simbolos.add(s);
                 moverListaHaciaIzquierda(lista_simbolos, 2);
                 break;
             case 17: //Parentesis Abierto
+                if (!enDivision) {
+                    contadorReset++;
+                    if (contadorReset > 1) {
+                        movimientosDeLista = 1;
+                        contadorReset = 0;
+                    }
+                }
                 s.setValor(17);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
@@ -222,18 +238,12 @@ public class Logica {
                 s.setColor(context.colorOp);
                 forma = cs.pCerrado(pivot_x, pivot_y);
                 s.setForma(forma);
-                if (ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getParentesisDimensionado()) {
-                    s.moverAbajo(1);
-                    s.setAlturaParentesis(getAlturaParentesisAbierto());
+                s.setAlturaParentesis(ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis());
+                if (enDivision) {
+                    s.moverArriba(1);
                 }
-                if(salidaDivision){s.setBloqueParentesis();};
-                
                 lista_simbolos.add(s);
-
-                if (!ParentesisAbiertos.isEmpty()) {
-                    ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el parentesis abierto anterior
-                }
-                //resetEstado();
+                ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el ultimo parentesis abierto
                 break;
             case 19:
                 forma = cs.factorial(pivot_x, pivot_y);
@@ -245,26 +255,37 @@ public class Logica {
                 break;
         }
 
+        //Si no se agrega un simbolo de  division
+        if (s.valor != 13) {
+            //Evaluacion de contexto
+            if (enDivision) {
+                //Verificando el ancho
+                d.verificarTamanoNumeradorDenominador(this);
+                if (denominadorMenor) {
+                    s.moverAbajo(1);
+                    s.moverIzquierda(diferenciaNumeradorDenominador * espacioEntreSimbolos);
+                } else {
+                    moverListaHaciaIzquierda(lista_simbolos, espacioEntreSimbolos);
+                    cambiarMovimientosListas();
+                    d.modificarLineaDivision(this, pivot_x);
+                    s.moverAbajo(1);
+                    moverNumeradoresHaciaDerecha(espacioEntreSimbolos / 2);
+                    moverBloqueHaciaDerecha(espacioEntreSimbolos / 2);
+                }
+                s.color = Color.BLUE;
+                Denominadores.add(s);
+
+            } else {
+                moverListaHaciaIzquierda(lista_simbolos, espacioEntreSimbolos);
+                cambiarMovimientosListas();
+
+            }
+        }
+
         //Para activar los puntos de control de los simbolos
         if (puntosControlActivo == 1) {
             s.switchPuntosControl();
         }
-
-        //Si es un operador *,+ o -, los valores se reestablecen
-        if (s.getValor() > 9 && s.getValor() < 13) {
-            if(lista_simbolos.get(lista_simbolos.size()-2).getBloqueParentesis()){
-                anchoDivision = 0;
-            }
-        }
-
-        if (divisionActiva == 1) {
-            this.indicesDenominadores.add(lista_simbolos.size() - 1);
-        }
-
-        //Verificando que el denominador sea menor que el numerador
-        d.verificarAnchoDivision(this);
-
-        d.logica(this, s, lista_simbolos, gc, pivot_x);
 
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
@@ -285,77 +306,49 @@ public class Logica {
         return ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis();
     }
 
-    protected double coordenadaXDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x) {
-        double contador = 0;
-        double xInicial = pivot_x - 10;
-        double espaciado = 15;
-        double xFinal;
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).getTipo() == 0) {
-                contador++;
-            } else {
-                break;
-            }
+    protected void cambiarTamano(double factor) {
+        for (int i = 0; i < context.lista_simbolos.size(); i++) {
+            context.lista_simbolos.get(i).Xfactor = factor;
+            context.lista_simbolos.get(i).Yfactor = factor;
         }
-        xFinal = xInicial - (espaciado * (contador - 1));
-
-        return xFinal;
-
+        fg.limpiarCanvas(context.gc, context.Display);
+        fg.dibujarTodosLosSimbolos(context.gc, context.lista_simbolos);
     }
 
     protected void resetEstado() {
-        divisionActiva = 0;
-        denominadorMenor = 1;
-        indicesNumeradores.clear();
-        indicesDenominadores.clear();
-        indicesDivisionCombinada.clear();
-        alturaParentesis = alturaDivision;
-        alturaDivision = 0;
+        enDivision = false;
+        denominadorMenor = true;
+        movimientosDeLista = 0;
+        Numeradores.clear();
+        Denominadores.clear();
+        ParentesisAbiertos.clear();
+        subidasDivision = 0;
+        divisionAgregada = false;
+        Bloque.clear();
         context.textoSalida.setText("");
         parentesisAgregadoANumerador = false;
-        indiceUltimaDivision = 0;
 
     }
 
-    protected void moverFraccionArriba(ArrayList<Simbolo> lista_simbolos, double posiciones) {
-        //System.out.print("Movimiento de fracciones: ");
-        for (int i = 0; i < indicesDivisionCombinada.size(); i++) {
-            lista_simbolos.get(this.indicesDivisionCombinada.get(i)).moverArriba(posiciones);
-            System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).getValor()
-                + " ");
+    protected void updateTags() {
+        context.alturaDivision.setText("enDivision: " + enDivision);
+        context.divisionActiva.setText("Subidas Division: " + subidasDivision);
+        context.indiceUltimaDivision.setText("Division Agregada: " + divisionAgregada);
+        //context.denominadorMenor.setText("Denominador Menor: " + denominadorMenor);
+        context.indicesNumeradores.setText("Parentesis abiertos: " + ParentesisAbiertos.size());
+        //context.indicesDenominadores.setText("Indices Denominadores: " + indicesDenominadores.size());
+        //context.indicesDivisionCombinada.setText("Indices Division Combinada: " + indicesDivisionCombinada.size());
+        //context.anchoDivision.setText("Ancho Division: " + anchoDivision);
+        //context.anchoDivisionAnterior.setText("Ancho Division Anterior: " + anchoDivisionAnterior);
+        //context.divisionEliminada.setText("Division eliminada: "+divisionEliminada);
+        context.movimientosDeLista.setText("movimientosDeLista: " + movimientosDeLista);
+    }
+
+    protected void cambiarMovimientosListas() {
+        if (ParentesisAbiertos.size() > 0) {
+            movimientosDeLista++;
         }
 
-    }
-    
-    protected void moverBloqueArriba(ArrayList<Simbolo> lista_simbolos, double posiciones) {
-        //System.out.print("Movimiento de fracciones: ");
-        for (int i = 0; i < indicesNumeradores.size(); i++) {
-            lista_simbolos.get(this.indicesNumeradores.get(i)).moverArriba(posiciones);
-            System.out.print(lista_simbolos.get(this.indicesNumeradores.get(i)).getValor()
-                + " ");
-        }
-
-    }
-
-    protected void moverNumeradoresArriba(ArrayList<Simbolo> lista_simbolos) {
-        for (int i = 0; i < indicesNumeradores.size(); i++) {
-            lista_simbolos.get(this.indicesNumeradores.get(i)).moverArriba(1);
-        }
-
-    }
-    
-    protected void updateTags(){
-        context.alturaDivision.setText("Altura Division: " + alturaDivision);
-        context.divisionActiva.setText("División activa: " + divisionActiva);
-        context.indiceUltimaDivision.setText("Indice Ultima Division: " + indiceUltimaDivision);
-        context.denominadorMenor.setText("Denominador Menor: " + denominadorMenor);
-        context.indicesNumeradores.setText("Indices Numeradores: " + indicesNumeradores.size());
-        context.indicesDenominadores.setText("Indices Denominadores: " + indicesDenominadores.size());
-        context.indicesDivisionCombinada.setText("Indices Division Combinada: " + indicesDivisionCombinada.size());
-        context.anchoDivision.setText("Ancho Division: " + anchoDivision);
-        context.anchoDivisionAnterior.setText("Ancho Division Anterior: " + anchoDivisionAnterior);
-        context.divisionEliminada.setText("Division eliminada: "+divisionEliminada);
-        context.movimientosDeLista.setText("Salida division: "+salidaDivision);
     }
 
     protected void formaOperadorCientifico(int valor, double pivot_x, double pivot_y, Simbolo s) {
@@ -396,122 +389,7 @@ public class Logica {
         }
     }
 
-    protected void moverNumeradoresDerecha(ArrayList<Simbolo> lista_simbolos) {
-        for (int i = 0; i < indicesNumeradores.size(); i++) {
-            lista_simbolos.get(this.indicesNumeradores.get(i)).moverDerecha(0.5);
-        }
-    }
-
-    protected int posicionEnDenominador(ArrayList<Simbolo> lista_simbolos) {
-        int nNumeradores = 0;
-        int nDenominadores = 0;
-        int pos;
-        ////System.out.print("Denominadores: ");
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).getTipo() == 0) {
-                nDenominadores++;
-                ////System.out.print(lista_simbolos.get(i).getValor());
-            } else {
-                ////System.out.println("Numeradores: ");
-                for (int j = i - 1; j >= 0; j--) {
-                    if (lista_simbolos.get(j).getTipo() == 0) {
-                        // //System.out.print(lista_simbolos.get(j).getValor());
-                        nNumeradores++;
-                    } else {
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-
-        pos = nNumeradores - nDenominadores;
-        ////System.out.println(pos);
-        return pos;
-    }
-
-    protected void agregarNumeradores(ArrayList<Simbolo> lista_simbolos) {
-        ////System.out.print("Denominadores: ");
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).getTipo() == 0 || lista_simbolos.get(i).getValor() == 11) {
-                this.indicesNumeradores.add(i);
-            } else {
-                break;
-            }
-        }
-    }
-
-    protected void agregarParentesisANumerador(ArrayList<Simbolo> lista_simbolos) {
-        
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).valor == 17) { // 17 = parentesis abierto
-                this.indicesNumeradores.add(i);
-                break;
-            } else {
-                this.indicesNumeradores.add(i);
-            }
-        }
-
-    }
-    
-    protected void agregarBloqueParentesisANumerador(ArrayList<Simbolo> lista_simbolos) {
-        int contadorParentesis = 1;
-        this.indicesNumeradores.add(lista_simbolos.size()-1);
-        
-        for (int i = lista_simbolos.size() - 2; i >= 0; i--) {
-            if (contadorParentesis != 0) { 
-                if(lista_simbolos.get(i).valor == 18){
-                    contadorParentesis++;
-                }else if(lista_simbolos.get(i).valor == 17){
-                    contadorParentesis--;
-                }
-                this.indicesNumeradores.add(i);
-                
-            } else {
-                this.indicesNumeradores.add(i);
-                break;
-            }
-        }
-
-    }
-
-    protected void debugPrintNumeradores(ArrayList<Simbolo> lista_simbolos) {
-        System.out.println();
-        System.out.print("Valores de indices numeradores:");
-        for (int i = 0; i < this.indicesNumeradores.size(); i++) {
-            System.out.print(lista_simbolos.get(this.indicesNumeradores.get(i)).valor + " ");
-        }
-        System.out.println();
-        System.out.print("Valores de indices denominadores:");
-        for (int i = 0; i < this.indicesDenominadores.size(); i++) {
-            System.out.print(lista_simbolos.get(this.indicesDenominadores.get(i)).valor + " ");
-        }
-        System.out.println();
-        System.out.print("Division combinada:");
-        if (indicesDivisionCombinada.size() > 0) {
-            for (int i = 0; i < this.indicesDivisionCombinada.size(); i++) {
-                System.out.print(lista_simbolos.get(this.indicesDivisionCombinada.get(i)).valor + " ");
-            }
-            System.out.println();
-        } else {
-            System.out.println("");
-        }
-    }
-
-    protected void modificarLineaDivision(ArrayList<Simbolo> lista_simbolos, double pivot_x) {
-
-        double xInicio = pivot_x - (this.anchoDivision * 15);
-        //System.out.println("Indice Ultima Division: "+indiceUltimaDivision);
-        if (alturaDivision == 0) {
-            lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
-        } else {
-            //xInicio = xInicio +15;
-            lista_simbolos.get(this.indiceUltimaDivision).division(xInicio, pivot_x);
-        }
-
-    }
-
-    protected void moverListaHaciaIzquierda(ArrayList<Simbolo> lista_simbolos, int espacios) {
+    protected void moverListaHaciaIzquierda(ArrayList<Simbolo> lista_simbolos, double espacios) {
         for (int i = 0; i < lista_simbolos.size() - 1; i++) {
             lista_simbolos.get(i).moverIzquierda(espacios);
         }
@@ -525,15 +403,33 @@ public class Logica {
 
     }
 
-    protected void moverNumeradoresHaciaArriba(ArrayList<Simbolo> lista_simbolos) {
+    protected void moverNumeradoresHaciaArriba(double pos) {
 
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-            if (lista_simbolos.get(i).getTipo() == 0) {
-                lista_simbolos.get(i).moverArriba(1);
-            } else {
-                break;
-            }
+        for (int i = 0; i < Numeradores.size(); i++) {
+            Numeradores.get(i).moverArriba(pos);
+        }
 
+    }
+
+    protected void moverBloqueHaciaArriba(double pos) {
+
+        for (int i = 0; i < Bloque.size(); i++) {
+            Bloque.get(i).moverArriba(pos);
+        }
+
+    }
+
+    protected void resetMovimientoLista() {
+        if (context.lista_simbolos.get(context.lista_simbolos.size() - 1).getValor() == 18) {
+            movimientosDeLista = 0;
+            divisionAgregada = false;
+        }
+    }
+
+    protected void moverBloqueHaciaDerecha(double pos) {
+
+        for (int i = 0; i < Bloque.size(); i++) {
+            Bloque.get(i).moverDerecha(pos);
         }
 
     }
@@ -549,6 +445,12 @@ public class Logica {
 
         }
 
+    }
+
+    protected void moverNumeradoresHaciaDerecha(double espacios) {
+        for (int i = 0; i < Numeradores.size(); i++) {
+            Numeradores.get(i).moverDerecha(espacios);
+        }
     }
 
     protected int bloqueadorOperadorMultiple(ArrayList<Simbolo> lista_simbolos) {
@@ -688,54 +590,6 @@ public class Logica {
         System.out.println();
 
         return string;
-    }
-
-    protected void borrarUltimo(GraphicsContext gc, ArrayList<Simbolo> lista_simbolos, double pivot_x, Canvas Display) {
-
-        fg.limpiarCanvas(gc, Display);
-        //Actualiza la variable divisionActiva si el numero a borrar pertenece a una division
-        for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
-
-            if (lista_simbolos.get(i).getValor() == 13) { //13 es el valor de la division
-                divisionActiva = 1;
-                divisionEliminada = 0;
-                break;
-            } else if (lista_simbolos.get(i).getValor() > 9 && lista_simbolos.get(i).getValor() < 13) {
-                divisionActiva = 0;
-                //diferenciaNumeradorDenominador = 0;
-                break;
-            } else {
-                divisionActiva = 0;
-            }
-
-        }
-
-        if (divisionEliminada == 0) {
-            if (posicionEnDenominador(lista_simbolos) <= -1) {
-                moverListaHaciaDerecha(lista_simbolos, 1);
-                modificarLineaDivision(lista_simbolos, pivot_x);
-            }
-        }
-
-        //Si no hay division, la lista se mueve hacia la derecha
-        if (divisionActiva == 0) {
-            moverListaHaciaDerecha(lista_simbolos, 1);
-
-        }
-
-        //Si el simbolo eliminado es una division, los numeradores se mueven un 
-        //espacio hacia abajo y a la derecha tantos espacios sea la diferencia de 
-        //digitos entre el numerador y denominador
-        if (lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 13) {
-            moverNumeradoresHaciaAbajo(lista_simbolos);
-            divisionActiva = 0;
-            divisionEliminada = 1;
-        }
-        //Borrado del simbolo
-        lista_simbolos.remove(lista_simbolos.size() - 1);
-
-        //Se vuelve a dibujar todos los simbolos en el canvas
-        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
     }
 
 }

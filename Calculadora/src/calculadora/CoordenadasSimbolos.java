@@ -202,7 +202,7 @@ public class CoordenadasSimbolos {
                                 x-7,y-32.5,
                                 x-7,y-32.5,
                                 x-7,y-17.5,
-                                 x-7,y-17.5,
+                                x-7,y-17.5,
                                 x-3,y-10
         };
         return pAbierto;
@@ -213,7 +213,7 @@ public class CoordenadasSimbolos {
                                 x-3,y-32.5,
                                 x-3,y-32.5,
                                 x-3,y-17.5,
-                                 x-3,y-17.5,
+                                x-3,y-17.5,
                                 x-7,y-10
         };
         return pCerrado;

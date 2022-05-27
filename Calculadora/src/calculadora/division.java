@@ -7,6 +7,7 @@ package calculadora;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -16,174 +17,99 @@ public class division {
 
     int altura;
 
-    Logica l;
-
     protected void nuevaDivision(Logica l, ArrayList<Simbolo> lista_simbolos, Simbolo s, GraphicsContext gc) {
 
-        if (l.divisionActiva == 0) {
-            if (lista_simbolos.get(lista_simbolos.size() - 1).valor == 18) { // Si el ultimo simbolo agregado es un parentesis
-                if (lista_simbolos.get(lista_simbolos.size() - 1).getBloqueParentesis()) {
-                    l.agregarBloqueParentesisANumerador(lista_simbolos);
-                    l.moverNumeradoresArriba(lista_simbolos);
-                } else {
-                    l.agregarParentesisANumerador(lista_simbolos);
-                    l.parentesisAgregadoANumerador = true;
-                }
-                //moverNumeradoresArriba(lista_simbolos);
-            } else {
-                l.agregarNumeradores(lista_simbolos);
-            }
-            l.moverNumeradoresArriba(lista_simbolos);
-            l.indicesNumeradores.add(lista_simbolos.size()); //agrega el indice de la division
-
-            l.indiceUltimaDivision = lista_simbolos.size(); // actualiza el indice de la ultima division
-            lista_simbolos.add(s);                          //agrega el simbolo de division a la lista de simbolos
-            //Cambio de la altura del parentesis
-            if (!l.ParentesisAbiertos.isEmpty()) {
-                l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).dimensionarParentesis(gc, 1);
-                l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).moverAbajo(1);
-                l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).setParentesisDimensionado();
-            }
-
-        }
-
-    }
-
-    protected void logica(Logica l, Simbolo s, ArrayList<Simbolo> lista_simbolos, GraphicsContext gc, double pivot_x) {
-        //System.out.println("Ancho division:"+anchoDivision);
-        //Dependiendo si el denominador es menor que el numerador, el numero a agregar
-        // y dibujar baja y se mueve hacia la izquierda
-        if (l.divisionActiva == 1) {
-            if (s.valor != 13) {
-                //System.out.println(">Simbolo no 13 detectado.<");
-                if (l.denominadorMenor == 1) {
-                    //System.out.println("Denominador Menor");
-                    s.moverAbajo(1);
-                    if (l.parentesisAgregadoANumerador) {
-                        s.moverIzquierda((l.indicesNumeradores.size() - l.indicesDenominadores.size() - 1));
-                    } else {
-                        s.moverIzquierda((l.indicesNumeradores.size() - l.indicesDenominadores.size() - 1));
-                    }
-
-                } else { //Simbolo division detectado
-
-                    l.moverNumeradoresDerecha(lista_simbolos);
-                    //System.out.println("Denominador Mayor");
-                    s.moverAbajo(1);
-                    l.moverListaHaciaIzquierda(lista_simbolos, 1);
-
-                }
-            } else if (l.alturaDivision == 0) { //Cuando hay division y se agrega otra division
-                //System.out.println("----->Division existente, agregando otra division");
-                l.anchoDivisionAnterior = l.anchoDivision;
-                lista_simbolos.add(s);
-                //Concatenacion de indices a un arreglo
-                l.indicesDivisionCombinada.addAll(l.indicesNumeradores);
-                l.indicesDenominadores.remove(l.indicesDenominadores.size() - 1);
-                //this.indicesNumeradores.add(lista_simbolos.size());
-                l.indicesDivisionCombinada.addAll(l.indicesDenominadores);
-                l.indicesDenominadores.add(lista_simbolos.size() - 1);
-
-                //this.indicesDivisionCombinada.remove(indicesDivisionCombinada.size()-1);
-                l.indicesNumeradores.clear();
-                l.indicesNumeradores.addAll(l.indicesDenominadores);
-                l.indicesNumeradores.add(lista_simbolos.size() - 1);
-                l.indicesDenominadores.clear();
-
-                //Mueve la fraccion anterior hacia arriba
-                if (lista_simbolos.get(lista_simbolos.size() - 2).getBloqueParentesis()) {
-                    l.moverBloqueArriba(lista_simbolos, 3);
-                } else {
-                    l.moverFraccionArriba(lista_simbolos, 2);
-                }
-                //Actualiza el indice de la ultima division
-                l.indiceUltimaDivision = lista_simbolos.size() - 1;
-                //Agrega el simbolo a la lista de simbolos
-                ++l.alturaDivision;
-
-                //Cambio de la altura del parentesis
-                if (!l.ParentesisAbiertos.isEmpty()) {
-                    l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).dimensionarParentesis(gc, 1);
-
-                }
-
-            } else if (l.alturaDivision > 0) {
-                l.anchoDivisionAnterior = l.anchoDivision;
-                //System.out.println("----->Division existente, agregando division sobre division");
-                lista_simbolos.add(s);
-                //Concatenacion de indices a un arreglo
-                l.indicesDenominadores.remove(l.indicesDenominadores.size() - 1);
-                l.indicesDivisionCombinada.addAll(l.indicesDenominadores);
-                l.indicesDivisionCombinada.add(lista_simbolos.size() - 1);
-
-                //Los denominadores ahora son los numeradores en la nueva division
-                l.indicesNumeradores.clear();
-                l.indicesNumeradores.addAll(l.indicesDenominadores);
-                l.indicesNumeradores.add(lista_simbolos.size() - 1);
-
-                l.indicesDenominadores.clear();
-
-                //Mueve la fraccion anterior hacia arriba
-                l.moverFraccionArriba(lista_simbolos, 2);
-                //Añade el simbolo como denominador
-
-                //Actualiza el indice de la ultima division
-                l.indiceUltimaDivision = lista_simbolos.size() - 1;
-                //Agrega el simbolo a la lista de simbolos
-                ++l.alturaDivision;
-                //Cambio de la altura del parentesis
-                if (!l.ParentesisAbiertos.isEmpty()) {
-                    l.ParentesisAbiertos.get(l.ParentesisAbiertos.size() - 1).dimensionarParentesis(gc, 1);
-
-                }
-
-            }
-        }
-
-        //Verifica si el simbolo agregado no es una division
-        //En caso de serlo, los demas numeros no se mueven hacia la izquierda
-        if (s.getValor() != 13 && l.divisionActiva == 0) {
+        if (l.enDivision) {
+            l.ParentesisAbiertos.get(0).moverArriba(2);
+            l.ParentesisAbiertos.get(0).dimensionarParentesisHaciaAbajo(altura);
+            dimensionarParentesisAbiertosHaciaAbajo(l, l.ParentesisAbiertos.size(), 0);
             l.moverListaHaciaIzquierda(lista_simbolos, 1);
-        } else {
-
-            l.divisionActiva = 1;
-        }
-
-        //Modifica la linea de la division si hay una division activa y el
-        //numerador es menor que el denominador
-        if (l.divisionActiva == 1) {
-            l.modificarLineaDivision(lista_simbolos, pivot_x);
-            //diferenciaNumeradorDenominador++;
-        }
-
-    }
-
-    protected void verificarAnchoDivision(Logica l) {
-        this.l = l;
-
-        if (l.alturaDivision == 0) {
-            if (!l.parentesisAgregadoANumerador) {
-                if ((l.indicesNumeradores.size() - 3) - l.indicesDenominadores.size() >= 0) {
-                    l.denominadorMenor = 1;
-                    l.anchoDivisionAnterior = l.anchoDivision;
-                    l.anchoDivision = l.indicesNumeradores.size() - 1;
-                } else {
-                    l.denominadorMenor = 0;
-                    l.anchoDivisionAnterior = l.anchoDivision;
-                    l.anchoDivision = l.indicesDenominadores.size();
+            l.Bloque.addAll(l.Numeradores);
+            for (int i = 0; i < l.Bloque.size(); i++) {
+                l.Bloque.get(i).color = Color.BLACK;
+            }
+            l.Numeradores.clear();
+            l.Numeradores.addAll(l.Denominadores);
+            l.Numeradores.get(0).moverArriba(2);
+            l.Numeradores.remove(0);
+            for (int i = 0; i < l.Numeradores.size(); i++) {
+                l.Numeradores.get(i).color = Color.GOLD;
+            }
+            l.moverNumeradoresHaciaArriba(2);
+            l.Denominadores.clear();
+            l.Bloque.add(l.divisor);
+            l.moverBloqueHaciaArriba(2);
+        } else if (l.divisionAgregada) {
+            int contador = 0;
+            for (int i = lista_simbolos.size() - 1; i >= 0; i--) {
+                if (lista_simbolos.get(i).getValor() == 18) { //si es parentesis de cierre
+                    contador++;
+                } else if (lista_simbolos.get(i).getValor() == 17) { // si es parentesis de apertura
+                    contador--;
                 }
-
-            } else {
-                if ((l.indicesNumeradores.size() - 1) - l.indicesDenominadores.size() >= 0) {
-                    l.denominadorMenor = 1;
-                    l.anchoDivisionAnterior = l.anchoDivision;
-                    l.anchoDivision = l.indicesNumeradores.size() - 1;
+                if (contador == 0) {
+                    lista_simbolos.get(i).color = Color.BLACK;
+                    l.Bloque.add(lista_simbolos.get(i));
+                    break;
                 } else {
-                    l.denominadorMenor = 0;
-                    l.anchoDivisionAnterior = l.anchoDivision;
-                    l.anchoDivision = l.indicesDenominadores.size();
+                    lista_simbolos.get(i).color = Color.BLACK;
+                    l.Bloque.add(lista_simbolos.get(i));
                 }
             }
+            l.moverBloqueHaciaArriba(2);
+            l.enDivision = true;
+
+        } else {
+            dimensionarParentesisAbiertosHaciaAbajo(l, 1, 1);
+            int contador = 0;
+            for (int i = lista_simbolos.size() - 1; i > 0; i--) {
+                if (lista_simbolos.get(i).getValor() == 18) {
+                    contador++;
+                } else if (lista_simbolos.get(i).getValor() == 17) {
+                    contador--;
+                }
+                if (contador == 0) {
+                    lista_simbolos.get(i).color = Color.GOLD;
+                    l.Numeradores.add(lista_simbolos.get(i));
+                    break;
+                } else {
+                    lista_simbolos.get(i).color = Color.GOLD;
+                    l.Numeradores.add(lista_simbolos.get(i));
+                }
+            }
+            l.moverNumeradoresHaciaArriba(1);
+
+            l.enDivision = true;
+        }
+
+    }
+
+    protected void dimensionarParentesisAbiertosHaciaAbajo(Logica l, int max, int subida) {
+        for (int i = 0; i < max; i++) {
+            l.ParentesisAbiertos.get(i).moverArriba(subida);
+            l.ParentesisAbiertos.get(i).dimensionarParentesisHaciaAbajo(1);
         }
     }
+
+    protected void verificarTamanoNumeradorDenominador(Logica l) {
+
+        double diferencia;
+        diferencia = (l.movimientosDeLista - 2) - l.Denominadores.size();
+
+        if (diferencia >= 0) {
+            l.denominadorMenor = true;
+            l.diferenciaNumeradorDenominador = diferencia;
+        } else {
+            l.denominadorMenor = false;
+        }
+
+    }
+
+    protected void modificarLineaDivision(Logica l, double pivot_x) {
+        double inicio = pivot_x - ((l.movimientosDeLista - 1) * (l.espacioEntreSimbolos + 15));
+        l.divisor.division(inicio, pivot_x);
+
+    }
+;
+
 }
