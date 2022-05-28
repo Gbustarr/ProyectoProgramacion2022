@@ -195,34 +195,34 @@
                      </font>
                   </Button>
                   <Label fx:id="divisionActiva" layoutX="118.0" layoutY="57.0" text="Label" visible="false" />
-                  <Button fx:id="Btn_next" blendMode="MULTIPLY" layoutX="191.0" layoutY="404.0" mnemonicParsing="false" onAction="#BotonNext_presionado" prefHeight="26.0" prefWidth="33.0" text="&gt;">
+                  <Button fx:id="Btn_next" blendMode="MULTIPLY" layoutX="283.0" layoutY="389.0" mnemonicParsing="false" onAction="#BotonNext_presionado" prefHeight="26.0" prefWidth="33.0" text="&gt;">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Button>
                   <Label fx:id="divisionEliminada" layoutX="285.0" layoutY="59.0" text="Label" visible="false" />
                   <Canvas fx:id="Display" height="250.0" layoutX="90.0" layoutY="59.0" width="340.0" />
-                  <Button fx:id="Btn_derecha" blendMode="SRC_ATOP" layoutX="281.0" layoutY="385.0" mnemonicParsing="false" onAction="#BotonDerecha_presionado" prefHeight="21.0" prefWidth="28.0" style="-fx-background-color: lightblue;" text="&gt;">
+                  <Button fx:id="Btn_derecha" blendMode="SRC_ATOP" layoutX="206.0" layoutY="391.0" mnemonicParsing="false" onAction="#BotonDerecha_presionado" prefHeight="21.0" prefWidth="28.0" style="-fx-background-color: lightblue;" text="&gt;">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_izq" blendMode="SRC_ATOP" layoutX="220.0" layoutY="385.0" mnemonicParsing="false" onAction="#BotonIzquierda_presionado" prefHeight="21.0" prefWidth="28.0" style="-fx-background-color: lightblue;" text="&lt;">
+                  <Button fx:id="Btn_izq" blendMode="SRC_ATOP" layoutX="145.0" layoutY="391.0" mnemonicParsing="false" onAction="#BotonIzquierda_presionado" prefHeight="21.0" prefWidth="28.0" style="-fx-background-color: lightblue;" text="&lt;">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_arriba" blendMode="SRC_ATOP" layoutX="249.0" layoutY="371.0" mnemonicParsing="false" onAction="#BotonArriba_presionado" prefHeight="23.0" prefWidth="33.0" style="-fx-background-color: lightblue;" text="^">
+                  <Button fx:id="Btn_arriba" blendMode="SRC_ATOP" layoutX="174.0" layoutY="377.0" mnemonicParsing="false" onAction="#BotonArriba_presionado" prefHeight="23.0" prefWidth="33.0" style="-fx-background-color: lightblue;" text="^">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_abajo" blendMode="SRC_ATOP" layoutX="248.0" layoutY="394.0" mnemonicParsing="false" onAction="#BotonAbajo_presionado" prefHeight="23.0" prefWidth="33.0" style="-fx-background-color: lightblue;" text="v">
+                  <Button fx:id="Btn_abajo" blendMode="SRC_ATOP" layoutX="173.0" layoutY="400.0" mnemonicParsing="false" onAction="#BotonAbajo_presionado" prefHeight="23.0" prefWidth="33.0" style="-fx-background-color: lightblue;" text="v">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_bajarDivision" blendMode="SRC_ATOP" layoutX="153.0" layoutY="409.0" mnemonicParsing="false" onAction="#BotonBajarDivision_presionado" prefHeight="19.0" prefWidth="33.0" style="-fx-background-color: lightgreen;" text="v">
+                  <Button fx:id="Btn_bajarDivision" blendMode="SRC_ATOP" layoutX="379.0" layoutY="432.0" mnemonicParsing="false" onAction="#BotonBajarDivision_presionado" prefHeight="19.0" prefWidth="33.0" style="-fx-background-color: lightgreen;" text="v">
                      <font>
                         <Font size="10.0" />
                      </font>

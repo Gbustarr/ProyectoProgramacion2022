@@ -60,9 +60,11 @@ public class Logica {
     }
 
     protected void agregarSimbolo(GraphicsContext gc, int nSimbolo,
-            ArrayList<Simbolo> lista_simbolos,
-            Canvas Display) {
+        ArrayList<Simbolo> lista_simbolos,
+        Canvas Display) {
         updateTags();
+
+        System.out.println("En division:" + enDivision);
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
         s.setXpos(pivot_x);
@@ -156,7 +158,6 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 10:
-                resetMovimientoLista();
                 forma = cs.mas(pivot_x, pivot_y);
                 s.setValor(10);
                 s.setTipo(1);
@@ -165,7 +166,6 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 11:
-                resetMovimientoLista();
                 forma = cs.menos(pivot_x, pivot_y);
                 s.setValor(11);
                 s.setTipo(1);
@@ -174,7 +174,6 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 12:
-                resetMovimientoLista();
                 forma = cs.multiplicar(pivot_x, pivot_y);
                 s.setValor(12);
                 s.setTipo(1);
@@ -195,27 +194,26 @@ public class Logica {
                     fa.moverPivotIzquierda(this, 15);
 
                 }
-                
+
                 forma = cs.dividir(pivot_x, pivot_y);
                 s.setValor(13);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
                 s.setForma(forma);
-                s.forma[0] = pivot_x+15;
+                s.forma[0] = pivot_x + 15;
 
                 d.nuevaDivision(this, lista_simbolos, s, gc);
-                
-                if(d.contadorDeBajadas > 0){
+
+                if (d.contadorDeBajadas > 0) {
                     //d.lineasDivision.remove(d.lineasDivision.size()-1);
-                    for(int i = 0;i < d.lineasDivision.size()-1;i++){
+                    for (int i = 0; i < d.lineasDivision.size() - 1; i++) {
                         d.lineasDivision.get(i).moverAbajo(2);
-                }
+                    }
                     d.contadorDeBajadas--;
                 }
                 d.lineasDivision.add(s);
                 divisor = s;
                 enDivision = true;
-                
 
                 lista_simbolos.add(s);
                 break;
@@ -275,6 +273,9 @@ public class Logica {
         if (puntosControlActivo == 1) {
             s.switchPuntosControl();
         }
+        if (enDivision) {
+            d.modificarLineaDivision(this, pivot_x);
+        }
 
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
@@ -287,14 +288,11 @@ public class Logica {
         if (panelAgregado == 1) {
             context.panelContext.setTextArea();
         }
-        if(enDivision){
-            d.modificarLineaDivision(this, pivot_x);
-        }
-        
+
         updateTags();
     }
-    
-    protected void dibujarPuntero(){
+
+    protected void dibujarPuntero() {
         context.gc.fillOval(pivot_x, pivot_y, 3, 3);
         Simbolo p = new Simbolo();
         //Iniciación y declaración de un simbolo general
@@ -306,7 +304,7 @@ public class Logica {
 
         //Iniciación de una forma general
         double[] forma;
-        
+
         forma = cs.cero(pivot_x, pivot_y);
         s.setForma(forma);
         s.setValor(0);
@@ -320,31 +318,32 @@ public class Logica {
 
         return ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis();
     }
-    protected void bajarEnFraccion(){
-        
-    if(d.nivelBajadaFraccion % 2 == 0){
-        //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-2,d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-2)+d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1));
-        d.listaMovimientosHaciaDerecha.remove(d.listaMovimientosHaciaDerecha.size()-1);
-        d.lineasDivision.remove(d.lineasDivision.size()-1);
-        divisor = d.lineasDivision.get(d.lineasDivision.size()-1);
-        bajarPivotADenominador();
-        
-        d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1);
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1, 0);
-        agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
-    
-    }else{
-        //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
-        bajarPivotADenominador();
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1,d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1)-1);
 
-        d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1) -1;
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1, 0);
-        agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
-        d.enDenominador = true;
-    }
-    
+    protected void bajarEnFraccion() {
+
+        if (d.nivelBajadaFraccion % 2 == 0) {
+            //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
+            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 2, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 2) + d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1));
+            d.listaMovimientosHaciaDerecha.remove(d.listaMovimientosHaciaDerecha.size() - 1);
+            d.lineasDivision.remove(d.lineasDivision.size() - 1);
+            divisor = d.lineasDivision.get(d.lineasDivision.size() - 1);
+            bajarPivotADenominador();
+
+            d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1);
+            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, 0);
+            agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
+
+        } else {
+            //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
+            bajarPivotADenominador();
+            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1);
+
+            d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1;
+            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, 0);
+            agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
+            d.enDenominador = true;
+        }
+
     }
 
     protected void cambiarTamano(double factor) {
@@ -373,7 +372,7 @@ public class Logica {
         d.listaMovimientosHaciaDerecha.clear();
         d.listaMovimientosHaciaDerecha.add(0);
         d.enDenominador = false;
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1, 0);
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, 0);
         d.lineasDivision.clear();
         d.nivelBajadaFraccion = 0;
         d.anchoAnterior = 0;
@@ -558,9 +557,9 @@ public class Logica {
         } else {
             if (lista_simbolos.size() > 0) {
                 if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 0
-                        || lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 2
-                        || (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 1
-                        && lista_simbolos.get(lista_simbolos.size() - 2).getTipo() == 0)) {
+                    || lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 2
+                    || (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 1
+                    && lista_simbolos.get(lista_simbolos.size() - 2).getTipo() == 0)) {
                     return 1;
                 } else {
                     return 0;

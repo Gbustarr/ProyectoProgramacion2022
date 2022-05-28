@@ -93,17 +93,20 @@ public class division {
     }
 
     protected void modificarLineaDivision(Logica l, double pivot_x) {
+        
         if(l.enDivision){
-            if(anchoAnterior>(listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1))){
+            if(!l.ParentesisAbiertos.isEmpty()){
+                if(anchoAnterior>(listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1))){
                 double fin = l.divisor.forma[0] + (anchoAnterior * (l.espacioEntreSimbolos));
                 l.divisor.divisionFinal(fin);
             }else{
-                double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
-        l.divisor.divisionFinal(fin);
+                double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)-1) * (l.espacioEntreSimbolos));
+                l.divisor.divisionFinal(fin);
+            }
             }
         }else{
-            double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
-        l.divisor.divisionFinal(fin);
+            //double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
+            //l.divisor.divisionFinal(fin);
         }
 
     }
