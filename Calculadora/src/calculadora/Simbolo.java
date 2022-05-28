@@ -24,6 +24,7 @@ public class Simbolo {
     int tipo; //0 = numero, 1= operador, 2 = operador especial
     int valor;
     int enDivision = 0;
+    int longitudDivision = 0;
     int puntosControl = 0;
     boolean parentesisDimensionado = false;
     boolean bloqueParentesis = false;

@@ -22,6 +22,8 @@ public class division {
     ArrayList<Integer> anchosDivision = new ArrayList();
     FuncionesAuxiliares fa = new FuncionesAuxiliares();
     
+    boolean enDenominador = false;
+    
     ArrayList<Integer> listaMovimientosHaciaDerecha = new ArrayList();
     
 

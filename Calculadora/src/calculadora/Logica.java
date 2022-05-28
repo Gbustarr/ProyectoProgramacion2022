@@ -184,18 +184,32 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 13:
-                dimensionarParentesisAbiertos(gc);
-                d.listaMovimientosHaciaDerecha.add(-1);
-                fa.moverPivotArriba(this, 22);
-                fa.moverPivotIzquierda(this, 15);
+                if(!d.enDenominador){
+                    dimensionarParentesisAbiertos(gc);
+                    d.listaMovimientosHaciaDerecha.add(-1);
+                    fa.moverPivotArriba(this, 22);
+                    fa.moverPivotIzquierda(this, 15);
+                }else{
+                    dimensionarParentesisAbiertosAbajo(gc);
+                    d.listaMovimientosHaciaDerecha.add(-1);
+                    fa.moverPivotAbajo(this, 22);
+                    fa.moverPivotIzquierda(this, 15);
+                
+                }
+                
+                    
                 forma = cs.dividir(pivot_x, pivot_y);
                 s.setValor(13);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
                 s.setForma(forma);
-                d.nuevaDivision(this, lista_simbolos, s, gc);
-                divisor = s;
-                d.modificarLineaDivision(this, pivot_x);
+                    
+                    d.nuevaDivision(this, lista_simbolos, s, gc);
+                    divisor = s;
+                    d.modificarLineaDivision(this, pivot_x);
+                
+                
+                
                 lista_simbolos.add(s);
                 break;
             case 14: //Seno
@@ -414,6 +428,12 @@ public class Logica {
             ParentesisAbiertos.get(i).dimensionarParentesis(gc, 1);
         }
     }
+    
+    protected void dimensionarParentesisAbiertosAbajo(GraphicsContext gc){
+            for(int i = 0; i< ParentesisAbiertos.size();i++){
+            ParentesisAbiertos.get(i).dimensionarParentesisHaciaAbajo(1);
+        }
+    }
 
     protected void moverBloqueHaciaDerecha(double pos) {
 
@@ -461,6 +481,12 @@ public class Logica {
 
     }
 
+    protected void agregarDivision(){
+    
+            //agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display); //parentesis (
+            agregarSimbolo(context.gc, 13, context.lista_simbolos, context.Display); // linea division
+            agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display); //parentesis (
+    }
     protected int bloqueadorSignoNegativo(ArrayList<Simbolo> lista_simbolos) {
 
         if (lista_simbolos.isEmpty()) {

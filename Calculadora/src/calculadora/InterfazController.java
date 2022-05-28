@@ -272,10 +272,10 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected void BotonDivision_presionado() {
+            
+        l.agregarDivision();
   
-            l.agregarSimbolo(gc, 17, lista_simbolos, Display); //parentesis (
-            l.agregarSimbolo(gc, 13, lista_simbolos, Display); // linea division
-            l.agregarSimbolo(gc, 17, lista_simbolos, Display); // parentesis (
+
         
     }
     
@@ -284,6 +284,7 @@ public class InterfazController implements Initializable {
         l.agregarSimbolo(gc, 18, lista_simbolos, Display);
         l.bajarPivotADenominador();
         l.agregarSimbolo(gc, 17, lista_simbolos, Display);
+        l.d.enDenominador = true;
         
     }
     
