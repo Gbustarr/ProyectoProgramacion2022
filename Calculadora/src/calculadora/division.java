@@ -19,18 +19,29 @@ public class division {
     ArrayList<Simbolo> Numeradores = new ArrayList();
     ArrayList<Simbolo> Denominadores = new ArrayList();
     ArrayList<Simbolo> Bloque = new ArrayList();
+    ArrayList<Simbolo> lineasDivision = new ArrayList();
+    
     ArrayList<Integer> anchosDivision = new ArrayList();
     FuncionesAuxiliares fa = new FuncionesAuxiliares();
     
     boolean enDenominador = false;
     
+    int nivelBajadaFraccion = 0;
+    
+    
     ArrayList<Integer> listaMovimientosHaciaDerecha = new ArrayList();
+    int anchoAnterior = 0;
+    
+    ArrayList<Double> nivelYPivot = new ArrayList();
     
 
     protected void nuevaDivision(Logica l, ArrayList<Simbolo> lista_simbolos, Simbolo s, GraphicsContext gc) {
-        
         l.fa.moverPivotArriba(l,22);
         
+    }
+    
+    protected void guardarNivelPivot(Logica l){
+        nivelYPivot.add(l.pivot_y);
     }
     
     public division(){
@@ -80,8 +91,18 @@ public class division {
     }
 
     protected void modificarLineaDivision(Logica l, double pivot_x) {
-        double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
+        if(l.enDivision){
+            if(anchoAnterior>(listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1))){
+                double fin = l.divisor.forma[0] + (anchoAnterior * (l.espacioEntreSimbolos));
+                l.divisor.divisionFinal(fin);
+            }else{
+                double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
         l.divisor.divisionFinal(fin);
+            }
+        }else{
+            double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
+        l.divisor.divisionFinal(fin);
+        }
 
     }
 ;

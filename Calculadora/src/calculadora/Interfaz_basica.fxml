@@ -195,7 +195,7 @@
                      </font>
                   </Button>
                   <Label fx:id="divisionActiva" layoutX="118.0" layoutY="57.0" text="Label" visible="false" />
-                  <Button fx:id="Btn_next" blendMode="MULTIPLY" layoutX="294.0" layoutY="429.0" mnemonicParsing="false" onAction="#BotonNext_presionado" prefHeight="18.0" prefWidth="28.0" text="&gt;">
+                  <Button fx:id="Btn_next" blendMode="MULTIPLY" layoutX="191.0" layoutY="404.0" mnemonicParsing="false" onAction="#BotonNext_presionado" prefHeight="26.0" prefWidth="33.0" text="&gt;">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
@@ -222,7 +222,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Btn_bajarDivision" blendMode="SRC_ATOP" layoutX="153.0" layoutY="396.0" mnemonicParsing="false" onAction="#BotonBajarDivision_presionado" prefHeight="13.0" prefWidth="46.0" style="-fx-background-color: lightgreen;" text="v">
+                  <Button fx:id="Btn_bajarDivision" blendMode="SRC_ATOP" layoutX="153.0" layoutY="409.0" mnemonicParsing="false" onAction="#BotonBajarDivision_presionado" prefHeight="19.0" prefWidth="33.0" style="-fx-background-color: lightgreen;" text="v">
                      <font>
                         <Font size="10.0" />
                      </font>

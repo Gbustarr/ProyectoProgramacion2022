@@ -281,10 +281,10 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected void BotonBajarDivision_presionado(){
-        l.agregarSimbolo(gc, 18, lista_simbolos, Display);
-        l.bajarPivotADenominador();
-        l.agregarSimbolo(gc, 17, lista_simbolos, Display);
-        l.d.enDenominador = true;
+        l.d.nivelBajadaFraccion++;
+        l.bajarEnFraccion();
+        
+        
         
     }
     
@@ -508,11 +508,8 @@ public class InterfazController implements Initializable {
         l.Bloque.clear();
         l.context.textoSalida.setText("");
         l.parentesisAgregadoANumerador = false;
+        l.pivot_y = l.d.nivelYPivot.get(l.d.nivelYPivot.size()-1);
         
-        if(!l.ParentesisAbiertos.isEmpty()){
-            l.movimientosDeLista++;
-            l.agregarSimbolo(gc, 18, lista_simbolos, Display);
-        }
     }
     
     @FXML

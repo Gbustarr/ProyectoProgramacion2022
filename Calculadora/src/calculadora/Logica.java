@@ -204,7 +204,9 @@ public class Logica {
                 s.forma[0] = pivot_x+15;
 
                 d.nuevaDivision(this, lista_simbolos, s, gc);
+                d.lineasDivision.add(s);
                 divisor = s;
+                enDivision = true;
                 
 
                 lista_simbolos.add(s);
@@ -258,6 +260,7 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
         }
+        //Luego de insertar un simbolo, mueve el pivot hacia la derecha
         fa.moverPivotDerecha(this, s);
 
         //Para activar los puntos de control de los simbolos
@@ -276,13 +279,42 @@ public class Logica {
         if (panelAgregado == 1) {
             context.panelContext.setTextArea();
         }
-        d.modificarLineaDivision(this, pivot_x);
+        if(enDivision){
+            d.modificarLineaDivision(this, pivot_x);
+        }
+        
         updateTags();
     }
 
     protected double[] getAlturaParentesisAbierto() {
 
         return ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis();
+    }
+    protected void bajarEnFraccion(){
+        
+    if(d.nivelBajadaFraccion % 2 == 0){
+        //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-2,d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-2)+d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1));
+        d.listaMovimientosHaciaDerecha.remove(d.listaMovimientosHaciaDerecha.size()-1);
+        d.lineasDivision.remove(d.lineasDivision.size()-1);
+        divisor = d.lineasDivision.get(d.lineasDivision.size()-1);
+        bajarPivotADenominador();
+        
+        d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1);
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1, 0);
+        agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
+    
+    }else{
+        //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
+        bajarPivotADenominador();
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1,d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1)-1);
+
+        d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1) -1;
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1, 0);
+        agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
+        d.enDenominador = true;
+    }
+    
     }
 
     protected void cambiarTamano(double factor) {
@@ -311,6 +343,10 @@ public class Logica {
         d.listaMovimientosHaciaDerecha.clear();
         d.listaMovimientosHaciaDerecha.add(0);
         d.enDenominador = false;
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size()-1, 0);
+        d.lineasDivision.clear();
+        d.nivelBajadaFraccion = 0;
+        d.anchoAnterior = 0;
 
     }
 
@@ -479,6 +515,7 @@ public class Logica {
     protected void agregarDivision() {
 
         //agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display); //parentesis (
+        d.guardarNivelPivot(this);
         agregarSimbolo(context.gc, 13, context.lista_simbolos, context.Display); // linea division
         agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display); //parentesis (
     }
