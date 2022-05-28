@@ -182,7 +182,7 @@ public class Logica {
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
-            case 13:
+            case 13: //division
                 if (!d.enDenominador) {
                     dimensionarParentesisAbiertos(gc);
                     d.listaMovimientosHaciaDerecha.add(-1);
@@ -195,7 +195,7 @@ public class Logica {
                     fa.moverPivotIzquierda(this, 15);
 
                 }
-
+                
                 forma = cs.dividir(pivot_x, pivot_y);
                 s.setValor(13);
                 s.setTipo(1);
@@ -204,6 +204,14 @@ public class Logica {
                 s.forma[0] = pivot_x+15;
 
                 d.nuevaDivision(this, lista_simbolos, s, gc);
+                
+                if(d.contadorDeBajadas > 0){
+                    //d.lineasDivision.remove(d.lineasDivision.size()-1);
+                    for(int i = 0;i < d.lineasDivision.size()-1;i++){
+                        d.lineasDivision.get(i).moverAbajo(2);
+                }
+                    d.contadorDeBajadas--;
+                }
                 d.lineasDivision.add(s);
                 divisor = s;
                 enDivision = true;
@@ -272,7 +280,7 @@ public class Logica {
         //  Se borra el contenido del canvas para redibujar sobre ella.
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
-        gc.fillOval(pivot_x, pivot_y, 3, 3);
+        dibujarPuntero();
 
         context.textoSalida.setText(listaATexto(lista_simbolos));
 
@@ -284,6 +292,28 @@ public class Logica {
         }
         
         updateTags();
+    }
+    
+    protected void dibujarPuntero(){
+        context.gc.fillOval(pivot_x, pivot_y, 3, 3);
+        Simbolo p = new Simbolo();
+        //Iniciación y declaración de un simbolo general
+        Simbolo s = new Simbolo();
+        s.setXpos(pivot_x);
+        s.setYpos(pivot_y);
+        s.Xfactor = factor;
+        s.Yfactor = factor;
+
+        //Iniciación de una forma general
+        double[] forma;
+        
+        forma = cs.cero(pivot_x, pivot_y);
+        s.setForma(forma);
+        s.setValor(0);
+        s.setColor(Color.rgb(125, 125, 125, 0.2));
+        s.setTipo(0);
+        s.grosor = 3;
+        s.dibujar_Simbolo(context.gc);
     }
 
     protected double[] getAlturaParentesisAbierto() {
@@ -353,6 +383,7 @@ public class Logica {
     protected void bajarPivotADenominador() {
         fa.moverPivotAbajo(this, 44);
         fa.moverPivotADenominador(this);
+        d.contadorDeBajadas++;
     }
 
     protected void updateTags() {

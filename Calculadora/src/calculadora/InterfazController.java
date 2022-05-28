@@ -349,6 +349,7 @@ public class InterfazController implements Initializable {
         }
     }
     
+    
     @FXML
     protected void BotonColorNumeros_presionado(){
         colorNum= Color.valueOf(colorNumeros.getValue().toString());
@@ -427,6 +428,7 @@ public class InterfazController implements Initializable {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
         l.pivot_y = l.pivot_y -22;
+        l.dibujarPuntero();
         
                 
     }
@@ -440,6 +442,7 @@ public class InterfazController implements Initializable {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
         l.pivot_y = l.pivot_y +22;
+        l.dibujarPuntero();
                 
     }
     @FXML
@@ -450,6 +453,7 @@ public class InterfazController implements Initializable {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
         l.pivot_x = l.pivot_x + 15;
+        l.dibujarPuntero();
                 
     }
     @FXML
@@ -461,6 +465,7 @@ public class InterfazController implements Initializable {
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
         l.pivot_x = l.pivot_x - 15;
+        l.dibujarPuntero();
                 
     }
     
@@ -509,6 +514,7 @@ public class InterfazController implements Initializable {
         l.context.textoSalida.setText("");
         l.parentesisAgregadoANumerador = false;
         l.pivot_y = l.d.nivelYPivot.get(l.d.nivelYPivot.size()-1);
+        l.d.nivelYPivot.remove(l.d.nivelYPivot.size()-1);
         
     }
     

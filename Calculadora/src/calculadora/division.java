@@ -34,6 +34,8 @@ public class division {
     
     ArrayList<Double> nivelYPivot = new ArrayList();
     
+    int contadorDeBajadas = 0;
+    
 
     protected void nuevaDivision(Logica l, ArrayList<Simbolo> lista_simbolos, Simbolo s, GraphicsContext gc) {
         l.fa.moverPivotArriba(l,22);
