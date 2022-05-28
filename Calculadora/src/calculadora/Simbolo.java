@@ -5,6 +5,7 @@
  */
 package calculadora;
 
+import java.util.Arrays;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -14,7 +15,7 @@ import javafx.scene.paint.Color;
  */
 public class Simbolo {
 
-    double Xfactor = 1; //Tamaño
+    double Xfactor = 1;//Tamaño
     double Yfactor = 1;
     double Xpos;
     double Ypos;
@@ -24,6 +25,8 @@ public class Simbolo {
     int valor;
     int enDivision = 0;
     int puntosControl = 0;
+    boolean parentesisDimensionado = false;
+    boolean bloqueParentesis = false;
 
     private static double espacio = 15;
 
@@ -43,8 +46,10 @@ public class Simbolo {
         for (int i = 0; i < this.forma.length; i = i + 4) {
             gc.setStroke(this.color);
             gc.setLineWidth(2); //Cambia el tamaño de las lineas
-            gc.strokeLine((this.forma[i]) * Xfactor, this.forma[i + 1] * Yfactor,
-                (this.forma[i + 2]) * Xfactor, this.forma[i + 3] * Yfactor);
+            gc.strokeLine(  ((this.forma[i]) * Xfactor), 
+                            this.forma[i + 1] * Yfactor,
+                            (this.forma[i + 2]) * Xfactor, 
+                            this.forma[i + 3] * Yfactor);
 
             //Puntos de control
             if (puntosControl != 0) {
@@ -59,6 +64,21 @@ public class Simbolo {
              */
         }
         //System.out.println();
+    }
+    protected void setBloqueParentesis(){
+        this.bloqueParentesis = true;
+    }
+    
+    protected boolean getBloqueParentesis(){
+        return this.bloqueParentesis;
+    }
+    
+    protected void setParentesisDimensionado(){
+        this.parentesisDimensionado = true;
+    }
+    
+    protected boolean getParentesisDimensionado(){
+        return this.parentesisDimensionado;
     }
 
     protected void graficarPuntosControl(GraphicsContext gc, int i) {
@@ -85,9 +105,24 @@ public class Simbolo {
     }
     
     protected void dimensionarParentesis(GraphicsContext gc,int incremento){
-        this.forma[1] = this.forma[1] - (22 * incremento);
-        this.forma[3] = this.forma[3] - (22 * incremento);
-        this.forma[5] = this.forma[5] - (22 * incremento);
+        this.forma[1] = this.forma[1] - (44 * incremento);
+        this.forma[3] = this.forma[3] - (44 * incremento);
+        this.forma[5] = this.forma[5] - (44 * incremento);
+    }
+    
+    protected double[] getAlturaParentesis(){
+        double[] altura = {this.forma[1],this.forma[3],this.forma[5],
+                            this.forma[7],this.forma[9],this.forma[11]}; //Cordenadas Y del parentesis
+            return altura;
+    }
+    
+    protected void setAlturaParentesis(double[] altura){
+        this.forma[1] = altura[0];
+        this.forma[3] = altura[1];
+        this.forma[5] = altura[2];
+        this.forma[7] = altura[3];
+        this.forma[9] = altura[4];
+        this.forma[11] = altura[5];
     }
 
     public double getXFactor() {
@@ -162,14 +197,22 @@ public class Simbolo {
             this.forma[i + 1] = this.forma[i + 1] - (22 * factor); // Coordenada Y
         }
     }
+    
+    
 
-    protected void moverAbajo(int factor) {
+    protected void moverAbajo(double factor) {
         for (int i = 0; i < this.forma.length; i = i + 2) {
             this.forma[i + 1] = this.forma[i + 1] + (22 * factor); // Coordenada Y
         }
     }
+    
+    protected void dimensionarParentesisHaciaAbajo(double factor){
+        this.forma[7] = this.forma[7] + (44 * factor);
+        this.forma[9] = this.forma[9] + (44 * factor);
+        this.forma[11] = this.forma[11] + (44 * factor);
+    }
 
-    protected void moverIzquierda(int factor) {
+    protected void moverIzquierda(double factor) {
         for (int i = 0; i < this.forma.length; i = i + 2) {
             this.forma[i] = this.forma[i] - (espacio * factor);  // Coordenada X
         }
@@ -179,5 +222,9 @@ public class Simbolo {
         for (int i = 0; i < this.forma.length; i = i + 2) {
             this.forma[i] = this.forma[i] + (espacio * factor);  // Coordenada X
         }
+    }
+    @Override
+    public String toString(){
+        return Arrays.toString(this.forma);
     }
 }
