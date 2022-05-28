@@ -80,8 +80,8 @@ public class division {
     }
 
     protected void modificarLineaDivision(Logica l, double pivot_x) {
-        double inicio = pivot_x - ((l.movimientosDeLista - 1) * (l.espacioEntreSimbolos + 15));
-        l.divisor.division(inicio, pivot_x);
+        double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
+        l.divisor.divisionFinal(fin);
 
     }
 ;

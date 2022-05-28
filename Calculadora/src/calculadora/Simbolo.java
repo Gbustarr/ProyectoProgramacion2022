@@ -100,8 +100,7 @@ public class Simbolo {
         }
     }
 
-    protected void division(double xInicio, double xFinal) {
-        this.forma[0] = xInicio;
+    protected void divisionFinal( double xFinal) {
         this.forma[2] = xFinal;
     }
     
