@@ -156,9 +156,6 @@ public class InterfazController implements Initializable {
     @FXML
     protected Button Btn_Fact;
 
-    double pivot_x = 250;
-    double pivot_y = 100;
-
     double espacio_acumulado = 0;
     ArrayList<Simbolo> lista_simbolos = new ArrayList();
 
@@ -184,91 +181,91 @@ public class InterfazController implements Initializable {
     @FXML
     protected void Boton0_presionado() {
 
-        l.agregarSimbolo(gc, 0, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 0, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton1_presionado() {
 
-        l.agregarSimbolo(gc, 1, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 1, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton2_presionado() {
 
-        l.agregarSimbolo(gc, 2, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 2, lista_simbolos,Display);
 
     }
 
     @FXML
     protected void Boton3_presionado() {
 
-        l.agregarSimbolo(gc, 3, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 3, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton4_presionado() {
 
-        l.agregarSimbolo(gc, 4, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 4, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton5_presionado() {
 
-        l.agregarSimbolo(gc, 5, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 5, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton6_presionado() {
 
-        l.agregarSimbolo(gc, 6, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 6, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton7_presionado() {
 
-        l.agregarSimbolo(gc, 7, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 7, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton8_presionado() {
 
-        l.agregarSimbolo(gc, 8, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 8, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void Boton9_presionado() {
 
-        l.agregarSimbolo(gc, 9, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 9, lista_simbolos, Display);
 
     }
 
     @FXML
     protected void BotonMas_presionado() {
         if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
-            l.agregarSimbolo(gc, 10, lista_simbolos, pivot_x, pivot_y, Display);
+            l.agregarSimbolo(gc, 10, lista_simbolos, Display);
         }
     }
 
     @FXML
     protected void BotonMenos_presionado() {
         if (l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
-            l.agregarSimbolo(gc, 11, lista_simbolos, pivot_x, pivot_y, Display);
+            l.agregarSimbolo(gc, 11, lista_simbolos, Display);
         }
     }
 
     @FXML
     protected void BotonMultiplicar_presionado() {
         if (l.bloqueadorOperadorMultiple(lista_simbolos) == 0) {
-            l.agregarSimbolo(gc, 12, lista_simbolos, pivot_x, pivot_y, Display);
+            l.agregarSimbolo(gc, 12, lista_simbolos, Display);
         }
 
     }
@@ -278,15 +275,15 @@ public class InterfazController implements Initializable {
         if (/*l.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
             if (lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 18) {
                 //l.moverNumeradoresHaciaArriba(lista_simbolos);
-                l.agregarSimbolo(gc, 13, lista_simbolos, pivot_x, pivot_y, Display);
-                l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+                l.agregarSimbolo(gc, 13, lista_simbolos, Display);
+                l.agregarSimbolo(gc, 17, lista_simbolos, Display);
             }
         }
     }
     
     @FXML
     protected void BtnOperador_presionado(){
-        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 16, lista_simbolos, Display);
     }
 
     @FXML
@@ -302,7 +299,7 @@ public class InterfazController implements Initializable {
 
         if (lista_simbolos.size() > 0) {
             l.resetEstado();
-            fg.borrarTodo(gc, Display, lista_simbolos, pivot_x);
+            fg.borrarTodo(gc, Display, lista_simbolos,l.pivot_x);
             if (l.panelAgregado == 1){
                 l.context.panelContext.setTextArea();
             }
@@ -418,11 +415,11 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonArriba_presionado(){
         for(int i = 0; i < lista_simbolos.size();i++){
-            lista_simbolos.get(i).moverAbajo(1);
+            lista_simbolos.get(i).moverArriba(1);
         }
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
-        pivot_y = pivot_y +22;
+        l.pivot_y = l.pivot_y -22;
         
                 
     }
@@ -430,33 +427,33 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonAbajo_presionado(){
         for(int i = 0; i < lista_simbolos.size();i++){
-            lista_simbolos.get(i).moverArriba(1);
+            lista_simbolos.get(i).moverAbajo(1);
             
         }
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
-        pivot_y = pivot_y -22;
+        l.pivot_y = l.pivot_y +22;
                 
     }
     @FXML
     protected void BotonDerecha_presionado(){
         for(int i = 0; i < lista_simbolos.size();i++){
-            lista_simbolos.get(i).moverIzquierda(1);
+            lista_simbolos.get(i).moverDerecha(1);
         }
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
-        pivot_x = pivot_x - 15;
+        l.pivot_x = l.pivot_x + 15;
                 
     }
     @FXML
     protected void BotonIzquierda_presionado(){
         for(int i = 0; i < lista_simbolos.size();i++){
-            lista_simbolos.get(i).moverDerecha(1);
+            lista_simbolos.get(i).moverIzquierda(1);
             
         }
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
-        pivot_x = pivot_x + 15;
+        l.pivot_x = l.pivot_x - 15;
                 
     }
     
@@ -469,28 +466,28 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected void BotonSeno_presionado(){
-        l.agregarSimbolo(gc, 14, lista_simbolos, pivot_x, pivot_y, Display);
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 14, lista_simbolos, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, Display);
     }
     @FXML
     protected void BotonCos_presionado(){
-        l.agregarSimbolo(gc, 15, lista_simbolos, pivot_x, pivot_y, Display);
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 15, lista_simbolos, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, Display);
     }
     @FXML
     protected void BotonTan_presionado(){
-        l.agregarSimbolo(gc, 16, lista_simbolos, pivot_x, pivot_y, Display);
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 16, lista_simbolos, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, Display);
     }
     
     @FXML
     protected void BotonFact_presionado(){
-        l.agregarSimbolo(gc, 19, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 19, lista_simbolos, Display);
     }
     
     @FXML
     protected void BotonParentesisAbierto_presionado(){
-        l.agregarSimbolo(gc, 17, lista_simbolos, pivot_x, pivot_y, Display);
+        l.agregarSimbolo(gc, 17, lista_simbolos, Display);
     }
     
     @FXML
@@ -507,14 +504,14 @@ public class InterfazController implements Initializable {
         
         if(!l.ParentesisAbiertos.isEmpty()){
             l.movimientosDeLista++;
-            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
+            l.agregarSimbolo(gc, 18, lista_simbolos, Display);
         }
     }
     
     @FXML
     protected void BotonParentesisCerrado_presionado(){
         if(!lista_simbolos.isEmpty() || !l.ParentesisAbiertos.isEmpty()){
-            l.agregarSimbolo(gc, 18, lista_simbolos, pivot_x, pivot_y, Display);
+            l.agregarSimbolo(gc, 18, lista_simbolos, Display);
 
         }
     }

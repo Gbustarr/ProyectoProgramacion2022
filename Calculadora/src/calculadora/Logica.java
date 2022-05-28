@@ -15,12 +15,19 @@ import javafx.scene.paint.Color;
  * @author guillermo
  */
 public class Logica {
+    
+    double pivot_x = 50;
+    double pivot_y = 150;
 
-    double espacioEntreSimbolos = 1.1;
+    double espacioEntreSimbolos = 15;
     CoordenadasSimbolos cs = new CoordenadasSimbolos();
 
     double movimientosDeLista = 0;
     int puntosControlActivo = 0;
+    
+    //Funciones auxiliares
+    
+    FuncionesAuxiliares fa = new FuncionesAuxiliares();
 
     //variable para el tamano 
     double factor = 1;
@@ -54,7 +61,7 @@ public class Logica {
     }
 
     protected void agregarSimbolo(GraphicsContext gc, int nSimbolo,
-        ArrayList<Simbolo> lista_simbolos, double pivot_x, double pivot_y,
+        ArrayList<Simbolo> lista_simbolos,
         Canvas Display) {
         updateTags();
         //Iniciación y declaración de un simbolo general
@@ -194,36 +201,23 @@ public class Logica {
                 s.setTipo(2);
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(14, pivot_x, pivot_y, s);
-
                 lista_simbolos.add(s);
-                moverListaHaciaIzquierda(lista_simbolos, 2);
                 break;
             case 15: //Coseno
                 s.setValor(15);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(15, pivot_x, pivot_y, s);
-
                 lista_simbolos.add(s);
-                moverListaHaciaIzquierda(lista_simbolos, 2);
                 break;
             case 16: //Tangente
                 s.setValor(16);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(16, pivot_x, pivot_y, s);
-
                 lista_simbolos.add(s);
-                moverListaHaciaIzquierda(lista_simbolos, 2);
                 break;
             case 17: //Parentesis Abierto
-                if (!enDivision) {
-                    contadorReset++;
-                    if (contadorReset > 1) {
-                        movimientosDeLista = 1;
-                        contadorReset = 0;
-                    }
-                }
                 s.setValor(17);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
@@ -239,9 +233,6 @@ public class Logica {
                 forma = cs.pCerrado(pivot_x, pivot_y);
                 s.setForma(forma);
                 s.setAlturaParentesis(ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis());
-                if (enDivision) {
-                    s.moverArriba(1);
-                }
                 lista_simbolos.add(s);
                 ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el ultimo parentesis abierto
                 break;
@@ -254,39 +245,16 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
         }
-
-        //Si no se agrega un simbolo de  division
-        if (s.valor != 13) {
-            //Evaluacion de contexto
-            if (enDivision) {
-                //Verificando el ancho
-                d.verificarTamanoNumeradorDenominador(this);
-                if (denominadorMenor) {
-                    s.moverAbajo(1);
-                    s.moverIzquierda(diferenciaNumeradorDenominador * espacioEntreSimbolos);
-                } else {
-                    moverListaHaciaIzquierda(lista_simbolos, espacioEntreSimbolos);
-                    cambiarMovimientosListas();
-                    d.modificarLineaDivision(this, pivot_x);
-                    s.moverAbajo(1);
-                    moverNumeradoresHaciaDerecha(espacioEntreSimbolos / 2);
-                    moverBloqueHaciaDerecha(espacioEntreSimbolos / 2);
-                }
-                s.color = Color.BLUE;
-                Denominadores.add(s);
-
-            } else {
-                moverListaHaciaIzquierda(lista_simbolos, espacioEntreSimbolos);
-                cambiarMovimientosListas();
-
-            }
-        }
-
+        fa.moverPivot(this,s);
+        
+        
+        
         //Para activar los puntos de control de los simbolos
         if (puntosControlActivo == 1) {
             s.switchPuntosControl();
         }
 
+        
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
         fg.limpiarCanvas(gc, Display);
@@ -327,6 +295,8 @@ public class Logica {
         Bloque.clear();
         context.textoSalida.setText("");
         parentesisAgregadoANumerador = false;
+        pivot_x = 50;
+        pivot_y = 100;
 
     }
 
@@ -365,6 +335,7 @@ public class Logica {
                 s.moverIzquierda(1);
                 forma = cs.n(pivot_x, pivot_y); //Agregar N
                 s.concatenarForma(forma);
+                s.moverDerecha(2);
                 break;
             case 15: //Operador Coseno
                 forma = cs.c(pivot_x, pivot_y); //Agrega la C
@@ -375,6 +346,7 @@ public class Logica {
                 s.moverIzquierda(1);
                 forma = cs.s(pivot_x, pivot_y); //Agregar S
                 s.concatenarForma(forma);
+                s.moverDerecha(2);
                 break;
             case 16: //Operador Tangente
                 forma = cs.t(pivot_x, pivot_y); //Agrega la T
@@ -385,6 +357,7 @@ public class Logica {
                 s.moverIzquierda(1);
                 forma = cs.n(pivot_x, pivot_y); //Agregar N
                 s.concatenarForma(forma);
+                s.moverDerecha(2);
                 break;
         }
     }
