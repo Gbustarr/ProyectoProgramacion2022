@@ -272,13 +272,19 @@ public class InterfazController implements Initializable {
     
     @FXML
     protected void BotonDivision_presionado() {
-        if (/*l.divisionActiva != 1 && */ lista_simbolos.size() > 0) {
-            if (lista_simbolos.get(lista_simbolos.size() - 1).getValor() == 18) {
-                //l.moverNumeradoresHaciaArriba(lista_simbolos);
-                l.agregarSimbolo(gc, 13, lista_simbolos, Display);
-                l.agregarSimbolo(gc, 17, lista_simbolos, Display);
-            }
-        }
+  
+            l.agregarSimbolo(gc, 17, lista_simbolos, Display); //parentesis (
+            l.agregarSimbolo(gc, 13, lista_simbolos, Display); // linea division
+            l.agregarSimbolo(gc, 17, lista_simbolos, Display); // parentesis (
+        
+    }
+    
+    @FXML
+    protected void BotonBajarDivision_presionado(){
+        l.agregarSimbolo(gc, 18, lista_simbolos, Display);
+        l.bajarPivotADenominador();
+        l.agregarSimbolo(gc, 17, lista_simbolos, Display);
+        
     }
     
     @FXML

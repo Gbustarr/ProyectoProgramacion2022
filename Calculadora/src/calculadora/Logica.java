@@ -184,13 +184,15 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 13:
+                dimensionarParentesisAbiertos(gc);
+                d.listaMovimientosHaciaDerecha.add(-1);
+                fa.moverPivotArriba(this, 22);
+                fa.moverPivotIzquierda(this, 15);
                 forma = cs.dividir(pivot_x, pivot_y);
                 s.setValor(13);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
                 s.setForma(forma);
-                subidasDivision++;
-
                 d.nuevaDivision(this, lista_simbolos, s, gc);
                 divisor = s;
                 d.modificarLineaDivision(this, pivot_x);
@@ -245,7 +247,7 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
         }
-        fa.moverPivot(this,s);
+        fa.moverPivotDerecha(this,s);
         
         
         
@@ -259,6 +261,7 @@ public class Logica {
         //  Se borra el contenido del canvas para redibujar sobre ella.
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        gc.fillOval(pivot_x, pivot_y, 3, 3);
 
         context.textoSalida.setText(listaATexto(lista_simbolos));
 
@@ -283,6 +286,7 @@ public class Logica {
         fg.dibujarTodosLosSimbolos(context.gc, context.lista_simbolos);
     }
 
+       
     protected void resetEstado() {
         enDivision = false;
         denominadorMenor = true;
@@ -297,21 +301,27 @@ public class Logica {
         parentesisAgregadoANumerador = false;
         pivot_x = 50;
         pivot_y = 100;
+        d.listaMovimientosHaciaDerecha.clear();
+        d.listaMovimientosHaciaDerecha.add(0);
 
+    }
+    protected void bajarPivotADenominador(){
+        fa.moverPivotAbajo(this,44);
+        fa.moverPivotADenominador(this);
     }
 
     protected void updateTags() {
         context.alturaDivision.setText("enDivision: " + enDivision);
         context.divisionActiva.setText("Subidas Division: " + subidasDivision);
         context.indiceUltimaDivision.setText("Division Agregada: " + divisionAgregada);
-        //context.denominadorMenor.setText("Denominador Menor: " + denominadorMenor);
+        context.denominadorMenor.setText("Movimientos DER: " + d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size()-1));
         context.indicesNumeradores.setText("Parentesis abiertos: " + ParentesisAbiertos.size());
         //context.indicesDenominadores.setText("Indices Denominadores: " + indicesDenominadores.size());
         //context.indicesDivisionCombinada.setText("Indices Division Combinada: " + indicesDivisionCombinada.size());
         //context.anchoDivision.setText("Ancho Division: " + anchoDivision);
         //context.anchoDivisionAnterior.setText("Ancho Division Anterior: " + anchoDivisionAnterior);
         //context.divisionEliminada.setText("Division eliminada: "+divisionEliminada);
-        context.movimientosDeLista.setText("movimientosDeLista: " + movimientosDeLista);
+        context.movimientosDeLista.setText("Parentesis abiertos: " + ParentesisAbiertos.size());
     }
 
     protected void cambiarMovimientosListas() {
@@ -396,6 +406,12 @@ public class Logica {
         if (context.lista_simbolos.get(context.lista_simbolos.size() - 1).getValor() == 18) {
             movimientosDeLista = 0;
             divisionAgregada = false;
+        }
+    }
+    
+    protected void dimensionarParentesisAbiertos(GraphicsContext gc){
+        for(int i = 0; i< ParentesisAbiertos.size();i++){
+            ParentesisAbiertos.get(i).dimensionarParentesis(gc, 1);
         }
     }
 
