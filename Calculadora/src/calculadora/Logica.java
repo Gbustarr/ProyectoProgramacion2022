@@ -285,7 +285,7 @@ public class Logica {
                 s.setValor(14);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                formaOperadorCientifico(14, pivot_x, pivot_y, s);
+                formaOperadorCientifico(this,14, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
                 fa.moverPivotDerechaPotencia(this);
                 fa.moverPivotDerechaPotencia(this);
@@ -294,7 +294,7 @@ public class Logica {
                 s.setValor(15);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                formaOperadorCientifico(15, pivot_x, pivot_y, s);
+                formaOperadorCientifico(this,15, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
                 fa.moverPivotDerechaPotencia(this);
                 fa.moverPivotDerechaPotencia(this);
@@ -303,7 +303,7 @@ public class Logica {
                 s.setValor(16);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                formaOperadorCientifico(16, pivot_x, pivot_y, s);
+                formaOperadorCientifico(this,16, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
                 fa.moverPivotDerechaPotencia(this);
                 fa.moverPivotDerechaPotencia(this);
@@ -494,7 +494,7 @@ public class Logica {
 
     }
 
-    protected void formaOperadorCientifico(int valor, double pivot_x, double pivot_y, Simbolo s) {
+    protected void formaOperadorCientifico(Logica l,int valor, double pivot_x, double pivot_y, Simbolo s) {
 
         double[] forma;
 
@@ -521,6 +521,7 @@ public class Logica {
                     forma = cs.n(pivot_x, pivot_y); //Agregar N
                     s.concatenarForma(forma);
                     s.moverDerecha(2);
+                    l.pivot_x = l.pivot_x - l.espacioEntreSimbolos; 
                 }
                 break;
             case 15: //Operador Coseno
@@ -545,6 +546,7 @@ public class Logica {
                     forma = cs.s(pivot_x, pivot_y); //Agregar S
                     s.concatenarForma(forma);
                     s.moverDerecha(2);
+                    l.pivot_x = l.pivot_x - l.espacioEntreSimbolos;
                 }
                 break;
             case 16: //Operador Tangente
@@ -569,6 +571,7 @@ public class Logica {
                     forma = cs.n(pivot_x, pivot_y); //Agregar N
                     s.concatenarForma(forma);
                     s.moverDerecha(2);
+                    l.pivot_x = l.pivot_x - l.espacioEntreSimbolos;
                 }
                 break;
         }
@@ -758,16 +761,16 @@ public class Logica {
                     string = string + " / ";
                 }
                 if (s.valor == 14) {
-                    System.out.print(" Sin ");
-                    string = string + " Sin ";
+                    System.out.print(" Sin");
+                    string = string + " Sin";
                 }
                 if (s.valor == 15) {
-                    System.out.print(" Cos ");
+                    System.out.print(" Cos");
                     string = string + " Cos ";
                 }
                 if (s.valor == 16) {
-                    System.out.print(" Tan ");
-                    string = string + " Tan ";
+                    System.out.print(" Tan");
+                    string = string + " Tan";
                 }
                 if (s.valor == 17) {
                     System.out.print("(");
@@ -780,6 +783,10 @@ public class Logica {
                 if (s.valor == 19) {
                     System.out.print("!");
                     string = string + "!";
+                }
+                if(s.valor == 20){
+                    System.out.print("°");
+                    string = string + "°";
                 }
 
             } else if (s.valor == -1) {
