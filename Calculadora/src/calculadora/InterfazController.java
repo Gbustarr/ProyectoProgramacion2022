@@ -460,10 +460,12 @@ public class InterfazController implements Initializable {
     protected void BotonPotencia_presionado(){
         if(l.enPotencia == true){
             l.enPotencia = false;
+            l.fa.alturaEnPotencia(l);
             alturaDivision.setVisible(false);
             l.pivot_x = l.pivot_x + 5;
         }else{
             l.enPotencia = true;
+            l.fa.alturaEnPotencia(l);
             l.agregarSimbolo(gc, -1, lista_simbolos, Display);
             alturaDivision.setVisible(true);
         }

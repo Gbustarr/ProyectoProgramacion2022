@@ -37,11 +37,18 @@ public class Logica {
     ArrayList<Integer> anchosDivision = new ArrayList();
     boolean enDivision;
     boolean divisionAgregada;
+    int divisionesAgregadas = 0;
     boolean denominadorMenor = true;
     Simbolo divisor;
     double diferenciaNumeradorDenominador = 0;
     int subidasDivision;
     int contadorReset = 0;
+    
+    Simbolo ultimoParentesisCerrado;
+    
+    Simbolo divisionPrincipal;
+    
+    Simbolo simboloMasApartado = new Simbolo();
 
     boolean enPotencia = false;
     InterfazController context;
@@ -64,7 +71,17 @@ public class Logica {
         ArrayList<Simbolo> lista_simbolos,
         Canvas Display) {
         //updateTags();
-
+        
+        if(context.lista_simbolos.isEmpty()){
+            simboloMasApartado.Ypos = pivot_y;
+            simboloMasApartado.Xpos = pivot_x;
+        }
+        
+        if(pivot_x > simboloMasApartado.Xpos){
+            simboloMasApartado.Xpos = pivot_x;
+        }
+        
+        
         System.out.println("En division:" + enDivision);
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
@@ -253,7 +270,11 @@ public class Logica {
                 d.nuevaDivision(this);
                 d.lineasDivision.add(s);
                 divisor = s;
+                if(!enDivision){
+                    divisionPrincipal = s;
+                }
                 enDivision = true;
+                divisionesAgregadas++;
                 d.Numeradores.add(s);
                 dimensionarParentesisAbiertos(gc);
                 lista_simbolos.add(s);
@@ -304,6 +325,10 @@ public class Logica {
                 s.setValor(18);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
+                if(ParentesisAbiertos.size() - divisionesAgregadas == 1){
+                    pivot_x = simboloMasApartado.Xpos;
+                    divisionesAgregadas--;
+                }
                 if (enPotencia) {
                     forma = cs.pCerradoPot(pivot_x, pivot_y);
                 } else {
@@ -313,6 +338,9 @@ public class Logica {
                 s.setAlturaParentesis(ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis());
                 s.enlace = ParentesisAbiertos.get(ParentesisAbiertos.size()-1);
                 lista_simbolos.add(s);
+                if(!enPotencia){
+                    ultimoParentesisCerrado = s;
+                }
                 ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el ultimo parentesis abierto
 
                 if (ParentesisAbiertos.size() == 1) {

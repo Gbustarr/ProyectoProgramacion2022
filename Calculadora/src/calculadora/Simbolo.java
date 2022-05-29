@@ -40,6 +40,7 @@ public class Simbolo {
         this.Ypos = Ypos;
         this.forma = forma;
     }
+    
 
     public Simbolo() {
     }

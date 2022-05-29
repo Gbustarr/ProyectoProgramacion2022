@@ -36,6 +36,15 @@ public class FuncionesAuxiliares {
     
     }
     
+    protected void alturaEnPotencia(Logica l){
+        if(l.enPotencia){
+            l.pivot_y = l.ultimoParentesisCerrado.forma[1]+40;
+        }else{
+            l.pivot_y = l.ultimoParentesisCerrado.Ypos;
+        }
+        
+    }
+    
     protected void moverPivotArriba(Logica l,double distancia){
         
         l.pivot_y = l.pivot_y -distancia;

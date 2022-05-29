@@ -235,9 +235,9 @@ public class CoordenadasSimbolos {
     }
 
     double[] nPot(double x, double y) {
-        double[] n_p = {x - 5, y - 40, x - 5, y - 25,
-            x, y - 40, x, y - 25, x - 5, y - 40,
-            x, y - 25};
+        double[] n_p = {x-10,y-25,x-10,y-40,
+                     x-10,y-40,x-5,y-25,
+                     x-5,y-25, x-5,y-40};
         return n_p;
     }
 
@@ -288,8 +288,8 @@ public class CoordenadasSimbolos {
     }
 
     double[] tPot(double x, double y) {
-        double[] t_p = {x - 5, y - 40.5, x - 5, y - 30,
-            x - 8, y - 40, x - 2, y - 40};
+        double[] t_p = {x-5,y-40,x-5,y-25,
+                         x-8,y-40,x-2,y-40};
         return t_p;
     }
 
@@ -305,10 +305,11 @@ public class CoordenadasSimbolos {
     }
 
     double[] aPot(double x, double y) {
-        double[] a_p = {x - 5, y - 40, x, y - 40,
-            x, y - 40, x, y - 25, x, y - 33, x - 5, y - 33,
-            x - 5, y - 25, x - 5, y - 40
-        };
+        double[] a_p = {x-5,y-40,x,y-40,
+                            x,y-40,x,y-25,x,y-33,x-5,y-33,
+                            
+                            x-5,y-25,x-5,y-40
+                            };
         return a_p;
     }
 
