@@ -253,9 +253,9 @@ public class CoordenadasSimbolos {
     }
 
     double[] cPot(double x, double y) {
-        double[] c_p = {x - 5, y - 40, x, y - 40,
-            x, y - 25, x - 5, y - 25,
-            x - 5, y - 25, x - 5, y - 40
+        double[] c_p = {x - 6, y - 40, x-10, y - 40,
+            x-10, y - 40, x - 10, y - 25,
+            x - 10, y - 25, x - 6, y - 25
         };
         return c_p;
     }
@@ -273,10 +273,10 @@ public class CoordenadasSimbolos {
     }
 
     double[] oPot(double x, double y) {
-        double[] o_p = {x - 5, y - 40, x, y - 40,
-            x, y - 40, x, y - 25,
-            x, y - 25, x - 5, y - 25,
-            x - 5, y - 25, x - 5, y - 40
+        double[] o_p = {x - 10, y - 40, x-10, y - 25,
+            x-10, y - 25, x-5, y - 25,
+            x-5, y - 25, x - 5, y - 40,
+            x - 5, y - 40, x - 10, y - 40
         };
         return o_p;
     }
@@ -288,8 +288,8 @@ public class CoordenadasSimbolos {
     }
 
     double[] tPot(double x, double y) {
-        double[] t_p = {x-5,y-40,x-5,y-25,
-                         x-8,y-40,x-2,y-40};
+        double[] t_p = {x-7.5,y-25,x-7.5,y-40,
+                         x-10,y-40,x-6,y-40};
         return t_p;
     }
 
@@ -305,11 +305,14 @@ public class CoordenadasSimbolos {
     }
 
     double[] aPot(double x, double y) {
-        double[] a_p = {x-5,y-40,x,y-40,
-                            x,y-40,x,y-25,x,y-33,x-5,y-33,
-                            
-                            x-5,y-25,x-5,y-40
-                            };
+        double[] a_p = {x-10,y-25,x-10,y-32.5,
+                        x-10,y-32.5,x-8.75,y-40,
+                        x-8.75,y-40,x-6.25,y-40,
+                        x-6.25,y-40,x-5,y-32.5,
+                        x-5,y-32.5,x-5,y-25,
+                        x-5,y-25,x-5,y-32.5,
+                        x-5,y-32.5,x-10,y-32.
+        };
         return a_p;
     }
 
