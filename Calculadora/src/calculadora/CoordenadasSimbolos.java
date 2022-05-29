@@ -20,6 +20,15 @@ public class CoordenadasSimbolos {
                             };
         return cero;
     }
+
+    double[] cero_p(double x,double y){
+        double[] cero_p =     {x-5,y-40,x,y-40,
+                            x,y-40,x,y-25,
+                            x,y-25,x-5,y-25,
+                            x-5,y-25,x-5,y-40
+                            };
+        return cero_p;
+    }
     
     double[] uno(double x,double y){
         double[] uno =      {x-10,y-35,x-5,y-40,
@@ -27,6 +36,16 @@ public class CoordenadasSimbolos {
                             x-10,y-10,x,y-10};
         return uno;
     }
+    
+    double[] uno_p(double x,double y){
+        double[] uno_p =    
+                            {x-5,y-35,x-2.5,y-40,
+                            x-2.5,y-40,x-2.5,y-25,
+                            x-5,y-25,x,y-25};
+        return uno_p;
+    }
+
+    
     double[] dos(double x,double y){
         double[] dos =      {x-10,y-40,x,y-40,
                             x,y-40,x,y-25,
@@ -34,6 +53,15 @@ public class CoordenadasSimbolos {
                             x-10,y-25,x-10,y-10,
                             x-10,y-10,x,y-10};
         return dos;
+    }
+    double[] dos_p(double x,double y){
+        double[] dos_p =      
+                            {x-5,y-40,x,y-40,
+                            x,y-40,x,y-35,
+                            x,y-35,x-5,y-35,
+                            x-5,y-35,x-5,y-30,
+                            x-5,y-30,x,y-30};
+        return dos_p;
     }
     double[] tres(double x,double y){
         double[] tres =     {x-10,y-40,x,y-40,
@@ -44,21 +72,51 @@ public class CoordenadasSimbolos {
         return tres;
     }
     
+    double[] tres_p(double x,double y){
+        double[] tres_p =     {x-5,y-40,x,y-40,
+                            x,y-40,x,y-35,
+                            x,y-35,x-5,y-35,
+                            x,y-35,x,y-30,
+                            x-5,y-30,x,y-30};
+                            
+        return tres_p;
+    }
+    
     double[] cuatro(double x, double y){
-        double[] cuatro =   {x-10,y-40,x-10,y-25,
+        double[] cuatro =   
+        {x-10,y-40,x-10,y-25,
                             x-10,y-25,x,y-25,
                             x,y-40,x,y-10};
         return cuatro;
     }
+
+    double[] cuatro_p(double x, double y){
+        
+        double[] cuatro_p =   {x-5,y-40,x-5,y-35,
+                            x-5,y-35,x,y-35,
+                            x,y-40,x,y-30};
+        return cuatro_p;
+    }
     
     double[] cinco(double x, double y){
-        double[] cinco =    {x-10,y-40,x,y-40,
+        double[] cinco =    
+                            {x-10,y-40,x,y-40,
                             x-10,y-40,x-10,y-25,
                             x-10,y-25,x,y-25,
                             x,y-25,x,y-10,
                             x,y-10,x-10,y-10};
         
         return cinco;
+    }
+
+    double[] cinco_p(double x, double y){
+        double[] cinco_p =   {x-5,y-40,x,y-40,
+                            x-5,y-40,x-5,y-35,
+                            x-5,y-35,x,y-35,
+                            x,y-35,x,y-30,
+                            x,y-30,x-5,y-30}; 
+        
+        return cinco_p;
     }
     
     double[] seis(double x, double y){
@@ -69,22 +127,46 @@ public class CoordenadasSimbolos {
                             x,y-25,x-10,y-25};
         return seis;
     }
-    
+    double[] seis_p(double x, double y){
+        double[] seis_p =     {x-5,y-40,x,y-40,
+                            x-5,y-40,x-5,y-25,
+                            x-5,y-25,x,y-25,
+                            x,y-25,x,y-33,
+                            x,y-33,x-5,y-33};
+        
+        return seis_p;
+    }
     double[] siete(double x, double y){
-        double[] siete =    {x-10,y-40,x,y-40,
-                            x,y-40,x,y-10};
+        double[] siete =  {x-10,y-40,x,y-40,
+                            x,y-40,x,y-10};  
         return siete;
     }
     
+    double[] siete_p(double x, double y){
+        double[] siete_p =    {x-5,y-40,x,y-40,
+                            x,y-40,x,y-25};
+
+                           
+        return siete_p;
+    }
+    
     double[] ocho(double x, double y){
-        double[] ocho =     {x-10,y-40,x,y-40,
+        double[] ocho = {x-10,y-40,x,y-40,
                             x-10,y-40,x-10,y-10,
                             x-10,y-10,x,y-10,
                             x,y-10,x,y-40,
-                            x-10,y-25,x,y-25};
+                            x-10,y-25,x,y-25};    
         return ocho;
     }
-    
+    double[] ocho_p(double x, double y){
+        double[] ocho_p =     {x-5,y-40,x,y-40,
+                            x,y-40,x,y-25,x,y-33,x-5,y-33,
+                            x,y-25,x-5,y-25,
+                            x-5,y-25,x-5,y-40
+                            };
+        return ocho_p;
+    }
+        
     double[] nueve(double x, double y){
         double[] nueve =    {x-10,y-40,x,y-40,
                             x-10,y-40,x-10,y-25,
@@ -94,10 +176,23 @@ public class CoordenadasSimbolos {
         return nueve;
     }
     
+    double[] nueve_p(double x, double y){
+        double[] nueve_p =    {x-5,y-40,x,y-40,
+                            x-5,y-40,x-5,y-35,
+                            x-5,y-35,x,y-35,
+                            x,y-40,x,y-30};
+        return nueve_p;
+    }
+    
     double[] mas(double x, double y){
         double[] mas =      {x-5,y-32.5,x-5,y-17.5,
                             x-10,y-25,x,y-25};
         return mas;
+    }
+    double[] mas_p(double x, double y){
+        double[] mas_p =      {x-5,y-40.5,x-5,y-34.5,
+                            x-8,y-38,x-2,y-38};
+        return mas_p;
     }
     
     double[] menos(double x, double y){
@@ -105,6 +200,10 @@ public class CoordenadasSimbolos {
         return menos;
     }
     
+    double[] menos_p(double x, double y){
+        double[] menos_p =    {x-8,y-38,x-2,y-38};
+        return menos_p;
+    }
     double[] multiplicar(double x, double y){
         double[] multiplicar =  {x-10,y-32.5,x,y-17.5,
                                 x-10,y-17.5,x,y-32.5
@@ -112,11 +211,22 @@ public class CoordenadasSimbolos {
         return multiplicar;
     }
     
+    double[] multiplicar_p(double x, double y){
+        double[] multiplicar_p =  {x-5,y-40.5,x,y-34.5,
+                                x-5,y-34.5,x,y-40.5
+                                };
+        return multiplicar_p;
+    }
+    
     
     double[] dividir(double x, double y){
-     
         double[] dividir =      {x-10,y-25,x,y-25};
         return dividir;
+    }
+    
+    double[] dividir_p(double x, double y){
+        double[] dividir_p =      {x-8,y-38,x-2,y-38};
+        return dividir_p;
     }
     
     double [] potencia(double x, double y){
@@ -127,10 +237,14 @@ public class CoordenadasSimbolos {
     
     double [] factorial(double x, double y){
         double [] factorial = {x-7,y-40,x-7,y-18,
-                               x-7,y-10,x-7,y-10,
-                               x-7,y-10,x-7,y-10,
                                x-7,y-10,x-7,y-10};
         return factorial;
+    }
+    double [] factorial_p(double x, double y){
+        double [] factorial_p = 
+                               {x-7,y-40,x-7,y-29,
+                               x-7,y-25,x-7,y-25};
+        return factorial_p;
     }
     
     double[] s(double x, double y){
