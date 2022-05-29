@@ -254,12 +254,26 @@ public class CoordenadasSimbolos {
                        x-10,y-10,x-10,y-15};
         return s;
     }
-    
+    double[] s_p(double x, double y){
+        double [] s_p = {x-5,y-40,x,y-40,
+                            x-5,y-40,x-5,y-35,
+                            x-5,y-35,x,y-35,
+                            x,y-35,x,y-30,
+                            x,y-30,x-5,y-30};
+        return s_p;
+    }
     double [] i(double x, double y){
         double [] i ={x-5,y-10,x-5,y-35,
                       x-5,y-40,x-5,y-40,
                       x-5,y-40,x-5,y-40};
         return i;
+    }
+
+    double [] i_p(double x, double y){
+        double [] i_p =
+                    {x-7,y-40,x-7,y-40,
+                      x-7,y-36,x-7,y-25};
+        return i_p;
     }
     
     double [] n(double x, double y){
@@ -269,6 +283,12 @@ public class CoordenadasSimbolos {
         return n;
     }
     
+    double [] n_p(double x, double y){
+        double [] n_p={x-5,y-40,x-5,y-25,
+                     x,y-40,x,y-25,x-5,y-40,
+                     x,y-25};
+        return n_p;
+    }
     double [] c(double x, double y){
         double [] c = {x,y-35,x,y-40,
                        x,y-40,x-5,y-40,
@@ -279,6 +299,13 @@ public class CoordenadasSimbolos {
                        x,y-10,x,y-15};
         return c;
     }
+    double [] c_p(double x, double y){
+        double [] c_p = {x-5,y-40,x,y-40,
+                            x,y-25,x-5,y-25,
+                            x-5,y-25,x-5,y-40
+                            };
+        return c_p;
+    }    
     
     double [] o(double x, double y){
         double[] o = {x-7.5,y-10,x-10,y-17.5,
@@ -292,11 +319,24 @@ public class CoordenadasSimbolos {
                       };
         return o;
     }
+    double [] o_p(double x, double y){
+        double[] o_p = {x-5,y-40,x,y-40,
+                            x,y-40,x,y-25,
+                            x,y-25,x-5,y-25,
+                            x-5,y-25,x-5,y-40
+                            };
+        return o_p;
+    }
     
     double[] t(double x, double y){
         double [] t={x-5,y-10,x-5,y-40,
                      x-5,y-40,x,y-40,x,y-40,x-10,y-40};
         return t;
+    }
+    double[] t_p(double x, double y){
+        double [] t_p={x-5,y-40.5,x-5,y-30,
+                            x-8,y-40,x-2,y-40};
+        return t_p;
     }
     
     double [] a(double x, double y){
@@ -309,7 +349,14 @@ public class CoordenadasSimbolos {
                      x,y-25,x-10,y-25}  ;
         return a;
     }
-
+    double [] a_p(double x, double y){
+        double [] a_p={x-5,y-40,x,y-40,
+                            x,y-40,x,y-25,x,y-33,x-5,y-33,
+                            
+                            x-5,y-25,x-5,y-40
+                            };
+        return a_p;
+    }
     
     double[] pAbierto(double x, double y){
         double[] pAbierto =     {x-3,y-40,
