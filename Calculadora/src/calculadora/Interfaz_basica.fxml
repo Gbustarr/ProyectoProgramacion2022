@@ -127,7 +127,7 @@
                      <items>
                         <Menu mnemonicParsing="false">
                            <graphic>
-                              <Slider fx:id="tamanoCaracteres" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseReleased="#Slider_presionado" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                              <Slider fx:id="tamanoCaracteres" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseReleased="#Slider_presionado" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
                            </graphic>
                         </Menu>
                      </items>
