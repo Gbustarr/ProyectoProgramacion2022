@@ -24,9 +24,14 @@ public class Simbolo {
     int tipo; //0 = numero, 1= operador, 2 = operador especial
     int valor;
     int enDivision = 0;
+    int longitudDivision = 0;
     int puntosControl = 0;
     boolean parentesisDimensionado = false;
     boolean bloqueParentesis = false;
+    
+    Simbolo enlace;
+    
+    int grosor = 2;
 
     private static double espacio = 15;
 
@@ -35,6 +40,7 @@ public class Simbolo {
         this.Ypos = Ypos;
         this.forma = forma;
     }
+    
 
     public Simbolo() {
     }
@@ -45,7 +51,7 @@ public class Simbolo {
         //System.out.println("Simbolo: " +this.valor);
         for (int i = 0; i < this.forma.length; i = i + 4) {
             gc.setStroke(this.color);
-            gc.setLineWidth(2); //Cambia el tamaño de las lineas
+            gc.setLineWidth(grosor); //Cambia el tamaño de las lineas
             gc.strokeLine(  ((this.forma[i]) * Xfactor), 
                             this.forma[i + 1] * Yfactor,
                             (this.forma[i + 2]) * Xfactor, 
@@ -99,12 +105,11 @@ public class Simbolo {
         }
     }
 
-    protected void division(double xInicio, double xFinal) {
-        this.forma[0] = xInicio;
+    protected void divisionFinal( double xFinal) {
         this.forma[2] = xFinal;
     }
     
-    protected void dimensionarParentesis(GraphicsContext gc,int incremento){
+    protected void dimensionarParentesis(GraphicsContext gc,double incremento){
         this.forma[1] = this.forma[1] - (44 * incremento);
         this.forma[3] = this.forma[3] - (44 * incremento);
         this.forma[5] = this.forma[5] - (44 * incremento);
