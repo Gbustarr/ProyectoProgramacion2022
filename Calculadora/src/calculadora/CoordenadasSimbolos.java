@@ -256,10 +256,10 @@ public class CoordenadasSimbolos {
     }
     double[] s_p(double x, double y){
         double [] s_p = {x-5,y-40,x,y-40,
-                            x-5,y-40,x-5,y-35,
-                            x-5,y-35,x,y-35,
-                            x,y-35,x,y-30,
-                            x,y-30,x-5,y-30};
+                        x-5,y-40,x-5,y-33,
+                        x-5,y-33,x,y-33,
+                        x,y-33,x,y-25,
+                        x,y-25,x-5,y-25};
         return s_p;
     }
     double [] i(double x, double y){
@@ -334,8 +334,8 @@ public class CoordenadasSimbolos {
         return t;
     }
     double[] t_p(double x, double y){
-        double [] t_p={x-5,y-40.5,x-5,y-30,
-                            x-8,y-40,x-2,y-40};
+        double [] t_p={x-5,y-40,x-5,y-25,
+                         x-8,y-40,x-2,y-40};
         return t_p;
     }
     
@@ -368,7 +368,16 @@ public class CoordenadasSimbolos {
         };
         return pAbierto;
     }
-    
+    double[] pAbierto_p(double x, double y){
+        double[] pAbierto_p =     {x-3,y-40,
+                                x-7,y-32.5,
+                                x-7,y-32.5,
+                                x-7,y-17.5,
+                                x-7,y-17.5,
+                                x-3,y-10
+        };
+        return pAbierto_p;
+    }    
     double[] pCerrado(double x, double y){
         double[] pCerrado =     {x-7,y-40,
                                 x-3,y-32.5,
