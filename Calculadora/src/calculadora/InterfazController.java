@@ -323,6 +323,11 @@ public class InterfazController implements Initializable {
             //l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
         }
     }
+    
+    @FXML
+    protected void BotonGrado_presionado(){
+        l.agregarSimbolo(gc, 20, lista_simbolos, Display);
+    }
 
     @FXML
     protected void BotonAC_presionado() {
@@ -455,8 +460,12 @@ public class InterfazController implements Initializable {
     protected void BotonPotencia_presionado(){
         if(l.enPotencia == true){
             l.enPotencia = false;
+            alturaDivision.setVisible(false);
+            l.pivot_x = l.pivot_x + 5;
         }else{
             l.enPotencia = true;
+            l.agregarSimbolo(gc, -1, lista_simbolos, Display);
+            alturaDivision.setVisible(true);
         }
     
     }

@@ -63,7 +63,7 @@ public class Logica {
     protected void agregarSimbolo(GraphicsContext gc, int nSimbolo,
         ArrayList<Simbolo> lista_simbolos,
         Canvas Display) {
-        updateTags();
+        //updateTags();
 
         System.out.println("En division:" + enDivision);
         //Iniciación y declaración de un simbolo general
@@ -77,6 +77,15 @@ public class Logica {
         double[] forma;
 
         switch (nSimbolo) {
+            case -1:
+                s.setTipo(-1);
+                s.setValor(-1);
+                s.setColor(Color.rgb(0,0, 0,0));
+                forma = cs.ceroPot(pivot_x, pivot_y);
+                s.setForma(forma);
+                lista_simbolos.add(s);
+                //fa.moverPivotIzquierda(this, espacioEntreSimbolos);
+                break;
             case 0:
                 if (enPotencia) {
                     forma = cs.ceroPot(pivot_x, pivot_y);
@@ -90,7 +99,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 1:
-                forma = cs.uno(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.unoPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.uno(pivot_x, pivot_y);
+                }
                 s.setValor(1);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -98,7 +111,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 2:
-                forma = cs.dos(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.dosPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.dos(pivot_x, pivot_y);
+                }
                 s.setValor(2);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -106,7 +123,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 3:
-                forma = cs.tres(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.tresPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.tres(pivot_x, pivot_y);
+                }
                 s.setValor(3);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -114,7 +135,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 4:
-                forma = cs.cuatro(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.cuatroPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.cuatro(pivot_x, pivot_y);
+                }
                 s.setValor(4);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -122,7 +147,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 5:
-                forma = cs.cinco(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.cincoPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.cinco(pivot_x, pivot_y);
+                }
                 s.setValor(5);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -130,16 +159,23 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 6:
-                forma = cs.seis(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.seisPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.seis(pivot_x, pivot_y);
+                }
                 s.setValor(6);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
-
             case 7:
-                forma = cs.siete(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.sietePot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.siete(pivot_x, pivot_y);
+                }
                 s.setValor(7);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -147,7 +183,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 8:
-                forma = cs.ocho(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.ochoPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.ocho(pivot_x, pivot_y);
+                }
                 s.setValor(8);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -155,7 +195,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 9:
-                forma = cs.nueve(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.nuevePot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.nueve(pivot_x, pivot_y);
+                }
                 s.setValor(9);
                 s.setTipo(0);
                 s.setColor(context.colorNum);
@@ -163,7 +207,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 10:
-                forma = cs.mas(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.masPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.mas(pivot_x, pivot_y);
+                }
                 s.setValor(10);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
@@ -171,7 +219,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 11:
-                forma = cs.menos(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.menosPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.menos(pivot_x, pivot_y);
+                }
                 s.setValor(11);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
@@ -179,7 +231,11 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 12:
-                forma = cs.multiplicar(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.multiplicarPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.multiplicar(pivot_x, pivot_y);
+                }
                 s.setValor(12);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
@@ -187,39 +243,19 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 13: //division
-                if (!d.enDenominador) {
-                    dimensionarParentesisAbiertos(gc);
-                    d.listaMovimientosHaciaDerecha.add((double) -1);
-                    fa.moverPivotArriba(this, 22);
-                    fa.moverPivotIzquierda(this, 15);
-                } else {
-                    dimensionarParentesisAbiertosAbajo(gc);
-                    d.listaMovimientosHaciaDerecha.add((double) -1);
-                    fa.moverPivotAbajo(this, 22);
-                    fa.moverPivotIzquierda(this, 15);
-
-                }
-
+    
                 forma = cs.dividir(pivot_x, pivot_y);
                 s.setValor(13);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
                 s.setForma(forma);
-                s.forma[0] = pivot_x + 15;
-
-                d.nuevaDivision(this, lista_simbolos, s, gc);
-
-                if (d.contadorDeBajadas > 0) {
-                    //d.lineasDivision.remove(d.lineasDivision.size()-1);
-                    for (int i = 0; i < d.lineasDivision.size() - 1; i++) {
-                        d.lineasDivision.get(i).moverAbajo(2);
-                    }
-                    d.contadorDeBajadas--;
-                }
+                d.crearLineaDivision(this,s);
+                d.nuevaDivision(this);
                 d.lineasDivision.add(s);
                 divisor = s;
                 enDivision = true;
-
+                d.Numeradores.add(s);
+                dimensionarParentesisAbiertos(gc);
                 lista_simbolos.add(s);
                 break;
             case 14: //Seno
@@ -228,6 +264,8 @@ public class Logica {
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(14, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
+                fa.moverPivotDerechaPotencia(this);
+                fa.moverPivotDerechaPotencia(this);
                 break;
             case 15: //Coseno
                 s.setValor(15);
@@ -235,6 +273,8 @@ public class Logica {
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(15, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
+                fa.moverPivotDerechaPotencia(this);
+                fa.moverPivotDerechaPotencia(this);
                 break;
             case 16: //Tangente
                 s.setValor(16);
@@ -242,13 +282,20 @@ public class Logica {
                 s.setColor(context.colorOp);
                 formaOperadorCientifico(16, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
+                fa.moverPivotDerechaPotencia(this);
+                fa.moverPivotDerechaPotencia(this);
                 break;
             case 17: //Parentesis Abierto
+                if (enPotencia) {
+                    forma = cs.pAbiertoPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.pAbierto(pivot_x, pivot_y);
+                }
                 bloqueoDivision = false;
                 s.setValor(17);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                forma = cs.pAbierto(pivot_x, pivot_y);
+                
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 ParentesisAbiertos.add(s);
@@ -257,9 +304,14 @@ public class Logica {
                 s.setValor(18);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                forma = cs.pCerrado(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.pCerradoPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.pCerrado(pivot_x, pivot_y);
+                }
                 s.setForma(forma);
                 s.setAlturaParentesis(ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis());
+                s.enlace = ParentesisAbiertos.get(ParentesisAbiertos.size()-1);
                 lista_simbolos.add(s);
                 ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el ultimo parentesis abierto
 
@@ -275,6 +327,18 @@ public class Logica {
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 break;
+            case 20:
+                if (enPotencia) {
+                    forma = cs.gradoPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.grado(pivot_x, pivot_y);
+                }
+                s.setValor(20);
+                s.setTipo(2);
+                s.setColor(context.colorOp);
+                s.setForma(forma);
+                lista_simbolos.add(s);
+                break;
         }
         //Luego de insertar un simbolo, mueve el pivot hacia la derecha
         if (!enPotencia) {
@@ -282,16 +346,15 @@ public class Logica {
         } else {
             fa.moverPivotDerechaPotencia(this);
         }
+        
+        
 
         //Para activar los puntos de control de los simbolos
         if (puntosControlActivo == 1) {
             s.switchPuntosControl();
         }
-        if (!bloqueoDivision) {
-            if (enDivision) {
-                d.modificarLineaDivision(this, pivot_x);
-            }
-        }
+
+        
 
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
@@ -305,7 +368,7 @@ public class Logica {
             context.panelContext.setTextArea();
         }
 
-        updateTags();
+        //updateTags();
     }
 
     protected void dibujarPuntero() {
@@ -436,7 +499,19 @@ public class Logica {
 
         switch (valor) {
             case 14: //Operador Seno
-                forma = cs.s(pivot_x, pivot_y); //Agrega la S
+                if(enPotencia){
+                    forma = cs.sPot(pivot_x, pivot_y); //Agrega la S
+                s.forma = forma;
+                s.moverIzquierda(0.5);
+                forma = cs.iPot(pivot_x, pivot_y); //Agregar I
+                s.concatenarForma(forma);
+                s.moverIzquierda(0.5);
+                forma = cs.nPot(pivot_x, pivot_y); //Agregar N
+                s.concatenarForma(forma);
+                s.moverDerecha(1);
+                
+                }else{
+                    forma = cs.s(pivot_x, pivot_y); //Agrega la S
                 s.forma = forma;
                 s.moverIzquierda(1);
                 forma = cs.i(pivot_x, pivot_y); //Agregar I
@@ -445,9 +520,22 @@ public class Logica {
                 forma = cs.n(pivot_x, pivot_y); //Agregar N
                 s.concatenarForma(forma);
                 s.moverDerecha(2);
+                }
                 break;
             case 15: //Operador Coseno
-                forma = cs.c(pivot_x, pivot_y); //Agrega la C
+                if(enPotencia){
+                    forma = cs.cPot(pivot_x, pivot_y); //Agrega la C
+                s.forma = forma;
+                s.moverIzquierda(0.5);
+                forma = cs.oPot(pivot_x, pivot_y); //Agregar O
+                s.concatenarForma(forma);
+                s.moverIzquierda(0.5);
+                forma = cs.sPot(pivot_x, pivot_y); //Agregar S
+                s.concatenarForma(forma);
+                s.moverDerecha(1);
+                
+                }else{
+                    forma = cs.c(pivot_x, pivot_y); //Agrega la C
                 s.forma = forma;
                 s.moverIzquierda(1);
                 forma = cs.o(pivot_x, pivot_y); //Agregar O
@@ -456,9 +544,22 @@ public class Logica {
                 forma = cs.s(pivot_x, pivot_y); //Agregar S
                 s.concatenarForma(forma);
                 s.moverDerecha(2);
+                }
                 break;
             case 16: //Operador Tangente
-                forma = cs.t(pivot_x, pivot_y); //Agrega la T
+                if(enPotencia){
+                    forma = cs.tPot(pivot_x, pivot_y); //Agrega la T
+                s.forma = forma;
+                s.moverIzquierda(0.5);
+                forma = cs.aPot(pivot_x, pivot_y); //Agregar A
+                s.concatenarForma(forma);
+                s.moverIzquierda(0.5);
+                forma = cs.nPot(pivot_x, pivot_y); //Agregar N
+                s.concatenarForma(forma);
+                s.moverDerecha(1);
+                
+                }else{
+                    forma = cs.t(pivot_x, pivot_y); //Agrega la T
                 s.forma = forma;
                 s.moverIzquierda(1);
                 forma = cs.a(pivot_x, pivot_y); //Agregar A
@@ -467,6 +568,7 @@ public class Logica {
                 forma = cs.n(pivot_x, pivot_y); //Agregar N
                 s.concatenarForma(forma);
                 s.moverDerecha(2);
+                }
                 break;
         }
     }
@@ -485,12 +587,7 @@ public class Logica {
 
     }
 
-    protected void moverNumeradoresHaciaArriba(double pos) {
 
-        for (int i = 0; i < Numeradores.size(); i++) {
-            Numeradores.get(i).moverArriba(pos);
-        }
-    }
 
     protected void moverBloqueHaciaArriba(double pos) {
 
@@ -507,8 +604,14 @@ public class Logica {
     }
 
     protected void dimensionarParentesisAbiertos(GraphicsContext gc) {
-        for (int i = 0; i < ParentesisAbiertos.size(); i++) {
+        if(enPotencia){
+            for (int i = 0; i < ParentesisAbiertos.size(); i++) {
+            ParentesisAbiertos.get(i).dimensionarParentesis(gc, 0.5);
+        }
+        }else{
+            for (int i = 0; i < ParentesisAbiertos.size(); i++) {
             ParentesisAbiertos.get(i).dimensionarParentesis(gc, 1);
+        }
         }
     }
 
@@ -638,7 +741,7 @@ public class Logica {
 
         for (int i = 0; i < lista_simbolos.size(); i++) {
             Simbolo s = lista_simbolos.get(i);
-            if (s.valor > 9) {
+            if (s.valor > 9 && s.valor != -1) {
                 if (s.valor == 10) {
                     System.out.print(" + ");
                     string = string + " + ";
@@ -680,7 +783,10 @@ public class Logica {
                     string = string + "!";
                 }
 
-            } else {
+            } else if(s.valor == -1){
+                System.out.print("^");
+                    string = string + "^";
+            }else{
                 System.out.print(s.valor);
                 string = string + s.valor;
             }
