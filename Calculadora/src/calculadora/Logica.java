@@ -49,7 +49,7 @@ public class Logica {
     Simbolo divisionPrincipal;
 
     Simbolo simboloMasApartado = new Simbolo();
-    
+
     Simbolo alturaAntesDeDivision = new Simbolo();
 
     boolean enPotencia = false;
@@ -285,7 +285,7 @@ public class Logica {
                 s.setValor(14);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                formaOperadorCientifico(this,14, pivot_x, pivot_y, s);
+                formaOperadorCientifico(this, 14, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
                 fa.moverPivotDerechaPotencia(this);
                 fa.moverPivotDerechaPotencia(this);
@@ -294,7 +294,7 @@ public class Logica {
                 s.setValor(15);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                formaOperadorCientifico(this,15, pivot_x, pivot_y, s);
+                formaOperadorCientifico(this, 15, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
                 fa.moverPivotDerechaPotencia(this);
                 fa.moverPivotDerechaPotencia(this);
@@ -303,7 +303,7 @@ public class Logica {
                 s.setValor(16);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                formaOperadorCientifico(this,16, pivot_x, pivot_y, s);
+                formaOperadorCientifico(this, 16, pivot_x, pivot_y, s);
                 lista_simbolos.add(s);
                 fa.moverPivotDerechaPotencia(this);
                 fa.moverPivotDerechaPotencia(this);
@@ -350,7 +350,11 @@ public class Logica {
                 }
                 break;
             case 19:
-                forma = cs.factorial(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.factorialPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.factorial(pivot_x, pivot_y);
+                }
                 s.setValor(19);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
@@ -410,20 +414,20 @@ public class Logica {
         //Iniciación de una forma general
         double[] forma;
 
-        if(enPotencia){
+        if (enPotencia) {
             forma = cs.ceroPot(pivot_x, pivot_y);
-        s.setForma(forma);
-        s.setValor(0);
-        s.setColor(Color.rgb(125, 125, 125, 0.2));
-        s.setTipo(0);
-        s.grosor = 2;
-        }else{
+            s.setForma(forma);
+            s.setValor(0);
+            s.setColor(Color.rgb(125, 125, 125, 0.2));
+            s.setTipo(0);
+            s.grosor = 2;
+        } else {
             forma = cs.cero(pivot_x, pivot_y);
-        s.setForma(forma);
-        s.setValor(0);
-        s.setColor(Color.rgb(125, 125, 125, 0.2));
-        s.setTipo(0);
-        s.grosor = 3;
+            s.setForma(forma);
+            s.setValor(0);
+            s.setColor(Color.rgb(125, 125, 125, 0.2));
+            s.setTipo(0);
+            s.grosor = 3;
         }
         s.dibujar_Simbolo(context.gc);
     }
@@ -494,7 +498,7 @@ public class Logica {
 
     }
 
-    protected void formaOperadorCientifico(Logica l,int valor, double pivot_x, double pivot_y, Simbolo s) {
+    protected void formaOperadorCientifico(Logica l, int valor, double pivot_x, double pivot_y, Simbolo s) {
 
         double[] forma;
 
@@ -521,7 +525,7 @@ public class Logica {
                     forma = cs.n(pivot_x, pivot_y); //Agregar N
                     s.concatenarForma(forma);
                     s.moverDerecha(2);
-                    l.pivot_x = l.pivot_x - l.espacioEntreSimbolos; 
+                    l.pivot_x = l.pivot_x - l.espacioEntreSimbolos;
                 }
                 break;
             case 15: //Operador Coseno
@@ -784,7 +788,7 @@ public class Logica {
                     System.out.print("!");
                     string = string + "!";
                 }
-                if(s.valor == 20){
+                if (s.valor == 20) {
                     System.out.print("°");
                     string = string + "°";
                 }

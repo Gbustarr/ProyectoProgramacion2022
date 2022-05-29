@@ -199,6 +199,14 @@ public class CoordenadasSimbolos {
             x - 7, y - 10, x - 7, y - 10};
         return factorial;
     }
+    
+    double[] factorialPot(double x, double y) {
+        double[] factorial = {x - 7.5, y - 40, x - 7.4, y - 28.75,
+            x - 7.5, y - 25, x - 7.5, y - 25,
+            x - 7.5, y - 25, x - 7.5, y - 25,
+            x - 7.5, y - 25, x - 7.5, y - 25};
+        return factorial;
+    }
 
     double[] s(double x, double y) {
         double[] s = {x, y - 35, x, y - 40, x, y - 40, x - 10, y - 40,

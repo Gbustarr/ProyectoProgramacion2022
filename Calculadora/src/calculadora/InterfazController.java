@@ -144,7 +144,7 @@ public class InterfazController implements Initializable {
      */
     @FXML
     protected Button Btn_puntosControl;
-    
+
     @FXML
     protected Button Btn_Grado;
     protected InterfazController controller;
@@ -166,7 +166,7 @@ public class InterfazController implements Initializable {
 
     Logica l = new Logica(this);
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
-
+    FuncionesAuxiliares fa = new FuncionesAuxiliares();
     Interfaz_panelController panelContext;
 
     //Para los colores de los numeros y operadores
@@ -275,7 +275,12 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonDivision_presionado() {
 
-        l.agregarDivision();
+        if (!lista_simbolos.isEmpty()) {
+            if (fa.conseguirUltimoSimbolo(lista_simbolos).valor == 18) {
+                l.agregarDivision();
+            }
+        }
+
     }
 
     @FXML
@@ -318,10 +323,14 @@ public class InterfazController implements Initializable {
             //l.borrarUltimo(gc, lista_simbolos, pivot_x, Display);
         }
     }
-    
+
     @FXML
-    protected void BotonGrado_presionado(){
-        l.agregarSimbolo(gc, 20, lista_simbolos, Display);
+    protected void BotonGrado_presionado() {
+        if (!lista_simbolos.isEmpty()) {
+            if (fa.conseguirUltimoSimbolo(lista_simbolos).tipo == 0) {
+                l.agregarSimbolo(gc, 20, lista_simbolos, Display);
+            }
+        }
     }
 
     @FXML
@@ -455,20 +464,31 @@ public class InterfazController implements Initializable {
         l.dibujarPuntero();
 
     }
+
     @FXML
-    protected void BotonPotencia_presionado(){
-        if(l.enPotencia == true){
-            l.enPotencia = false;
-            l.fa.alturaEnPotencia(l);
-            alturaDivision.setVisible(false);
-            l.pivot_x = l.pivot_x + 5;
-        }else{
-            l.enPotencia = true;
-            l.fa.alturaEnPotencia(l);
-            l.agregarSimbolo(gc, -1, lista_simbolos, Display);
-            alturaDivision.setVisible(true);
+    protected void BotonPotencia_presionado() {
+
+        if (!lista_simbolos.isEmpty()) {
+            if (fa.conseguirUltimoSimbolo(lista_simbolos).valor == 18) {
+                if (!l.enPotencia) {
+
+                    l.enPotencia = true;
+                    l.fa.alturaEnPotencia(l);
+                    l.agregarSimbolo(gc, -1, lista_simbolos, Display);
+                    alturaDivision.setVisible(true);
+
+                }
+            } else {
+                if (l.enPotencia) {
+                    l.enPotencia = false;
+                    l.fa.alturaEnPotencia(l);
+                    alturaDivision.setVisible(false);
+                    l.pivot_x = l.pivot_x + 5;
+                }
+
+            }
         }
-    
+
     }
 
     @FXML
@@ -535,7 +555,11 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected void BotonFact_presionado() {
-        l.agregarSimbolo(gc, 19, lista_simbolos, Display);
+        if(!lista_simbolos.isEmpty()){
+            if(fa.conseguirUltimoSimbolo(lista_simbolos).tipo == 0){
+                l.agregarSimbolo(gc, 19, lista_simbolos, Display);
+            }
+        }
     }
 
     //Colores
