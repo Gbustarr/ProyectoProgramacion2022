@@ -12,30 +12,13 @@ import java.util.ArrayList;
  */
 public class division {
 
-    int altura;
     ArrayList<Simbolo> Numeradores = new ArrayList();
-    ArrayList<Simbolo> Denominadores = new ArrayList();
-    ArrayList<Simbolo> Bloque = new ArrayList();
-    ArrayList<Simbolo> lineasDivision = new ArrayList();
-
-    ArrayList<Integer> anchosDivision = new ArrayList();
     FuncionesAuxiliares fa = new FuncionesAuxiliares();
-
-    boolean enDenominador = false;
-
-    int nivelBajadaFraccion = 0;
-
     ArrayList<Double> listaMovimientosHaciaDerecha = new ArrayList();
     double anchoAnterior = 0;
-
-    ArrayList<Double> nivelYPivot = new ArrayList();
-    
     double movimientosDerechaAnterior = 0;
     double movimientosDerecha =0;
-    
     double diferenciaLineaDivision = 0;
-
-    int contadorDeBajadas = 0;
 
     protected void nuevaDivision(Logica l) {
         movimientosDerechaAnterior = movimientosDerecha;
@@ -67,10 +50,6 @@ public class division {
         for (int i = 0; i < Numeradores.size(); i++) {
             Numeradores.get(i).moverArriba(pos);
         }
-    }
-
-    protected void guardarNivelPivot(Logica l) {
-        nivelYPivot.add(l.pivot_y);
     }
 
     public division() {
@@ -106,53 +85,10 @@ public class division {
         
         movimientosDerecha = movimientosDer;
         
-        if(movimientosDerecha > movimientosDerechaAnterior){
-            modificarLineaDivision(l);
-        }
+
          
         System.out.println("MovDer: "+movimientosDerecha);
 
     }
-
-    protected void dimensionarParentesisAbiertosHaciaAbajo(Logica l, int max, int subida) {
-        for (int i = 0; i < max; i++) {
-            l.ParentesisAbiertos.get(i).moverArriba(subida);
-            l.ParentesisAbiertos.get(i).dimensionarParentesisHaciaAbajo(1);
-        }
-    }
-
-    protected void verificarTamanoNumeradorDenominador(Logica l) {
-
-        double diferencia;
-        diferencia = (l.movimientosDeLista - 2) - l.Denominadores.size();
-
-        if (diferencia >= 0) {
-            l.denominadorMenor = true;
-            l.diferenciaNumeradorDenominador = diferencia;
-        } else {
-            l.denominadorMenor = false;
-        }
-
-    }
-
-    protected void modificarLineaDivision(Logica l) {
-
-        if (l.enDivision) {
-            if (!l.ParentesisAbiertos.isEmpty()) {
-                if (anchoAnterior > (listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size() - 1))) {
-                    double fin = l.divisor.forma[0] + (anchoAnterior * (l.espacioEntreSimbolos));
-                    l.divisor.divisionFinal(fin);
-                } else {
-                    double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size() - 1) - 1) * (l.espacioEntreSimbolos));
-                    l.divisor.divisionFinal(fin);
-                }
-            }
-        } else {
-            //double fin = l.divisor.forma[0] + ((listaMovimientosHaciaDerecha.get(listaMovimientosHaciaDerecha.size()-1)) * (l.espacioEntreSimbolos));
-            //l.divisor.divisionFinal(fin);
-        }
-
-    }
-;
 
 }

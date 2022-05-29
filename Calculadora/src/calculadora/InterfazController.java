@@ -288,12 +288,8 @@ public class InterfazController implements Initializable {
         l.enDivision = false;
         l.denominadorMenor = true;
         l.divisionAgregada = true;
-        l.Numeradores.clear();
         l.subidasDivision = 0;
-        l.Denominadores.clear();
-        l.Bloque.clear();
         l.parentesisAgregadoANumerador = false;
-
         l.pivot_y = l.alturaAntesDeDivision.Ypos;
         l.pivot_x = l.simboloMasApartado.Xpos;
     }
@@ -307,7 +303,6 @@ public class InterfazController implements Initializable {
     protected void BotonParentesisCerrado_presionado() {
         if (!l.ParentesisAbiertos.isEmpty()) {
             l.agregarSimbolo(gc, 18, lista_simbolos, Display);
-
         }
     }
 
