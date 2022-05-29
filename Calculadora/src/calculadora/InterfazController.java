@@ -144,6 +144,9 @@ public class InterfazController implements Initializable {
      */
     @FXML
     protected Button Btn_puntosControl;
+    
+    @FXML
+    protected Button Btn_Grado;
     protected InterfazController controller;
 
     @FXML
@@ -285,11 +288,9 @@ public class InterfazController implements Initializable {
         l.Denominadores.clear();
         l.Bloque.clear();
         l.parentesisAgregadoANumerador = false;
-        if (!l.d.nivelYPivot.isEmpty()) {
-            l.pivot_y = l.d.nivelYPivot.get(l.d.nivelYPivot.size() - 1);
-            l.d.nivelYPivot.remove(l.d.nivelYPivot.size() - 1);
-        }
-        l.updateTags();
+
+        l.pivot_y = l.alturaAntesDeDivision.Ypos;
+        l.pivot_x = l.simboloMasApartado.Xpos;
     }
 
     @FXML
@@ -303,12 +304,6 @@ public class InterfazController implements Initializable {
             l.agregarSimbolo(gc, 18, lista_simbolos, Display);
 
         }
-    }
-
-    @FXML
-    protected void BotonBajarDivision_presionado() {
-        l.d.nivelBajadaFraccion++;
-        l.bajarEnFraccion();
     }
 
     @FXML
@@ -394,25 +389,25 @@ public class InterfazController implements Initializable {
         System.out.println(tamanoCaracteres.getValue());
         switch ((int) valor) {
             case 1:
-                l.cambiarTamano(0.70);
-                l.factor = 0.70;
+                l.cambiarTamano(0.35);
+                l.factor = 0.35;
 
                 break;
             case 2:
-                l.cambiarTamano(0.85);
-                l.factor = 0.85;
+                l.cambiarTamano(0.50);
+                l.factor = 0.50;
                 break;
             case 3:
                 l.cambiarTamano(1);
                 l.factor = 1;
                 break;
             case 4:
-                l.cambiarTamano(1.15);
-                l.factor = 1.15;
+                l.cambiarTamano(1.50);
+                l.factor = 1.50;
                 break;
             case 5:
-                l.cambiarTamano(1.30);
-                l.factor = 1.30;
+                l.cambiarTamano(1.75);
+                l.factor = 1.75;
                 break;
         }
     }
@@ -425,14 +420,18 @@ public class InterfazController implements Initializable {
             Btn_Cos.setVisible(false);
             Btn_Tan.setVisible(false);
             Btn_Fact.setVisible(false);
+            Btn_potencia.setVisible(false);
+            Btn_Grado.setVisible(false);
             Btn_Cientifico.setText("Básico");
             fondoInterfaz.getStyleClass().clear();
             fondoInterfaz.getStyleClass().add("bodybg");
         } else {
             Btn_Sen.setVisible(true);
             Btn_Fact.setVisible(true);
+            Btn_potencia.setVisible(true);
             Btn_Cos.setVisible(true);
             Btn_Tan.setVisible(true);
+            Btn_Grado.setVisible(true);
             Btn_Cientifico.setText("Científico");
             fondoInterfaz.getStyleClass().clear();
             fondoInterfaz.getStyleClass().add("bodybgC");

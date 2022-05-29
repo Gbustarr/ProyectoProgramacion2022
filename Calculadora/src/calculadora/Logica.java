@@ -43,12 +43,14 @@ public class Logica {
     double diferenciaNumeradorDenominador = 0;
     int subidasDivision;
     int contadorReset = 0;
-    
+
     Simbolo ultimoParentesisCerrado;
-    
+
     Simbolo divisionPrincipal;
-    
+
     Simbolo simboloMasApartado = new Simbolo();
+    
+    Simbolo alturaAntesDeDivision = new Simbolo();
 
     boolean enPotencia = false;
     InterfazController context;
@@ -71,17 +73,16 @@ public class Logica {
         ArrayList<Simbolo> lista_simbolos,
         Canvas Display) {
         //updateTags();
-        
-        if(context.lista_simbolos.isEmpty()){
+
+        if (context.lista_simbolos.isEmpty()) {
             simboloMasApartado.Ypos = pivot_y;
             simboloMasApartado.Xpos = pivot_x;
         }
-        
-        if(pivot_x > simboloMasApartado.Xpos){
+
+        if (pivot_x > simboloMasApartado.Xpos) {
             simboloMasApartado.Xpos = pivot_x;
         }
-        
-        
+
         System.out.println("En division:" + enDivision);
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
@@ -97,9 +98,10 @@ public class Logica {
             case -1:
                 s.setTipo(-1);
                 s.setValor(-1);
-                s.setColor(Color.rgb(0,0, 0,0));
+                s.setColor(Color.rgb(0, 0, 0, 0));
                 forma = cs.ceroPot(pivot_x, pivot_y);
                 s.setForma(forma);
+                pivot_x = pivot_x - 10;
                 lista_simbolos.add(s);
                 //fa.moverPivotIzquierda(this, espacioEntreSimbolos);
                 break;
@@ -260,17 +262,17 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 13: //division
-    
+
                 forma = cs.dividir(pivot_x, pivot_y);
                 s.setValor(13);
                 s.setTipo(1);
                 s.setColor(context.colorOp);
                 s.setForma(forma);
-                d.crearLineaDivision(this,s);
+                d.crearLineaDivision(this, s);
                 d.nuevaDivision(this);
                 d.lineasDivision.add(s);
                 divisor = s;
-                if(!enDivision){
+                if (!enDivision) {
                     divisionPrincipal = s;
                 }
                 enDivision = true;
@@ -316,7 +318,7 @@ public class Logica {
                 s.setValor(17);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                
+
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 ParentesisAbiertos.add(s);
@@ -325,7 +327,7 @@ public class Logica {
                 s.setValor(18);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                if(ParentesisAbiertos.size() - divisionesAgregadas == 1){
+                if (ParentesisAbiertos.size() - divisionesAgregadas == 1) {
                     pivot_x = simboloMasApartado.Xpos;
                     divisionesAgregadas--;
                 }
@@ -336,9 +338,9 @@ public class Logica {
                 }
                 s.setForma(forma);
                 s.setAlturaParentesis(ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis());
-                s.enlace = ParentesisAbiertos.get(ParentesisAbiertos.size()-1);
+                s.enlace = ParentesisAbiertos.get(ParentesisAbiertos.size() - 1);
                 lista_simbolos.add(s);
-                if(!enPotencia){
+                if (!enPotencia) {
                     ultimoParentesisCerrado = s;
                 }
                 ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el ultimo parentesis abierto
@@ -374,15 +376,11 @@ public class Logica {
         } else {
             fa.moverPivotDerechaPotencia(this);
         }
-        
-        
 
         //Para activar los puntos de control de los simbolos
         if (puntosControlActivo == 1) {
             s.switchPuntosControl();
         }
-
-        
 
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
@@ -400,7 +398,7 @@ public class Logica {
     }
 
     protected void dibujarPuntero() {
-        context.gc.fillOval(pivot_x, pivot_y, 3, 3);
+        //context.gc.fillOval(pivot_x, pivot_y, 3, 3); //dibuja la posicion del puntero
         Simbolo p = new Simbolo();
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
@@ -412,52 +410,27 @@ public class Logica {
         //Iniciación de una forma general
         double[] forma;
 
-        forma = cs.cero(pivot_x, pivot_y);
+        if(enPotencia){
+            forma = cs.ceroPot(pivot_x, pivot_y);
+        s.setForma(forma);
+        s.setValor(0);
+        s.setColor(Color.rgb(125, 125, 125, 0.2));
+        s.setTipo(0);
+        s.grosor = 2;
+        }else{
+            forma = cs.cero(pivot_x, pivot_y);
         s.setForma(forma);
         s.setValor(0);
         s.setColor(Color.rgb(125, 125, 125, 0.2));
         s.setTipo(0);
         s.grosor = 3;
+        }
         s.dibujar_Simbolo(context.gc);
     }
 
     protected double[] getAlturaParentesisAbierto() {
 
         return ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis();
-    }
-
-    protected void bajarEnFraccion() {
-
-        /*
-        if (d.nivelBajadaFraccion % 2 == 0) {
-            //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
-            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 2, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 2) + d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1));
-            d.listaMovimientosHaciaDerecha.remove(d.listaMovimientosHaciaDerecha.size() - 1);
-            d.lineasDivision.remove(d.lineasDivision.size() - 1);
-            divisor = d.lineasDivision.get(d.lineasDivision.size() - 1);
-            bajarPivotADenominador();
-            d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1);
-            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1,(double) 0);
-            agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
-
-        } else {
-            //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
-            bajarPivotADenominador();
-            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1);
-
-            d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1;
-            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1,(double) 0);
-            agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
-            d.enDenominador = true;
-        }
-         */
-        bajarPivotADenominador();
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1);
-        d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1;
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, (double) 0);
-        agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
-        d.enDenominador = true;
-
     }
 
     protected void cambiarTamano(double factor) {
@@ -527,75 +500,75 @@ public class Logica {
 
         switch (valor) {
             case 14: //Operador Seno
-                if(enPotencia){
+                if (enPotencia) {
                     forma = cs.sPot(pivot_x, pivot_y); //Agrega la S
-                s.forma = forma;
-                s.moverIzquierda(0.5);
-                forma = cs.iPot(pivot_x, pivot_y); //Agregar I
-                s.concatenarForma(forma);
-                s.moverIzquierda(0.5);
-                forma = cs.nPot(pivot_x, pivot_y); //Agregar N
-                s.concatenarForma(forma);
-                s.moverDerecha(1);
-                
-                }else{
+                    s.forma = forma;
+                    s.moverIzquierda(0.5);
+                    forma = cs.iPot(pivot_x, pivot_y); //Agregar I
+                    s.concatenarForma(forma);
+                    s.moverIzquierda(0.5);
+                    forma = cs.nPot(pivot_x, pivot_y); //Agregar N
+                    s.concatenarForma(forma);
+                    s.moverDerecha(1);
+
+                } else {
                     forma = cs.s(pivot_x, pivot_y); //Agrega la S
-                s.forma = forma;
-                s.moverIzquierda(1);
-                forma = cs.i(pivot_x, pivot_y); //Agregar I
-                s.concatenarForma(forma);
-                s.moverIzquierda(1);
-                forma = cs.n(pivot_x, pivot_y); //Agregar N
-                s.concatenarForma(forma);
-                s.moverDerecha(2);
+                    s.forma = forma;
+                    s.moverIzquierda(1);
+                    forma = cs.i(pivot_x, pivot_y); //Agregar I
+                    s.concatenarForma(forma);
+                    s.moverIzquierda(1);
+                    forma = cs.n(pivot_x, pivot_y); //Agregar N
+                    s.concatenarForma(forma);
+                    s.moverDerecha(2);
                 }
                 break;
             case 15: //Operador Coseno
-                if(enPotencia){
+                if (enPotencia) {
                     forma = cs.cPot(pivot_x, pivot_y); //Agrega la C
-                s.forma = forma;
-                s.moverIzquierda(0.5);
-                forma = cs.oPot(pivot_x, pivot_y); //Agregar O
-                s.concatenarForma(forma);
-                s.moverIzquierda(0.5);
-                forma = cs.sPot(pivot_x, pivot_y); //Agregar S
-                s.concatenarForma(forma);
-                s.moverDerecha(1);
-                
-                }else{
+                    s.forma = forma;
+                    s.moverIzquierda(0.5);
+                    forma = cs.oPot(pivot_x, pivot_y); //Agregar O
+                    s.concatenarForma(forma);
+                    s.moverIzquierda(0.5);
+                    forma = cs.sPot(pivot_x, pivot_y); //Agregar S
+                    s.concatenarForma(forma);
+                    s.moverDerecha(1);
+
+                } else {
                     forma = cs.c(pivot_x, pivot_y); //Agrega la C
-                s.forma = forma;
-                s.moverIzquierda(1);
-                forma = cs.o(pivot_x, pivot_y); //Agregar O
-                s.concatenarForma(forma);
-                s.moverIzquierda(1);
-                forma = cs.s(pivot_x, pivot_y); //Agregar S
-                s.concatenarForma(forma);
-                s.moverDerecha(2);
+                    s.forma = forma;
+                    s.moverIzquierda(1);
+                    forma = cs.o(pivot_x, pivot_y); //Agregar O
+                    s.concatenarForma(forma);
+                    s.moverIzquierda(1);
+                    forma = cs.s(pivot_x, pivot_y); //Agregar S
+                    s.concatenarForma(forma);
+                    s.moverDerecha(2);
                 }
                 break;
             case 16: //Operador Tangente
-                if(enPotencia){
+                if (enPotencia) {
                     forma = cs.tPot(pivot_x, pivot_y); //Agrega la T
-                s.forma = forma;
-                s.moverIzquierda(0.5);
-                forma = cs.aPot(pivot_x, pivot_y); //Agregar A
-                s.concatenarForma(forma);
-                s.moverIzquierda(0.5);
-                forma = cs.nPot(pivot_x, pivot_y); //Agregar N
-                s.concatenarForma(forma);
-                s.moverDerecha(1);
-                
-                }else{
+                    s.forma = forma;
+                    s.moverIzquierda(0.5);
+                    forma = cs.aPot(pivot_x, pivot_y); //Agregar A
+                    s.concatenarForma(forma);
+                    s.moverIzquierda(0.5);
+                    forma = cs.nPot(pivot_x, pivot_y); //Agregar N
+                    s.concatenarForma(forma);
+                    s.moverDerecha(1);
+
+                } else {
                     forma = cs.t(pivot_x, pivot_y); //Agrega la T
-                s.forma = forma;
-                s.moverIzquierda(1);
-                forma = cs.a(pivot_x, pivot_y); //Agregar A
-                s.concatenarForma(forma);
-                s.moverIzquierda(1);
-                forma = cs.n(pivot_x, pivot_y); //Agregar N
-                s.concatenarForma(forma);
-                s.moverDerecha(2);
+                    s.forma = forma;
+                    s.moverIzquierda(1);
+                    forma = cs.a(pivot_x, pivot_y); //Agregar A
+                    s.concatenarForma(forma);
+                    s.moverIzquierda(1);
+                    forma = cs.n(pivot_x, pivot_y); //Agregar N
+                    s.concatenarForma(forma);
+                    s.moverDerecha(2);
                 }
                 break;
         }
@@ -615,8 +588,6 @@ public class Logica {
 
     }
 
-
-
     protected void moverBloqueHaciaArriba(double pos) {
 
         for (int i = 0; i < Bloque.size(); i++) {
@@ -632,14 +603,14 @@ public class Logica {
     }
 
     protected void dimensionarParentesisAbiertos(GraphicsContext gc) {
-        if(enPotencia){
+        if (enPotencia) {
             for (int i = 0; i < ParentesisAbiertos.size(); i++) {
-            ParentesisAbiertos.get(i).dimensionarParentesis(gc, 0.5);
-        }
-        }else{
+                ParentesisAbiertos.get(i).dimensionarParentesis(gc, 0.5);
+            }
+        } else {
             for (int i = 0; i < ParentesisAbiertos.size(); i++) {
-            ParentesisAbiertos.get(i).dimensionarParentesis(gc, 1);
-        }
+                ParentesisAbiertos.get(i).dimensionarParentesis(gc, 1);
+            }
         }
     }
 
@@ -811,10 +782,10 @@ public class Logica {
                     string = string + "!";
                 }
 
-            } else if(s.valor == -1){
+            } else if (s.valor == -1) {
                 System.out.print("^");
-                    string = string + "^";
-            }else{
+                string = string + "^";
+            } else {
                 System.out.print(s.valor);
                 string = string + s.valor;
             }

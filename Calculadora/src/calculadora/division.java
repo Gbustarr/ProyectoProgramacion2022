@@ -45,7 +45,7 @@ public class division {
             moverNumeradoresHaciaArriba(1);
             fa.moverPivotADenominador(l);
             fa.moverPivotDerechaPotencia(l);
-            fa.moverPivotDerechaPotencia(l);
+            //fa.moverPivotDerechaPotencia(l);
 
         
         }else{
@@ -80,6 +80,10 @@ public class division {
     protected void conseguirNumeradores(Logica l) {
         int contador = 0;
         int movimientosDer = 0;
+        
+        if(!l.enDivision){
+            l.alturaAntesDeDivision = l.context.lista_simbolos.get(l.context.lista_simbolos.size()-1);
+        }
         
 
         for (int i = l.context.lista_simbolos.size() - 1; i >= 0; i--) {
