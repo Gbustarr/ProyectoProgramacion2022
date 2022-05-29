@@ -29,8 +29,8 @@ public class division {
     int nivelBajadaFraccion = 0;
     
     
-    ArrayList<Integer> listaMovimientosHaciaDerecha = new ArrayList();
-    int anchoAnterior = 0;
+    ArrayList<Double> listaMovimientosHaciaDerecha = new ArrayList();
+    double anchoAnterior = 0;
     
     ArrayList<Double> nivelYPivot = new ArrayList();
     
@@ -47,7 +47,7 @@ public class division {
     }
     
     public division(){
-        listaMovimientosHaciaDerecha.add(0);
+        listaMovimientosHaciaDerecha.add((double)0);
     }
     protected ArrayList<Simbolo> conseguirNumeradores(ArrayList<Simbolo> lista_simbolos){
         int contador = 0;

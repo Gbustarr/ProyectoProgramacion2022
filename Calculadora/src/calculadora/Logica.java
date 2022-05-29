@@ -43,6 +43,7 @@ public class Logica {
     int subidasDivision;
     int contadorReset = 0;
 
+    boolean enPotencia = false;
     InterfazController context;
     division d = new division();
     int panelAgregado = 0;
@@ -51,7 +52,7 @@ public class Logica {
     ArrayList<Simbolo> ParentesisAbiertos = new ArrayList();
     boolean parentesisAgregadoANumerador = false;
     int alturaParentesis = 0;
-
+    boolean bloqueoDivision = false;
     //FuncionesGraficadoras
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
 
@@ -77,7 +78,11 @@ public class Logica {
 
         switch (nSimbolo) {
             case 0:
-                forma = cs.cero(pivot_x, pivot_y);
+                if (enPotencia) {
+                    forma = cs.ceroPot(pivot_x, pivot_y);
+                } else {
+                    forma = cs.cero(pivot_x, pivot_y);
+                }
                 s.setForma(forma);
                 s.setValor(0);
                 s.setColor(context.colorNum);
@@ -184,12 +189,12 @@ public class Logica {
             case 13: //division
                 if (!d.enDenominador) {
                     dimensionarParentesisAbiertos(gc);
-                    d.listaMovimientosHaciaDerecha.add(-1);
+                    d.listaMovimientosHaciaDerecha.add((double) -1);
                     fa.moverPivotArriba(this, 22);
                     fa.moverPivotIzquierda(this, 15);
                 } else {
                     dimensionarParentesisAbiertosAbajo(gc);
-                    d.listaMovimientosHaciaDerecha.add(-1);
+                    d.listaMovimientosHaciaDerecha.add((double) -1);
                     fa.moverPivotAbajo(this, 22);
                     fa.moverPivotIzquierda(this, 15);
 
@@ -239,6 +244,7 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
             case 17: //Parentesis Abierto
+                bloqueoDivision = false;
                 s.setValor(17);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
@@ -256,6 +262,10 @@ public class Logica {
                 s.setAlturaParentesis(ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis());
                 lista_simbolos.add(s);
                 ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el ultimo parentesis abierto
+
+                if (ParentesisAbiertos.size() == 1) {
+                    bloqueoDivision = true;
+                }
                 break;
             case 19:
                 forma = cs.factorial(pivot_x, pivot_y);
@@ -267,14 +277,20 @@ public class Logica {
                 break;
         }
         //Luego de insertar un simbolo, mueve el pivot hacia la derecha
-        fa.moverPivotDerecha(this, s);
+        if (!enPotencia) {
+            fa.moverPivotDerecha(this, s);
+        } else {
+            fa.moverPivotDerechaPotencia(this);
+        }
 
         //Para activar los puntos de control de los simbolos
         if (puntosControlActivo == 1) {
             s.switchPuntosControl();
         }
-        if (enDivision) {
-            d.modificarLineaDivision(this, pivot_x);
+        if (!bloqueoDivision) {
+            if (enDivision) {
+                d.modificarLineaDivision(this, pivot_x);
+            }
         }
 
         // Funciones graficadoras
@@ -321,6 +337,7 @@ public class Logica {
 
     protected void bajarEnFraccion() {
 
+        /*
         if (d.nivelBajadaFraccion % 2 == 0) {
             //agregarSimbolo(context.gc, 18, context.lista_simbolos, context.Display);
             d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 2, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 2) + d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1));
@@ -328,9 +345,8 @@ public class Logica {
             d.lineasDivision.remove(d.lineasDivision.size() - 1);
             divisor = d.lineasDivision.get(d.lineasDivision.size() - 1);
             bajarPivotADenominador();
-
             d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1);
-            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, 0);
+            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1,(double) 0);
             agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
 
         } else {
@@ -339,10 +355,17 @@ public class Logica {
             d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1);
 
             d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1;
-            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, 0);
+            d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1,(double) 0);
             agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
             d.enDenominador = true;
         }
+         */
+        bajarPivotADenominador();
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1);
+        d.anchoAnterior = d.listaMovimientosHaciaDerecha.get(d.listaMovimientosHaciaDerecha.size() - 1) - 1;
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, (double) 0);
+        agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display);
+        d.enDenominador = true;
 
     }
 
@@ -370,12 +393,13 @@ public class Logica {
         pivot_x = 50;
         pivot_y = 150;
         d.listaMovimientosHaciaDerecha.clear();
-        d.listaMovimientosHaciaDerecha.add(0);
+        d.listaMovimientosHaciaDerecha.add((double) 0);
         d.enDenominador = false;
-        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, 0);
+        d.listaMovimientosHaciaDerecha.set(d.listaMovimientosHaciaDerecha.size() - 1, (double) 0);
         d.lineasDivision.clear();
         d.nivelBajadaFraccion = 0;
         d.anchoAnterior = 0;
+        enPotencia = false;
 
     }
 
@@ -466,7 +490,6 @@ public class Logica {
         for (int i = 0; i < Numeradores.size(); i++) {
             Numeradores.get(i).moverArriba(pos);
         }
-
     }
 
     protected void moverBloqueHaciaArriba(double pos) {
@@ -474,7 +497,6 @@ public class Logica {
         for (int i = 0; i < Bloque.size(); i++) {
             Bloque.get(i).moverArriba(pos);
         }
-
     }
 
     protected void resetMovimientoLista() {
@@ -501,7 +523,6 @@ public class Logica {
         for (int i = 0; i < Bloque.size(); i++) {
             Bloque.get(i).moverDerecha(pos);
         }
-
     }
 
     protected void moverNumeradoresHaciaAbajo(ArrayList<Simbolo> lista_simbolos) {

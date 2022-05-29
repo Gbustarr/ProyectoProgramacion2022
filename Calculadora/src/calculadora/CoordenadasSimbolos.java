@@ -21,6 +21,17 @@ public class CoordenadasSimbolos {
         return cero;
     }
     
+    double[] ceroPot(double x,double y){
+        double[] cero =     {x-10,y-40,x-5,y-40,
+                            x-5,y-40,x-5,y-25,
+                            x-5,y-25,x-10,y-25,
+                            x-10,y-25,x-10,y-40
+                            };
+        return cero;
+    }
+    
+    
+    
     double[] uno(double x,double y){
         double[] uno =      {x-10,y-35,x-5,y-40,
                             x-5,y-40,x-5,y-10,

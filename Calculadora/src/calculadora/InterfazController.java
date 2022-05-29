@@ -451,12 +451,20 @@ public class InterfazController implements Initializable {
         l.dibujarPuntero();
 
     }
+    @FXML
+    protected void BotonPotencia_presionado(){
+        if(l.enPotencia == true){
+            l.enPotencia = false;
+        }else{
+            l.enPotencia = true;
+        }
+    
+    }
 
     @FXML
     protected void BotonAbajo_presionado() {
         for (int i = 0; i < lista_simbolos.size(); i++) {
             lista_simbolos.get(i).moverArriba(1);
-
         }
         fg.limpiarCanvas(gc, Display);
         fg.dibujarTodosLosSimbolos(gc, lista_simbolos);

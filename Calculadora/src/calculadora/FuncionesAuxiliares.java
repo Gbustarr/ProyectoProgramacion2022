@@ -26,6 +26,14 @@ public class FuncionesAuxiliares {
         }
     }
     
+    protected void moverPivotDerechaPotencia(Logica l){
+        l.pivot_x = l.pivot_x + (l.espacioEntreSimbolos/2);
+            l.d.listaMovimientosHaciaDerecha.set(l.d.listaMovimientosHaciaDerecha.size()-1, 
+                l.d.listaMovimientosHaciaDerecha.get(l.d.listaMovimientosHaciaDerecha.size()-1) + 0.5);
+        
+    
+    }
+    
     protected void moverPivotArriba(Logica l,double distancia){
         
         l.pivot_y = l.pivot_y -distancia;
@@ -38,6 +46,7 @@ public class FuncionesAuxiliares {
     
     protected void moverPivotADenominador(Logica l){
         
+        //Utiliza la ultima cantidad de movimientos a la derecha almacenado en la lista
         l.pivot_x = l.pivot_x - (l.d.listaMovimientosHaciaDerecha.get(l.d.listaMovimientosHaciaDerecha.size()-1) * l.espacioEntreSimbolos);
     }
     
