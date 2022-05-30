@@ -472,6 +472,14 @@ public class InterfazController implements Initializable {
                     l.agregarSimbolo(gc, -1, lista_simbolos, Display);
                     alturaDivision.setVisible(true);
 
+                } else {
+                    if (l.enPotencia) {
+                        l.enPotencia = false;
+                        l.fa.alturaEnPotencia(l);
+                        alturaDivision.setVisible(false);
+                        l.pivot_x = l.pivot_x + 5;
+                    }
+
                 }
             } else {
                 if (l.enPotencia) {
@@ -550,8 +558,8 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected void BotonFact_presionado() {
-        if(!lista_simbolos.isEmpty()){
-            if(fa.conseguirUltimoSimbolo(lista_simbolos).tipo == 0){
+        if (!lista_simbolos.isEmpty()) {
+            if (fa.conseguirUltimoSimbolo(lista_simbolos).tipo == 0) {
                 l.agregarSimbolo(gc, 19, lista_simbolos, Display);
             }
         }

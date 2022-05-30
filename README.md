@@ -33,12 +33,11 @@ Sopaipleto Edition</h3>
     Repositorio del proyecto del graficador interactivo del grupo "Los Sopaipletos".
     <br />
     <br />
-    <a href="https://github.com/Gbustarr/ProyectoProgramacion2022">Ver Demo (Proximamente)</a>
-    ·
+    
   </p>
 </div>
 
-
+[![Watch the video](https://img.youtube.com/vi/0ohifiBu3Zs/maxresdefault.jpg)](https://youtu.be/0ohifiBu3Zs)
 
 <!-- TABLE OF CONTENTS -->
 <details>
