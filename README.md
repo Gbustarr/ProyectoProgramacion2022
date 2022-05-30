@@ -33,12 +33,11 @@ Sopaipleto Edition</h3>
     Repositorio del proyecto del graficador interactivo del grupo "Los Sopaipletos".
     <br />
     <br />
-    <a href="https://github.com/Gbustarr/ProyectoProgramacion2022">Ver Demo (Proximamente)</a>
-    ·
+    
   </p>
 </div>
 
-
+[![Watch the video](https://img.youtube.com/vi/0ohifiBu3Zs/maxresdefault.jpg)](https://youtu.be/0ohifiBu3Zs)
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -49,13 +48,6 @@ Sopaipleto Edition</h3>
       <ul>
         <li><a href="#built-with">Tecnologias utilizadas</a></li>
         <li><a href="#participants">Integrantes</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Preparación</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisitos</a></li>
-        <li><a href="#installation">Instación</a></li>
       </ul>
     </li>
     <li><a href="#usage">Uso</a></li>
@@ -83,13 +75,13 @@ Para la Unidad 1, se debe:
 
 Para la Unidad 2, se debe:
 
-- [ ] La aplicación debe cumplir con los requisitos indispensables y deseables de las unidades anteriores. No cumplir con uno o más de ellos aplicará una penalidad del 20% sobre su nota final de la unidad.
-- [ ] Implementar el botón “limpiar” (CE), que regresa el programa a su estado inicial (borra el contenido del control de visualización).
+- [x] La aplicación debe cumplir con los requisitos indispensables y deseables de las unidades anteriores.
+- [x] Implementar el botón “limpiar” (CE), que regresa el programa a su estado inicial (borra el contenido del control de visualización).
 
-- [ ] Agregar operadores de potencia, factorial, seno, coseno, y tangente, mostrando su equivalente dibujado dentro de la fórmula. Distinga números de grados.
-- [ ] Mostrar en un panel independiente y visible (ej., un TextBox) la secuencia de números y operadores ingresados, respetando la precedencia de los operadores.
+- [x] Agregar operadores de potencia, factorial, seno, coseno, y tangente, mostrando su equivalente dibujado dentro de la fórmula. Distinga números de grados.
+- [x] Mostrar en un panel independiente y visible (ej., un TextBox) la secuencia de números y operadores ingresados, respetando la precedencia de los operadores.
 
-- [ ] Agregar los símbolos y lógica de los paréntesis. Cuando se usen en divisiones, los paréntesis deben “crecer” para cubrir la división y los otros números de la expresión.
+- [x] Agregar los símbolos y lógica de los paréntesis. Cuando se usen en divisiones, los paréntesis deben “crecer” para cubrir la división y los otros números de la expresión.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -112,15 +104,6 @@ Para la Unidad 2, se debe:
 
 
 <!-- GETTING STARTED -->
-
-### Prerequisitos 
-
-_En construcción_
-
-### Instalación 
-
-_En construcción_
-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
