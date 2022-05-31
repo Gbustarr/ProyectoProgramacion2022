@@ -37,7 +37,7 @@ Sopaipleto Edition</h3>
   </p>
 </div>
 
-[![Watch the video](https://img.youtube.com/vi/0ohifiBu3Zs/maxresdefault.jpg)](https://youtu.be/0ohifiBu3Zs)
+[![Watch the video](https://img.youtube.com/vi/watch?v=QlWn_CsdHlA/maxresdefault.jpg)](https://youtu.be/QlWn_CsdHlA)
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -83,6 +83,10 @@ Para la Unidad 2, se debe:
 
 - [x] Agregar los símbolos y lógica de los paréntesis. Cuando se usen en divisiones, los paréntesis deben “crecer” para cubrir la división y los otros números de la expresión.
 
+Para la Unidad 3, se debe:
+
+
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -98,7 +102,6 @@ Para la Unidad 2, se debe:
 
 ### Integrantes
 
-- Guillermo Bustamante
 - Robinson Galvez
 - Juan Machuca
 
@@ -119,7 +122,6 @@ _En construcción_
 <!-- CONTACT -->
 ## Contacto
 
-- Guillermo Bustamante - [Gbustarr](https://github.com/Gbustarr)
 - Robinson Galvez - [Neuromender](https://github.com/Neuromender)
 - Juan Machuca - [Juan Machuca](https://github.com/JCCH1)
 
