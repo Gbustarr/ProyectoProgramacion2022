@@ -37,7 +37,7 @@ Sopaipleto Edition</h3>
   </p>
 </div>
 
-[![Watch the video](https://img.youtube.com/vi/watch?v=QlWn_CsdHlA/maxresdefault.jpg)](https://youtu.be/QlWn_CsdHlA)
+[![Watch the video](https://img.youtube.com/vi/0ohifiBu3Zs/maxresdefault.jpg)](https://youtu.be/0ohifiBu3Zs)
 
 <!-- TABLE OF CONTENTS -->
 <details>
