@@ -29,16 +29,13 @@ public class Logica {
     //variable para el tamano 
     double factor = 1;
     //Variables para la division
-    ArrayList<Integer> anchosDivision = new ArrayList();
     boolean enDivision;
-    boolean divisionAgregada;
     int divisionesAgregadas = 0;
-    boolean denominadorMenor = true;
     Simbolo divisor;
     double diferenciaNumeradorDenominador = 0;
     int subidasDivision;
     int contadorReset = 0;
-    
+
     //Variables para logica parentesis
     Simbolo ultimoParentesisCerrado;
     Simbolo divisionPrincipal;
@@ -46,7 +43,7 @@ public class Logica {
     Simbolo alturaAntesDeDivision = new Simbolo();
 
     boolean enPotencia = false;
-    
+
     division d = new division();
     int panelAgregado = 0;
 
@@ -55,7 +52,7 @@ public class Logica {
     boolean parentesisAgregadoANumerador = false;
     int alturaParentesis = 0;
     boolean bloqueoDivision = false;
-    
+
     //Clases
     FuncionesGraficadoras fg = new FuncionesGraficadoras();
     InterfazController context;
@@ -71,15 +68,17 @@ public class Logica {
         //updateTags();
 
         if (context.lista_simbolos.isEmpty()) {
-            simboloMasApartado.Ypos = pivot_y;
-            simboloMasApartado.Xpos = pivot_x;
+            simboloMasApartado.Ypos = context.pivot_y;
+            simboloMasApartado.Xpos = context.pivot_x;
         }
 
         if (pivot_x > simboloMasApartado.Xpos) {
             simboloMasApartado.Xpos = pivot_x;
         }
 
-        System.out.println("En division:" + enDivision);
+        System.out.println("Simbolo mas apartado: " + simboloMasApartado.Xpos);
+
+        //System.out.println("En division:" + enDivision);
         //Iniciación y declaración de un simbolo general
         Simbolo s = new Simbolo();
         s.setXpos(pivot_x);
@@ -91,13 +90,24 @@ public class Logica {
         double[] forma;
 
         switch (nSimbolo) {
-            case -1:
+            case -2: //Cerrado de potencias
+                s.setTipo(-1);
+                s.setValor(-2);
+                s.setColor(Color.rgb(0, 0, 0, 0));
+                forma = cs.ceroPot(pivot_x, pivot_y);
+                s.setForma(forma);
+                pivot_x = pivot_x - 10;
+                lista_simbolos.add(s);
+                //fa.moverPivotIzquierda(this, espacioEntreSimbolos);
+                break;
+            case -1: //Apertura de potencias
                 s.setTipo(-1);
                 s.setValor(-1);
                 s.setColor(Color.rgb(0, 0, 0, 0));
                 forma = cs.ceroPot(pivot_x, pivot_y);
                 s.setForma(forma);
-                pivot_x = pivot_x - 10;
+                d.borrarSimbolosDeNumeradoresParaPotencia(this);
+                pivot_x = pivot_x - 10; //Para que el siguiente simbolo este mas cerca del ultimo agregado.
                 lista_simbolos.add(s);
                 //fa.moverPivotIzquierda(this, espacioEntreSimbolos);
                 break;
@@ -264,14 +274,15 @@ public class Logica {
                 s.setTipo(1);
                 s.setColor(context.colorOp);
                 s.setForma(forma);
-                d.crearLineaDivision(this, s);
                 d.nuevaDivision(this);
+                d.crearLineaDivision(this, s);
                 divisor = s;
                 if (!enDivision) {
                     divisionPrincipal = s;
                 }
                 enDivision = true;
                 divisionesAgregadas++;
+                d.modLineaDivision = true;
                 d.Numeradores.add(s);
                 dimensionarParentesisAbiertos(gc);
                 lista_simbolos.add(s);
@@ -313,7 +324,7 @@ public class Logica {
                 s.setValor(17);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-
+                //System.out.println("xPos del parentesis abierto: " + s.Xpos);
                 s.setForma(forma);
                 lista_simbolos.add(s);
                 ParentesisAbiertos.add(s);
@@ -322,10 +333,8 @@ public class Logica {
                 s.setValor(18);
                 s.setTipo(2);
                 s.setColor(context.colorOp);
-                if (ParentesisAbiertos.size() - divisionesAgregadas == 1) {
-                    pivot_x = simboloMasApartado.Xpos;
-                    divisionesAgregadas--;
-                }
+                s.enlace = ParentesisAbiertos.get(ParentesisAbiertos.size() - 1);
+                fa.posicionarParentesisDeCierre(this,s);
                 if (enPotencia) {
                     forma = cs.pCerradoPot(pivot_x, pivot_y);
                 } else {
@@ -333,18 +342,23 @@ public class Logica {
                 }
                 s.setForma(forma);
                 s.setAlturaParentesis(ParentesisAbiertos.get(ParentesisAbiertos.size() - 1).getAlturaParentesis());
-                s.enlace = ParentesisAbiertos.get(ParentesisAbiertos.size() - 1);
+
                 lista_simbolos.add(s);
-                if (!enPotencia) {
-                    ultimoParentesisCerrado = s;
+                ultimoParentesisCerrado = s;
+                d.borrarSimbolosDeNumeradoresParaPotencia(this);
+
+                if (ParentesisAbiertos.get(ParentesisAbiertos.size() - 1) == d.parentesisDeDivisionActivo) {
+                    d.modLineaDivision = false;
+
                 }
                 ParentesisAbiertos.remove(ParentesisAbiertos.size() - 1); //Elimina el ultimo parentesis abierto
 
-                if (ParentesisAbiertos.size() == 1) {
-                    bloqueoDivision = true;
+                if (ParentesisAbiertos.isEmpty()) {
+                    d.Numeradores.clear();
+                    enDivision = false;
                 }
                 break;
-            case 19:
+            case 19: //Factorial
                 if (enPotencia) {
                     forma = cs.factorialPot(pivot_x, pivot_y);
                 } else {
@@ -369,6 +383,8 @@ public class Logica {
                 lista_simbolos.add(s);
                 break;
         }
+        d.centrarNumeradores(this);
+
         //Luego de insertar un simbolo, mueve el pivot hacia la derecha
         if (!enPotencia) {
             fa.moverPivotDerecha(this, s);
@@ -383,17 +399,20 @@ public class Logica {
 
         // Funciones graficadoras
         //  Se borra el contenido del canvas para redibujar sobre ella.
-        fg.limpiarCanvas(gc, Display);
-        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
-        dibujarPuntero();
-
         context.textoSalida.setText(listaATexto(lista_simbolos));
 
         if (panelAgregado == 1) {
             context.panelContext.setTextArea();
         }
 
+        dibujarSimbolos();
         //updateTags();
+    }
+
+    protected void dibujarSimbolos() {
+        fg.limpiarCanvas(context.gc, context.Display);
+            fg.dibujarTodosLosSimbolos(context.gc, context.lista_simbolos);
+            dibujarPuntero();
     }
 
     protected void dibujarPuntero() {
@@ -433,27 +452,28 @@ public class Logica {
     }
 
     protected void cambiarTamano(double factor) {
+        
         for (int i = 0; i < context.lista_simbolos.size(); i++) {
             context.lista_simbolos.get(i).Xfactor = factor;
             context.lista_simbolos.get(i).Yfactor = factor;
         }
-        fg.limpiarCanvas(context.gc, context.Display);
-        fg.dibujarTodosLosSimbolos(context.gc, context.lista_simbolos);
+
+        dibujarSimbolos();
     }
 
     protected void resetEstado() {
         enDivision = false;
-        denominadorMenor = true;
-        movimientosDeLista = 0;
+        enPotencia = false;
         ParentesisAbiertos.clear();
-        subidasDivision = 0;
-        divisionAgregada = false;
-        context.textoSalida.setText("");
         parentesisAgregadoANumerador = false;
+        d.anchoAnterior = 0;
         pivot_x = 50;
         pivot_y = 150;
-        d.anchoAnterior = 0;
-        enPotencia = false;
+
+        movimientosDeLista = 0;
+        subidasDivision = 0;
+        context.textoSalida.setText("");
+
     }
 
     protected void bajarPivotADenominador() {
@@ -464,7 +484,6 @@ public class Logica {
     protected void updateTags() {
         context.alturaDivision.setText("enDivision: " + enDivision);
         context.divisionActiva.setText("Subidas Division: " + subidasDivision);
-        context.indiceUltimaDivision.setText("Division Agregada: " + divisionAgregada);
         context.indicesNumeradores.setText("Parentesis abiertos: " + ParentesisAbiertos.size());
         //context.indicesDenominadores.setText("Indices Denominadores: " + indicesDenominadores.size());
         //context.indicesDivisionCombinada.setText("Indices Division Combinada: " + indicesDivisionCombinada.size());
@@ -578,11 +597,9 @@ public class Logica {
 
     }
 
-
     protected void resetMovimientoLista() {
         if (context.lista_simbolos.get(context.lista_simbolos.size() - 1).getValor() == 18) {
             movimientosDeLista = 0;
-            divisionAgregada = false;
         }
     }
 
@@ -590,10 +607,12 @@ public class Logica {
         if (enPotencia) {
             for (int i = 0; i < ParentesisAbiertos.size(); i++) {
                 ParentesisAbiertos.get(i).dimensionarParentesis(gc, 0.5);
+                ParentesisAbiertos.get(i).aumentarVecesDimensionado();
             }
         } else {
             for (int i = 0; i < ParentesisAbiertos.size(); i++) {
                 ParentesisAbiertos.get(i).dimensionarParentesis(gc, 1);
+                ParentesisAbiertos.get(i).aumentarVecesDimensionado();
             }
         }
     }
@@ -634,13 +653,6 @@ public class Logica {
             return 1;
         }
 
-    }
-
-    protected void agregarDivision() {
-
-        //agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display); //parentesis (
-        agregarSimbolo(context.gc, 13, context.lista_simbolos, context.Display); // linea division
-        agregarSimbolo(context.gc, 17, context.lista_simbolos, context.Display); //parentesis (
     }
 
     protected int bloqueadorSignoNegativo(ArrayList<Simbolo> lista_simbolos) {
@@ -704,6 +716,7 @@ public class Logica {
         System.out.println();
     }
 
+
     protected String listaATexto(ArrayList<Simbolo> lista_simbolos) {
 
         String string = "";
@@ -759,6 +772,8 @@ public class Logica {
             } else if (s.valor == -1) {
                 System.out.print("^");
                 string = string + "^";
+            } else if (s.valor == -2) {
+                //Hacer nada
             } else {
                 System.out.print(s.valor);
                 string = string + s.valor;

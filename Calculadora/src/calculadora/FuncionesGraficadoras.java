@@ -44,7 +44,7 @@ public class FuncionesGraficadoras {
             Simbolo s = lista_simbolos.get(i);
             if(s.tipo == 0){
                 s.setColor(numeros);
-            }else{
+            }else if(s.tipo > 0){
                 s.setColor(Operadores);
             }
         }

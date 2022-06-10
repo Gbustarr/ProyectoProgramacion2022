@@ -79,6 +79,10 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected Canvas Display;
+    
+    @FXML
+    protected Canvas DisplayBin;
+            
     @FXML
     protected Button Btn_AC;
 
@@ -99,12 +103,6 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected TextArea textArea;
-
-    @FXML
-    protected ColorPicker colorNumeros;
-
-    @FXML
-    protected ColorPicker colorOperadores;
 
     @FXML
     protected Slider tamanoCaracteres;
@@ -172,6 +170,10 @@ public class InterfazController implements Initializable {
     //Para los colores de los numeros y operadores
     Color colorNum = Color.GREEN;
     Color colorOp = Color.RED;
+    
+    //X e Y originales
+    double pivot_x = 50;
+    double pivot_y = 150;
 
     //Para el movimiento de la ventana panel
     private double x, y = 0;
@@ -260,8 +262,9 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonMenos_presionado() {
         if (l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
-            l.agregarSimbolo(gc, 11, lista_simbolos, Display);
+            
         }
+        l.agregarSimbolo(gc, 11, lista_simbolos, Display);
     }
 
     @FXML
@@ -276,18 +279,17 @@ public class InterfazController implements Initializable {
     protected void BotonDivision_presionado() {
 
         if (!lista_simbolos.isEmpty()) {
-            if (fa.conseguirUltimoSimbolo(lista_simbolos).valor == 18) {
-                l.agregarDivision();
-            }
+            if (l.ParentesisAbiertos.size() > 0) {
+                l.agregarSimbolo(gc, 13, lista_simbolos, Display);
+            }else{
+            l.agregarSimbolo(gc, 13, lista_simbolos, Display);}
         }
-
     }
+    
 
     @FXML
     protected void BotonNext_presionado() {
         l.enDivision = false;
-        l.denominadorMenor = true;
-        l.divisionAgregada = true;
         l.subidasDivision = 0;
         l.parentesisAgregadoANumerador = false;
         l.pivot_y = l.alturaAntesDeDivision.Ypos;
@@ -376,18 +378,6 @@ public class InterfazController implements Initializable {
     }
 
     @FXML
-    protected void BotonColorNumeros_presionado() {
-        colorNum = Color.valueOf(colorNumeros.getValue().toString());
-        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp, Display);
-    }
-
-    @FXML
-    protected void BotonColorOperadores_presionado() {
-        colorOp = Color.valueOf(colorOperadores.getValue().toString());
-        fg.actualizarColores(gc, lista_simbolos, colorNum, colorOp, Display);
-    }
-
-    @FXML
     protected void Slider_presionado() {
         double valor = tamanoCaracteres.getValue();
         System.out.println(tamanoCaracteres.getValue());
@@ -453,10 +443,9 @@ public class InterfazController implements Initializable {
         for (int i = 0; i < lista_simbolos.size(); i++) {
             lista_simbolos.get(i).moverAbajo(1);
         }
-        fg.limpiarCanvas(gc, Display);
-        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        
+        l.dibujarSimbolos();
         l.pivot_y = l.pivot_y + 22;
-        l.dibujarPuntero();
 
     }
 
@@ -466,25 +455,23 @@ public class InterfazController implements Initializable {
         if (!lista_simbolos.isEmpty()) {
             if (fa.conseguirUltimoSimbolo(lista_simbolos).valor == 18) {
                 if (!l.enPotencia) {
-
                     l.enPotencia = true;
-                    l.fa.alturaEnPotencia(l);
                     l.agregarSimbolo(gc, -1, lista_simbolos, Display);
                     alturaDivision.setVisible(true);
 
                 } else {
                     if (l.enPotencia) {
                         l.enPotencia = false;
-                        l.fa.alturaEnPotencia(l);
+                        l.agregarSimbolo(gc, -2, lista_simbolos, Display);
                         alturaDivision.setVisible(false);
                         l.pivot_x = l.pivot_x + 5;
                     }
 
                 }
-            } else {
+            } else { //En caso de que el ultimo simbolo no sea un parentesis de cierre
                 if (l.enPotencia) {
                     l.enPotencia = false;
-                    l.fa.alturaEnPotencia(l);
+                    l.agregarSimbolo(gc, -2, lista_simbolos, Display);
                     alturaDivision.setVisible(false);
                     l.pivot_x = l.pivot_x + 5;
                 }
@@ -499,10 +486,10 @@ public class InterfazController implements Initializable {
         for (int i = 0; i < lista_simbolos.size(); i++) {
             lista_simbolos.get(i).moverArriba(1);
         }
-        fg.limpiarCanvas(gc, Display);
-        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        
+        
+        l.dibujarSimbolos();
         l.pivot_y = l.pivot_y - 22;
-        l.dibujarPuntero();
 
     }
 
@@ -511,10 +498,9 @@ public class InterfazController implements Initializable {
         for (int i = 0; i < lista_simbolos.size(); i++) {
             lista_simbolos.get(i).moverIzquierda(1);
         }
-        fg.limpiarCanvas(gc, Display);
-        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+        l.dibujarSimbolos();
         l.pivot_x = l.pivot_x - 15;
-        l.dibujarPuntero();
+
 
     }
 
@@ -524,10 +510,10 @@ public class InterfazController implements Initializable {
             lista_simbolos.get(i).moverDerecha(1);
 
         }
-        fg.limpiarCanvas(gc, Display);
-        fg.dibujarTodosLosSimbolos(gc, lista_simbolos);
+       
+        l.dibujarSimbolos();
         l.pivot_x = l.pivot_x + 15;
-        l.dibujarPuntero();
+
 
     }
 
