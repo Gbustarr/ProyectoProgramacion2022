@@ -656,22 +656,36 @@ public class Logica {
     }
 
     protected int bloqueadorSignoNegativo(ArrayList<Simbolo> lista_simbolos) {
+        
+        
 
         if (lista_simbolos.isEmpty()) {
-            return 1;
+            return 0;
         } else {
-            if (lista_simbolos.size() > 0) {
-                if (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 0
-                    || lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 2
-                    || (lista_simbolos.get(lista_simbolos.size() - 1).getTipo() == 1
-                    && lista_simbolos.get(lista_simbolos.size() - 2).getTipo() == 0)) {
-                    return 1;
-                } else {
+            if (lista_simbolos.size() < 2) {
+                return 0;
+            }else{
+                Simbolo ultimo = lista_simbolos.get(lista_simbolos.size()-1);
+                Simbolo penultimo = lista_simbolos.get(lista_simbolos.size()-2);
+                
+                if(ultimo.tipo == 1 && penultimo.valor == 18){
+                    return 0;
+                }else if(ultimo.valor == 17 && penultimo.tipo == 1 || penultimo.tipo == 2){
                     return 0;
                 }
-            } else {
-                return 0;
+                else if(ultimo.tipo == 1 && penultimo.tipo == 1){
+                    return 1;
+                }
+                else if(ultimo.tipo == 2 && penultimo.tipo == 1){
+                    return 1;
+                }
+                else if(ultimo.tipo == 1 && penultimo.tipo == 2){
+                    return 1;
+                }else{
+                    return 0;
+                }
             }
+                
         }
     }
 

@@ -261,7 +261,7 @@ public class InterfazController implements Initializable {
 
     @FXML
     protected void BotonMenos_presionado() {
-        if (l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
+        if (l.bloqueadorSignoNegativo(lista_simbolos) == 0) {
             l.agregarSimbolo(gc, 11, lista_simbolos, Display);
         }
         
