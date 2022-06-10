@@ -262,9 +262,9 @@ public class InterfazController implements Initializable {
     @FXML
     protected void BotonMenos_presionado() {
         if (l.bloqueadorSignoNegativo(lista_simbolos) == 1) {
-            
+            l.agregarSimbolo(gc, 11, lista_simbolos, Display);
         }
-        l.agregarSimbolo(gc, 11, lista_simbolos, Display);
+        
     }
 
     @FXML
@@ -279,10 +279,11 @@ public class InterfazController implements Initializable {
     protected void BotonDivision_presionado() {
 
         if (!lista_simbolos.isEmpty()) {
-            if (l.ParentesisAbiertos.size() > 0) {
-                l.agregarSimbolo(gc, 13, lista_simbolos, Display);
-            }else{
-            l.agregarSimbolo(gc, 13, lista_simbolos, Display);}
+            if(fa.conseguirUltimoSimbolo(lista_simbolos).getTipo() == 0 ||
+                 fa.conseguirUltimoSimbolo(lista_simbolos).valor == 18 || 
+                    fa.conseguirUltimoSimbolo(lista_simbolos).valor == -2){
+            l.agregarSimbolo(gc, 13, lista_simbolos, Display);
+            }
         }
     }
     
@@ -444,43 +445,9 @@ public class InterfazController implements Initializable {
             lista_simbolos.get(i).moverAbajo(1);
         }
         
-        l.dibujarSimbolos();
         l.pivot_y = l.pivot_y + 22;
-
+        l.dibujarSimbolos();
     }
-
-    @FXML
-    protected void BotonPotencia_presionado() {
-
-        if (!lista_simbolos.isEmpty()) {
-            if (fa.conseguirUltimoSimbolo(lista_simbolos).valor == 18) {
-                if (!l.enPotencia) {
-                    l.enPotencia = true;
-                    l.agregarSimbolo(gc, -1, lista_simbolos, Display);
-                    alturaDivision.setVisible(true);
-
-                } else {
-                    if (l.enPotencia) {
-                        l.enPotencia = false;
-                        l.agregarSimbolo(gc, -2, lista_simbolos, Display);
-                        alturaDivision.setVisible(false);
-                        l.pivot_x = l.pivot_x + 5;
-                    }
-
-                }
-            } else { //En caso de que el ultimo simbolo no sea un parentesis de cierre
-                if (l.enPotencia) {
-                    l.enPotencia = false;
-                    l.agregarSimbolo(gc, -2, lista_simbolos, Display);
-                    alturaDivision.setVisible(false);
-                    l.pivot_x = l.pivot_x + 5;
-                }
-
-            }
-        }
-
-    }
-
     @FXML
     protected void BotonAbajo_presionado() {
         for (int i = 0; i < lista_simbolos.size(); i++) {
@@ -488,9 +455,10 @@ public class InterfazController implements Initializable {
         }
         
         
-        l.dibujarSimbolos();
+  
         l.pivot_y = l.pivot_y - 22;
 
+        l.dibujarSimbolos();
     }
 
     @FXML
@@ -498,8 +466,10 @@ public class InterfazController implements Initializable {
         for (int i = 0; i < lista_simbolos.size(); i++) {
             lista_simbolos.get(i).moverIzquierda(1);
         }
-        l.dibujarSimbolos();
+
         l.pivot_x = l.pivot_x - 15;
+
+        l.dibujarSimbolos();
 
 
     }
@@ -510,12 +480,50 @@ public class InterfazController implements Initializable {
             lista_simbolos.get(i).moverDerecha(1);
 
         }
-       
-        l.dibujarSimbolos();
+
         l.pivot_x = l.pivot_x + 15;
 
+        l.dibujarSimbolos();
+
+
+    } 
+
+    @FXML
+    protected void BotonPotencia_presionado() {
+
+        if (!lista_simbolos.isEmpty()) {
+            if (fa.conseguirUltimoSimbolo(lista_simbolos).valor == 18) {
+                if (!l.enPotencia) {
+                    l.enPotencia = true;
+                    l.fa.alturaEnPotencia(l);
+                    l.agregarSimbolo(gc, -1, lista_simbolos, Display);
+                    alturaDivision.setVisible(true);
+
+                } else {
+                    if (l.enPotencia) {
+                        l.enPotencia = false;
+                        l.fa.alturaEnPotencia(l);
+                        l.agregarSimbolo(gc, -2, lista_simbolos, Display);
+                        alturaDivision.setVisible(false);
+                        l.pivot_x = l.pivot_x + 5;
+                    }
+
+                }
+            } else { //En caso de que el ultimo simbolo no sea un parentesis de cierre
+                if (l.enPotencia) {
+                    l.enPotencia = false;
+                    l.agregarSimbolo(gc, -2, lista_simbolos, Display);
+                    l.fa.alturaEnPotencia(l);
+                    alturaDivision.setVisible(false);
+                    l.pivot_x = l.pivot_x + 5;
+                }
+
+            }
+        }
 
     }
+
+   
 
     protected void setController(InterfazController ic) {
         this.controller = ic;
