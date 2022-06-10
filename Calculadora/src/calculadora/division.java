@@ -165,8 +165,15 @@ public class division {
                 }
                 if (modLineaDivision) {
                     if (!l.ParentesisAbiertos.isEmpty()) {
-                        lineaDivisionActiva.setDimensionLineaDivision(
+                        
+                        if(parentesisDeDivisionActivo != null){
+                            lineaDivisionActiva.setDimensionLineaDivision(
                             parentesisDeDivisionActivo.Xpos, l.pivot_x);
+                        }else{
+                            lineaDivisionActiva.setDimensionLineaDivision(
+                             l.context.lista_simbolos.get(0).Xpos - l.espacioEntreSimbolos, l.pivot_x);
+                        }
+                        
                     } else {
                         lineaDivisionActiva.setDimensionLineaDivision(
                             l.context.lista_simbolos.get(0).Xpos - l.espacioEntreSimbolos, l.pivot_x);
