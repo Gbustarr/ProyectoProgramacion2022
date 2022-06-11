@@ -27,21 +27,23 @@ public class Interfaz_panelController implements Initializable {
     Button Btn_Close;
     
     InterfazController context;
-    InterfazControllerCientifica  contextCientifica;
-
     
     
     protected void setController(InterfazController ic) {
         this.context = ic;
         
     }
-    protected void setControllerC(InterfazControllerCientifica ic) {
-        this.contextCientifica = ic;
-        
-    }
-    
+
     protected void setTextArea(){
-        textArea.setText(context.textoSalida.getText());
+        StringBuilder s = new StringBuilder();
+        for(int i = 0; i<context.lista_simbolos.size();i++){
+            if(context.lista_simbolos.get(i).valor == 13){
+            s.append(context.lista_simbolos.get(i));
+            s.append("\n");
+            }
+        }
+        
+        textArea.setText(s.toString());
     }
     @FXML
     protected void Cerrar() {

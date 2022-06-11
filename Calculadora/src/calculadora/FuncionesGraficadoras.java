@@ -24,6 +24,7 @@ public class FuncionesGraficadoras {
             Simbolo s = lista_simbolos.get(i);
             s.dibujar_Simbolo(gc);
         }
+        
     }
 
     protected void borrarTodo(GraphicsContext gc, Canvas Display, ArrayList<Simbolo> lista_simbolos, double pivot_x) {
