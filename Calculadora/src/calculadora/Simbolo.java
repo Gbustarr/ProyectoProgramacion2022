@@ -29,6 +29,8 @@ public class Simbolo {
     boolean parentesisDimensionado = false;
     boolean bloqueParentesis = false;
     
+    int vecesParentesisDimensionado = 0;
+    
     Simbolo enlace;
     
     int grosor = 2;
@@ -71,6 +73,10 @@ public class Simbolo {
         }
         //System.out.println();
     }
+    
+    protected void aumentarVecesDimensionado(){
+        this.vecesParentesisDimensionado++;
+    }
     protected void setBloqueParentesis(){
         this.bloqueParentesis = true;
     }
@@ -90,10 +96,12 @@ public class Simbolo {
     protected void graficarPuntosControl(GraphicsContext gc, int i) {
 
         int tamano = 4;
-
+        if(this.valor >= 0){
+            
         gc.fillOval(((this.forma[i]) * Xfactor) - (tamano / 2), (this.forma[i + 1] * Yfactor) - (tamano / 2), tamano, tamano);
         gc.fillOval(((this.forma[i + 2]) * Xfactor) - (tamano / 2), (this.forma[i + 3] * Yfactor) - (tamano / 2), tamano, tamano);
 
+        }
     }
 
     protected void switchPuntosControl() {
@@ -107,6 +115,11 @@ public class Simbolo {
 
     protected void divisionFinal( double xFinal) {
         this.forma[2] = xFinal;
+    }
+    
+    protected void setDimensionLineaDivision(double inicio, double termino){
+        this.forma[0] = inicio;
+        this.forma[2] = termino;
     }
     
     protected void dimensionarParentesis(GraphicsContext gc,double incremento){
@@ -151,7 +164,7 @@ public class Simbolo {
     }
 
     public void setXpos(double Xpos) {
-        this.Xpos = this.Xpos - Xpos;
+        this.Xpos =  Xpos;
     }
 
     public double getYpos() {
@@ -180,6 +193,9 @@ public class Simbolo {
 
     public int getValor() {
         return valor;
+    }
+    public String getValorString() {
+        return String.valueOf(valor);
     }
 
     public void setValor(int valor) {

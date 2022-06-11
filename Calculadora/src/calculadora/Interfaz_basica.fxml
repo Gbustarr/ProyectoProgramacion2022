@@ -237,6 +237,7 @@
                         <Font name="Consolas" size="18.0" />
                      </font>
                   </Button>
+                  <Canvas fx:id="DisplayBin" height="250.0" layoutX="100.0" layoutY="69.0" visible="false" width="340.0" />
                </children>
             </AnchorPane>
             <Button fx:id="Btn_DEL" blendMode="HARD_LIGHT" disable="true" layoutX="220.0" layoutY="363.0" mnemonicParsing="false" onAction="#BotonDEL_presionado" prefHeight="51.0" prefWidth="57.0" text="DEL" visible="false">

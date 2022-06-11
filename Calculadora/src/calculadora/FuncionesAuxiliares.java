@@ -7,6 +7,7 @@ package calculadora;
 
 import java.util.ArrayList;
 
+
 /**
  *
  * @author Guillermo
@@ -28,13 +29,14 @@ public class FuncionesAuxiliares {
         }
     }
     
+    
     protected void moverPivotDerechaPotencia(Logica l){
         l.pivot_x = l.pivot_x + (l.espacioEntreSimbolos/2);
             l.d.listaMovimientosHaciaDerecha.set(l.d.listaMovimientosHaciaDerecha.size()-1, 
-                l.d.listaMovimientosHaciaDerecha.get(l.d.listaMovimientosHaciaDerecha.size()-1) + 0.5);
-        
-    
+                l.d.listaMovimientosHaciaDerecha.get(l.d.listaMovimientosHaciaDerecha.size()-1) + 0.7);
     }
+    
+    
     
     protected void alturaEnPotencia(Logica l){
         if(l.enPotencia){
@@ -44,6 +46,7 @@ public class FuncionesAuxiliares {
         }
         
     }
+    
     
     protected void moverPivotArriba(Logica l,double distancia){
         
@@ -56,11 +59,13 @@ public class FuncionesAuxiliares {
     }
     
     protected void moverPivotADenominador(Logica l){
-        Simbolo ultimoParentesis = l.context.lista_simbolos.get(l.context.lista_simbolos.size()-1);
-        //Utiliza la ultima cantidad de movimientos a la derecha almacenado en la lista
-        l.pivot_x = ultimoParentesis.enlace.forma[8] - 8;
+        
+        if(!l.ParentesisAbiertos.isEmpty()){
+            l.pivot_x = l.ParentesisAbiertos.get(l.ParentesisAbiertos.size()-1).Xpos;
+        }else{
+            l.pivot_x = l.context.lista_simbolos.get(0).Xpos-l.espacioEntreSimbolos;
+        }
     }
-    
     
     protected void moverPivotIzquierda(Logica l, double distancia){
         l.pivot_x = l.pivot_x - distancia;
@@ -73,6 +78,46 @@ public class FuncionesAuxiliares {
         }else{
             return null;
         }
+    }
+    
+    protected int buscarNumero(ArrayList<Simbolo> lista_simbolos,int index){
+        String numero = "";
+        for(int i = index;i < lista_simbolos.size(); i++){
+            if(lista_simbolos.get(i).tipo != 0){
+                break;
+            }else{
+                numero = numero + lista_simbolos.get(i).getValorString();
+            }
+        }
+        return Integer.parseInt(numero);
+    
+    } 
+
+    
+    protected void posicionarParentesisDeCierre(Logica l, Simbolo s) {
+        int contador = 1;
+        double coordenadaXmasLejana = l.pivot_x;
+        
+        for(int i = l.context.lista_simbolos.size()-1; i >= 0; i--){
+            if(l.context.lista_simbolos.get(i).valor == 18){
+                contador++;
+            }
+            if(l.context.lista_simbolos.get(i).valor == 17){
+                contador--;
+            }
+            if(contador == 0){
+                break;
+            }else{
+                if(l.context.lista_simbolos.get(i).Xpos > coordenadaXmasLejana){
+                    coordenadaXmasLejana = l.context.lista_simbolos.get(i).Xpos;
+                }
+            }
+            
+        }
+        
+        s.Xpos = coordenadaXmasLejana;
+        l.pivot_x = coordenadaXmasLejana;
+        
     }
     
 }
